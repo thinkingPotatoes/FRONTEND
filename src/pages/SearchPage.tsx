@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import RecentSearch from '../components/Search/RecentSearch.tsx';
 import SearchBox from '../components/Search/SearchBox.tsx';
+import HotSearch from '../components/Search/HotSearch.tsx';
 
 function SearchPage() {
   const [keyword, setKeyword] = useState('');
@@ -16,7 +17,12 @@ function SearchPage() {
   return (
     <>
       <SearchBox onSearch={handleSearch} onChange={handleChange}></SearchBox>
-      {showDefaultSearch && <RecentSearch />}
+      {showDefaultSearch && (
+        <>
+          <RecentSearch />
+          <HotSearch />
+        </>
+      )}
     </>
   );
 }
