@@ -61,7 +61,6 @@ const Search = styled.input`
 
 const AutoSearchContainer = styled.div`
   z-index: 3;
-  height: 50vh;
 `;
 
 const AutoSearchWrap = styled.ul`
@@ -118,11 +117,21 @@ interface Movie {
   city: string;
 }
 
-export default function SearchBox() {
+interface SearchBoxProps {
+  onSearch: (keyword: string) => void;
+  onChange: (keyword: boolean) => void;
+}
+
+const SearchBox: React.FC<SearchBoxProps> = ({ onChange, onSearch }) => {
   const [keyword, setKeyword] = useState<string>('');
   const [searchResults, setSearchResults] = useState<MovieData[]>([]);
   const onChangeData = (e: React.FormEvent<HTMLInputElement>) => {
     setKeyword(e.currentTarget.value);
+    if (e.currentTarget.value.length === 0) {
+      onChange(true);
+    } else {
+      onChange(false);
+    }
   };
 
   const fetchData = () =>
@@ -150,6 +159,7 @@ export default function SearchBox() {
 
   const removeKeyword = () => {
     setKeyword('');
+    onChange(true);
   };
 
   return (
@@ -221,6 +231,7 @@ export default function SearchBox() {
                 onClick={() => {
                   // 클릭하면 그 단어로 검색
                   setKeyword('');
+                  onSearch(search.city);
                 }}
               >
                 <a href="#">{search.city}</a>
@@ -231,4 +242,6 @@ export default function SearchBox() {
       )}
     </>
   );
-}
+};
+
+export default SearchBox;
