@@ -118,7 +118,7 @@ interface Movie {
 }
 
 interface SearchBoxProps {
-  onSearch: (keyword: string) => void;
+  onSearch: (keyword: string, booleanCheck: boolean) => void;
   onChange: (keyword: boolean) => void;
 }
 
@@ -129,6 +129,7 @@ const SearchBox: React.FC<SearchBoxProps> = ({ onChange, onSearch }) => {
     setKeyword(e.currentTarget.value);
     if (e.currentTarget.value.length === 0) {
       onChange(true);
+      onSearch('', false);
     } else {
       onChange(false);
     }
@@ -160,6 +161,7 @@ const SearchBox: React.FC<SearchBoxProps> = ({ onChange, onSearch }) => {
   const removeKeyword = () => {
     setKeyword('');
     onChange(true);
+    onSearch('', false);
   };
 
   return (
@@ -205,7 +207,14 @@ const SearchBox: React.FC<SearchBoxProps> = ({ onChange, onSearch }) => {
           )}
         </SearchBar>
 
-        <RightButtonBox>
+        <RightButtonBox
+          onClick={() => {
+            // 클릭하면 그 단어로 검색
+            setKeyword(keyword);
+            onSearch(keyword, true);
+            onChange(false);
+          }}
+        >
           <svg
             className="searchSvg"
             xmlns="http://www.w3.org/2000/svg"
@@ -231,7 +240,7 @@ const SearchBox: React.FC<SearchBoxProps> = ({ onChange, onSearch }) => {
                 onClick={() => {
                   // 클릭하면 그 단어로 검색
                   setKeyword('');
-                  onSearch(search.city);
+                  onSearch(search.city, true);
                 }}
               >
                 <a href="#">{search.city}</a>

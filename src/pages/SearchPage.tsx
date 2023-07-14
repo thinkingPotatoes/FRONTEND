@@ -10,8 +10,9 @@ function SearchPage() {
   const [showDefaultSearch, setDefaultSearch] = useState(true);
   const [showResult, setShowResult] = useState(false);
 
-  const handleSearch = (searchWord: string) => {
+  const handleSearch = (searchWord: string, booleanCheck: boolean) => {
     setKeyword(searchWord);
+    setShowResult(booleanCheck);
   };
 
   const handleChange = (booleanCheck: boolean) => {

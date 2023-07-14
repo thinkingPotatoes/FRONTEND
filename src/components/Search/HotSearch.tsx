@@ -11,7 +11,7 @@ const topList: string[] = [
   '아이언맨',
   '아이언맨',
   '아이언맨',
-]; //임시 데이터
+]; // 임시 데이터
 
 const SubtitleList = styled.div`
   display: flex;
@@ -83,21 +83,19 @@ const hotRenderRow = (startIndex: number) => (
 
 const hotRenderGrid = () => {
   const rows = [];
-  for (let i = 0; i < topList.length / 2; i++) {
+  for (let i = 0; i < topList.length / 2; i += 1) {
     rows.push(hotRenderRow(i * 2));
   }
   return rows;
 };
 
-const HotSearch: React.FC = () => {
-  return (
-    <>
-      <SubtitleList>
-        <div className="title">인기검색어</div>
-      </SubtitleList>
-      <HotSearchList>{hotRenderGrid()}</HotSearchList>
-    </>
-  );
-};
+const HotSearch: React.FC = () => (
+  <>
+    <SubtitleList>
+      <div className="title">인기검색어</div>
+    </SubtitleList>
+    <HotSearchList>{hotRenderGrid()}</HotSearchList>
+  </>
+);
 
 export default HotSearch;
