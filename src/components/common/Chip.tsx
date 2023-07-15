@@ -1,5 +1,15 @@
 import { styled } from 'styled-components';
 
+type ChipProps = {
+  text: string;
+  deletable: boolean;
+  bgColor: string;
+};
+
+function Chip({ props }: { props: ChipProps }) {
+  return <ChipWrapper>{props.text}</ChipWrapper>;
+}
+
 const ChipWrapper = styled.span`
   display: flex;
   justify-content: center;
@@ -19,15 +29,5 @@ const ChipWrapper = styled.span`
   line-height: normal;
   letter-spacing: -0.24px;
 `;
-
-type ChipProps = {
-  text: string;
-  deletable: boolean;
-  bgColor: string;
-};
-
-function Chip({ props }: { props: ChipProps }) {
-  return <ChipWrapper>{props.text}</ChipWrapper>;
-}
 
 export default Chip;

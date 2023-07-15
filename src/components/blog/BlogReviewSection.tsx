@@ -3,6 +3,32 @@ import { styled } from 'styled-components';
 import BlogReviewCalendar from './BlogReviewCalendar.tsx';
 import BlogReviewList from './BlogReviewList.tsx';
 
+function BlogReviewSection() {
+  const [viewType, setViewType] = useState(0);
+  const handleSelectViewType = (newViewType: number) => {
+    setViewType(newViewType);
+  };
+  return (
+    <BlogReviewWrapper>
+      <ViewSelector>
+        <ViewToggle
+          onClick={() => handleSelectViewType(0)}
+          isSelected={viewType === 0}
+        >
+          Calendar
+        </ViewToggle>
+        <ViewToggle
+          onClick={() => handleSelectViewType(1)}
+          isSelected={viewType === 1}
+        >
+          List
+        </ViewToggle>
+      </ViewSelector>
+      {viewType === 0 ? <BlogReviewCalendar /> : <BlogReviewList />}
+    </BlogReviewWrapper>
+  );
+}
+
 const BlogReviewWrapper = styled.div`
   display: flex;
   /* height: 100%; */
@@ -47,31 +73,5 @@ const ViewToggle = styled.span<{ isSelected: boolean }>`
   line-height: normal;
   letter-spacing: -0.014px;
 `;
-
-function BlogReviewSection() {
-  const [viewType, setViewType] = useState(0);
-  const handleSelectViewType = (newViewType: number) => {
-    setViewType(newViewType);
-  };
-  return (
-    <BlogReviewWrapper>
-      <ViewSelector>
-        <ViewToggle
-          onClick={() => handleSelectViewType(0)}
-          isSelected={viewType === 0}
-        >
-          Calendar
-        </ViewToggle>
-        <ViewToggle
-          onClick={() => handleSelectViewType(1)}
-          isSelected={viewType === 1}
-        >
-          List
-        </ViewToggle>
-      </ViewSelector>
-      {viewType === 0 ? <BlogReviewCalendar /> : <BlogReviewList />}
-    </BlogReviewWrapper>
-  );
-}
 
 export default BlogReviewSection;
