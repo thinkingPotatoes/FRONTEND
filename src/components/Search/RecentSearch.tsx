@@ -1,6 +1,31 @@
 import styled from 'styled-components';
+import { ReactComponent as CancelSvg } from '../../assets/icon/btn-cancel.svg';
 
 const movieList: string[] = ['아이언맨', '아이언하트', '아이언', '범죄도시'];
+
+export default function RecentSearch() {
+  return (
+    <>
+      <SubtitleList>
+        <div className="title">최근 검색어</div>
+        <div className="deleteBtn">전체삭제</div>
+      </SubtitleList>
+      {movieList.length > 0 && (
+        <Parent>
+          <RecentList>
+            {movieList.map((search) => (
+              <RecentBtn>
+                {search}
+                <CancelSvg />
+              </RecentBtn>
+            ))}
+          </RecentList>
+        </Parent>
+      )}
+    </>
+  );
+}
+
 const SubtitleList = styled.div`
   display: flex;
   height: 56px;
@@ -68,40 +93,3 @@ const Parent = styled.div`
     display: none;
   }
 `;
-
-export default function RecentSearch() {
-  return (
-    <>
-      <SubtitleList>
-        <div className="title">최근 검색어</div>
-        <div className="deleteBtn">전체삭제</div>
-      </SubtitleList>
-      {movieList.length > 0 && (
-        <Parent>
-          <RecentList>
-            {movieList.map((search) => (
-              <RecentBtn>
-                {search}
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  fill="none"
-                >
-                  <path
-                    d="M4.50531 11.4953L8.00064 7.99997L11.496 11.4953M11.496 4.50464L7.99998 7.99997L4.50531 4.50464"
-                    stroke="#9087F4"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
-              </RecentBtn>
-            ))}
-          </RecentList>
-        </Parent>
-      )}
-    </>
-  );
-}

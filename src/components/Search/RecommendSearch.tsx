@@ -1,6 +1,26 @@
 import styled from 'styled-components';
 
 const movieList: string[] = ['아이언맨', '아이언하트', '아이언'];
+
+export default function RecommendSearch() {
+  return (
+    <>
+      <SubtitleList>
+        <div className="title">추천 영화 검색어</div>
+      </SubtitleList>
+      {movieList.length > 0 && (
+        <Parent>
+          <RecommendList>
+            {movieList.map((search) => (
+              <RecommendBtn>{search}</RecommendBtn>
+            ))}
+          </RecommendList>
+        </Parent>
+      )}
+    </>
+  );
+}
+
 const SubtitleList = styled.div`
   display: flex;
   height: 56px;
@@ -54,22 +74,3 @@ const Parent = styled.div`
     display: none;
   }
 `;
-
-export default function RecommendSearch() {
-  return (
-    <>
-      <SubtitleList>
-        <div className="title">추천 영화 검색어</div>
-      </SubtitleList>
-      {movieList.length > 0 && (
-        <Parent>
-          <RecommendList>
-            {movieList.map((search) => (
-              <RecommendBtn>{search}</RecommendBtn>
-            ))}
-          </RecommendList>
-        </Parent>
-      )}
-    </>
-  );
-}

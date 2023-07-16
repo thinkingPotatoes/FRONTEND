@@ -11,6 +11,33 @@ const images: string[] = [
   './src/assets/img/image 1.png',
 ];
 
+function renderImage(imageUrl: string, index: number) {
+  return (
+    <ImageItem key={index}>
+      <img src={imageUrl} alt={`Image ${index + 1}`} />
+    </ImageItem>
+  );
+}
+
+function renderMovie() {
+  return (
+    <MovieImage>
+      {images.map((imageUrl, index) => renderImage(imageUrl, index))}
+    </MovieImage>
+  );
+}
+
+function ResultSearch() {
+  return (
+    <>
+      <Subtitle>검색 된 영화</Subtitle>
+      {renderMovie()}
+    </>
+  );
+}
+
+export default ResultSearch;
+
 const Subtitle = styled.div`
   display: flex;
   align-items: center;
@@ -45,23 +72,3 @@ const ImageItem = styled.div`
     object-fit: cover;
   }
 `;
-
-const renderImage = (imageUrl: string, index: number) => (
-  <ImageItem key={index}>
-    <img src={imageUrl} alt={`Image ${index + 1}`} />
-  </ImageItem>
-);
-const renderMovie = () => (
-  <MovieImage>
-    {images.map((imageUrl, index) => renderImage(imageUrl, index))}
-  </MovieImage>
-);
-
-const ResultSearch: React.FC = () => (
-  <>
-    <Subtitle>검색 된 영화</Subtitle>
-    {renderMovie()}
-  </>
-);
-
-export default ResultSearch;
