@@ -1,22 +1,40 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 import { ReactComponent as CancelSvg } from '../../assets/icon/btn-cancel.svg';
 
 const movieList: string[] = ['아이언맨', '아이언하트', '아이언', '범죄도시'];
 
 export default function RecentSearch() {
+  const [recentSearch, setRecentSearch] = useState<string[]>(movieList);
+  function handleRemoveSearch(index: number) {
+    const updatedSearches = [...recentSearch];
+    updatedSearches.splice(index, 1);
+    setRecentSearch(updatedSearches);
+  }
   return (
     <>
       <SubtitleList>
         <div className="title">최근 검색어</div>
-        <div className="deleteBtn">전체삭제</div>
+        <div
+          className="deleteBtn"
+          onClick={() => {
+            setRecentSearch([]);
+          }}
+        >
+          전체삭제
+        </div>
       </SubtitleList>
-      {movieList.length > 0 && (
+      {recentSearch.length > 0 && (
         <Parent>
           <RecentList>
-            {movieList.map((search) => (
+            {recentSearch.map((search, idx) => (
               <RecentBtn>
                 {search}
-                <CancelSvg />
+                <CancelSvg
+                  onClick={() => {
+                    handleRemoveSearch(idx);
+                  }}
+                />
               </RecentBtn>
             ))}
           </RecentList>
