@@ -3,6 +3,9 @@ import { styled } from 'styled-components';
 import BlogReviewCalendar from './BlogReviewCalendar.tsx';
 import BlogReviewList from './BlogReviewList.tsx';
 
+const VIEW_CALENDAR = 0;
+const VIEW_LIST = 1;
+
 function BlogReviewSection() {
   const [viewType, setViewType] = useState(0);
   const handleSelectViewType = (newViewType: number) => {
@@ -12,19 +15,19 @@ function BlogReviewSection() {
     <BlogReviewWrapper>
       <ViewSelector>
         <ViewToggle
-          onClick={() => handleSelectViewType(0)}
-          isSelected={viewType === 0}
+          onClick={() => handleSelectViewType(VIEW_CALENDAR)}
+          isSelected={viewType === VIEW_CALENDAR}
         >
           Calendar
         </ViewToggle>
         <ViewToggle
-          onClick={() => handleSelectViewType(1)}
-          isSelected={viewType === 1}
+          onClick={() => handleSelectViewType(VIEW_LIST)}
+          isSelected={viewType === VIEW_LIST}
         >
           List
         </ViewToggle>
       </ViewSelector>
-      {viewType === 0 ? <BlogReviewCalendar /> : <BlogReviewList />}
+      {viewType === VIEW_CALENDAR ? <BlogReviewCalendar /> : <BlogReviewList />}
     </BlogReviewWrapper>
   );
 }
