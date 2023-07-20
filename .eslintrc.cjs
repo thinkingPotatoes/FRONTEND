@@ -12,5 +12,11 @@ module.exports = {
   rules: {
     'react-refresh/only-export-components': 'warn',
     'linebreak-style': 0,
+    'no-use-before-define': [
+      'error',
+      {
+        variables: false,
+      },
+    ],
   },
 };
