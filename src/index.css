@@ -1,4 +1,12 @@
 :root {
+  --main-background: #111213;
+  --disabled: #7e7e87;
+  --main: #9087f4;
+  --text-emphasize: #e4e4e5;
+  --text-default: #c3c3c6;
+  --icon-default: #9e9ea4;
+  --icon-activated: #ffffff;
+  --main-gradient: linear-gradient(#00ffc2, #e335ff);
 }
 
 * {
