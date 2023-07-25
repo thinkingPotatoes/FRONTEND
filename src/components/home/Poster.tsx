@@ -1,15 +1,16 @@
 import { styled } from 'styled-components';
-import { ReactComponent as PosterImage } from '../../assets/image/poster/poster_lg.svg';
+import React from 'react';
 
 interface Props {
   title: string;
   rating: number;
+  ImgComponent: React.FC;
 }
 
-function Poster({ title, rating }: Props) {
+function Poster({ title, rating, ImgComponent }: Props) {
   return (
     <Container>
-      <PosterImage />
+      <ImgComponent />
       <MovieTitle>{title}</MovieTitle>
       <MovieRating>예상 ★️ {rating}</MovieRating>
     </Container>
