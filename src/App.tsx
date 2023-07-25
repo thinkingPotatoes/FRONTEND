@@ -1,8 +1,8 @@
 import './App.css';
-import MainLayout from './components/home/MainLayout.tsx';
+import Home from './pages/Home.tsx';
 
 function App() {
-  return <MainLayout></MainLayout>;
+  return <Home></Home>;
 }
 
 export default App;
