@@ -29,9 +29,18 @@ interface SearchBoxProps {
 function SearchBox({ onChange, onSearch }: SearchBoxProps) {
   const [keyword, setKeyword] = useState<string>('');
   const [searchResults, setSearchResults] = useState<MovieData[]>([]);
+  const [isSearch, setIsSearch] = useState(false);
+
+  const debouncedData = useDebounce(keyword);
+  useEffect(() => {
+    if (debouncedData) {
+      updateData();
+    }
+  });
 
   function onChangeData(e: React.FormEvent<HTMLInputElement>) {
     setKeyword(e.currentTarget.value);
+    setIsSearch(false);
     if (e.currentTarget.value.length === 0) {
       onChange(true);
       onSearch('', false);
@@ -56,23 +65,17 @@ function SearchBox({ onChange, onSearch }: SearchBoxProps) {
     setSearchResults(b);
   }
 
-  const debouncedData = useDebounce(keyword);
-  useEffect(() => {
-    if (debouncedData) {
-      updateData();
-    }
-  });
-
   function removeKeyword() {
     setKeyword('');
     onChange(true);
     onSearch('', false);
+    setIsSearch(false);
   }
 
   return (
     <>
       <SearchContainer>
-        <LeftButtonBox>
+        <LeftButtonBox onClick={removeKeyword}>
           <LeftPrevSvg />
         </LeftButtonBox>
         <SearchBar>
@@ -88,19 +91,21 @@ function SearchBox({ onChange, onSearch }: SearchBoxProps) {
           )}
         </SearchBar>
 
-        <RightButtonBox
-          onClick={() => {
-            // 클릭하면 그 단어로 검색
-            setKeyword(keyword);
-            onSearch(keyword, true);
-            onChange(false);
-          }}
-        >
-          <SearchSvg />
-        </RightButtonBox>
+        {!isSearch && (
+          <RightButtonBox
+            onClick={() => {
+              // 클릭하면 그 단어로 검색
+              setKeyword(keyword);
+              onSearch(keyword, true);
+              onChange(false);
+            }}
+          >
+            <SearchSvg />
+          </RightButtonBox>
+        )}
       </SearchContainer>
 
-      {searchResults.length > 0 && keyword && (
+      {searchResults.length > 0 && keyword && !isSearch ? (
         <AutoSearchContainer>
           <AutoSearchWrap>
             {searchResults.map((search, idx) => (
@@ -108,8 +113,9 @@ function SearchBox({ onChange, onSearch }: SearchBoxProps) {
                 key={search.city}
                 onClick={() => {
                   // 클릭하면 그 단어로 검색
-                  setKeyword('');
+                  setKeyword(search.city);
                   onSearch(search.city, true);
+                  setIsSearch(true);
                 }}
               >
                 <a href="#">{search.city}</a>
@@ -117,6 +123,9 @@ function SearchBox({ onChange, onSearch }: SearchBoxProps) {
             ))}
           </AutoSearchWrap>
         </AutoSearchContainer>
+      ) : (
+        searchResults.length === 0 &&
+        keyword && <NoSearchResult>검색된 결과가 없습니다.</NoSearchResult>
       )}
     </>
   );
@@ -156,7 +165,6 @@ const RightButtonBox = styled.div`
 
 const Search = styled.input`
   display: flex;
-  padding: 12px 16px;
   align-items: center;
   gap: 4px;
   flex: 1 0 0;
@@ -212,12 +220,30 @@ const AutoSearchData = styled.li`
 const ExitBox = styled.div`
   display: flex;
   align-items: center;
-  position: absolute;
-  transform: translate(-10px, 13px);
+  position: relative;
 `;
 
 const SearchBar = styled.div`
   display: flex;
-  width: 263px;
-  flex-direction: row-reverse;
+  min-width: 240px;
+  width: 75%;
+  background-color: #1c1c25;
+  border-radius: 8px;
+  border: none;
+  justify-content: space-evenly;
+  padding: 12px 16px;
+`;
+
+const NoSearchResult = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--dark-grey-700, #c3c3c6);
+  text-align: center;
+  padding: 16px 0px;
+
+  /* Subtitle1 */
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.048px;
 `;
