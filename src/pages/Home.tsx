@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { styled } from 'styled-components';
 import Footer from '../components/home/Footer.tsx';
 import Header from '../components/home/Header.tsx';
@@ -29,8 +30,8 @@ function Home() {
       <SectionTitle title={'BOX OFFICE🍿'} onClickMoreButton={toggleRecommendDetail} />
       <BoxOfficeList />
       <Footer></Footer>
-      {/* <MovieRecommendDetail />
-      <BoxOfficeDetail /> */}
+      {showRecommendDetail && <MovieRecommendDetail onClickBack={toggleRecommendDetail} />}
+      {showBoxOfficeDetail && <BoxOfficeDetail onClickBack={toggleBoxofficeDetail} />}
     </>
   );
 }

@@ -12,11 +12,15 @@ const data = [
   { title: '아이언맨' },
 ];
 
-function MovieBoxOfficeDetail() {
+interface Props {
+  onClickBack: () => void;
+}
+
+function MovieBoxOfficeDetail({ onClickBack }: Props) {
   return (
     <Container>
       <Header>
-        <BackButton>
+        <BackButton onClick={onClickBack}>
           <BackArrow />
         </BackButton>
         <Headertitle>BOX OFFICE 🍿</Headertitle>

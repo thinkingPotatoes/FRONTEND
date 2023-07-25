@@ -12,11 +12,15 @@ const data = [
   { title: '아이언맨', rating: 3.5 },
 ];
 
-function MovieRecommendDetail() {
+interface Props {
+  onClickBack: () => void;
+}
+
+function MovieRecommendDetail({ onClickBack }: Props) {
   return (
     <Container>
       <Header>
-        <BackButton>
+        <BackButton onClick={onClickBack}>
           <BackArrow />
         </BackButton>
         <Headertitle>에엥님을 위한 추천 👀</Headertitle>
