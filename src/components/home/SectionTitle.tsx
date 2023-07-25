@@ -3,13 +3,14 @@ import { ReactComponent as FrontArrow } from '../../assets/image/icon/frontArrow
 
 interface Props {
   title: string;
+  onClickMoreButton: () => void;
 }
 
-function SectionTitle({ title }: Props) {
+function SectionTitle({ title, onClickMoreButton }: Props) {
   return (
     <Container>
       <Title>{title}</Title>
-      <MoreButton>
+      <MoreButton onClick={onClickMoreButton}>
         더보기 <FrontArrow />
       </MoreButton>
     </Container>
