@@ -23,9 +23,9 @@ function Home() {
   return (
     <>
       <Header></Header>
-      <SectionTitle title={'에엥님을 위한 추천👀'} onClickMoreButton={toggleBoxofficeDetail} />
+      <SectionTitle title={'에엥님을 위한 추천👀'} onClickMoreButton={toggleRecommendDetail} />
       <MovieCarousel />
-      <SectionTitle title={'BOX OFFICE🍿'} onClickMoreButton={toggleRecommendDetail} />
+      <SectionTitle title={'BOX OFFICE🍿'} onClickMoreButton={toggleBoxofficeDetail} />
       <BoxOfficeList />
       <Footer></Footer>
       {showRecommendDetail && <MovieRecommendDetail onClickBack={toggleRecommendDetail} />}
