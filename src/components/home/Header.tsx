@@ -24,6 +24,8 @@ function Header() {
 }
 
 const Container = styled.div`
+  background-color: var(--main-background);
+  z-index: 100;
   position: sticky;
   top: 0;
 `;

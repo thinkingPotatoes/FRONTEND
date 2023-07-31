@@ -22,9 +22,7 @@ function Home() {
 
   return (
     <>
-      <Upper>
-        <Header></Header>
-      </Upper>
+      <Header></Header>
       <SectionTitle title={'에엥님을 위한 추천👀'} onClickMoreButton={toggleBoxofficeDetail} />
       <MovieCarousel />
       <SectionTitle title={'BOX OFFICE🍿'} onClickMoreButton={toggleRecommendDetail} />
@@ -35,12 +33,4 @@ function Home() {
     </>
   );
 }
-
-const Upper = styled.div`
-  background-color: var(--main-background);
-  z-index: 100;
-  position: sticky;
-  top: 0;
-`;
-
 export default Home;
