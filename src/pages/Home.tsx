@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { styled } from 'styled-components';
-import Footer from '../components/home/Footer.tsx';
+import Footer from '../components/common/Footer.tsx';
 import Header from '../components/home/Header.tsx';
 import SectionTitle from '../components/home/SectionTitle.tsx';
 import MovieCarousel from '../components/home/MovieCarousel.tsx';
