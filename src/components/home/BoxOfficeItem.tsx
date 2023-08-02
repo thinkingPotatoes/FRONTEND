@@ -2,16 +2,16 @@ import { styled } from 'styled-components';
 import { ReactComponent as PosterImage } from '../../assets/image/poster/poster_sm.svg';
 
 interface Props {
-  index: number;
+  rank: number;
   title: string;
   rating: number;
 }
 
-function BoxOfficeItem({ index, title, rating }: Props) {
+function BoxOfficeItem({ rank, title, rating }: Props) {
   return (
     <Container>
       <Left>
-        {index}
+        {rank}
         <PosterImage />
         <MovieTitle>{title}</MovieTitle>
       </Left>
