@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import useDebounce from '../../hooks/useDebounce';
 import { ReactComponent as LeftPrevSvg } from '../../assets/icon/angle-left-btn.svg';
-import { ReactComponent as InputCancelSvg } from '../../assets/icon/input-cancel.svg';
-import { ReactComponent as SearchSvg } from '../../assets/icon/search.svg';
+import AutoSearchList from './AutoSearchList';
+import SearchInputBar from './SearchInputBar';
 
 // API로 받아오는 MovieData (현재 랜덤 API 이용)
-interface MovieData {
+export interface MovieData {
   city: string;
   growth_from_2000_to_2013: string;
   latitude: number;
@@ -77,54 +77,32 @@ function SearchBox({ onChange, onSearch }: SearchBoxProps) {
         <LeftButtonBox onClick={removeKeyword}>
           <LeftPrevSvg />
         </LeftButtonBox>
-        <SearchBar>
-          <SearchInput
-            value={keyword}
-            onChange={onChangeData}
-            placeholder="검색어를 입력해주세요."
-          />
-          {keyword && (
-            <ExitBox onClick={removeKeyword}>
-              <InputCancelSvg />
-            </ExitBox>
-          )}
-        </SearchBar>
-
-        {!isSearch && (
-          <RightButtonBox
-            onClick={() => {
-              // 클릭하면 그 단어로 검색
-              setKeyword(keyword);
-              onSearch(keyword, true);
-              onChange(false);
-            }}
-          >
-            <SearchSvg />
-          </RightButtonBox>
-        )}
+        <SearchInputBar
+          keyword={keyword}
+          onChange={onChangeData}
+          onClear={removeKeyword}
+          onSearch={() => {
+            setKeyword(keyword);
+            onSearch(keyword, true);
+            onChange(false);
+          }}
+          isSearch={isSearch}
+        />
       </SearchContainer>
 
-      {searchResults.length > 0 && keyword && !isSearch ? (
-        <AutoSearchContainer>
-          <AutoSearchWrap>
-            {searchResults.map((search, idx) => (
-              <AutoSearchData
-                key={search.city}
-                onClick={() => {
-                  // 클릭하면 그 단어로 검색
-                  setKeyword(search.city);
-                  onSearch(search.city, true);
-                  setIsSearch(true);
-                }}
-              >
-                <a href="#">{search.city}</a>
-              </AutoSearchData>
-            ))}
-          </AutoSearchWrap>
-        </AutoSearchContainer>
-      ) : (
-        searchResults.length === 0 &&
-        keyword && <NoSearchResult>검색된 결과가 없습니다.</NoSearchResult>
+      {searchResults.length > 0 && keyword && !isSearch && (
+        <AutoSearchList
+          searchResults={searchResults}
+          onClick={(city) => {
+            setKeyword(city);
+            onSearch(city, true);
+            setIsSearch(true);
+          }}
+        />
+      )}
+
+      {searchResults.length === 0 && keyword && (
+        <NoSearchResult>검색된 결과가 없습니다.</NoSearchResult>
       )}
     </>
   );
@@ -137,7 +115,7 @@ const SearchContainer = styled.div`
   width: calc(100%);
   padding: 6px 16px 0 0;
   font-family: Pretendard;
-  align-items: flex-start;
+  align-items: center;
 `;
 
 const LeftButtonBox = styled.div`
@@ -151,89 +129,11 @@ const LeftButtonBox = styled.div`
   margin-right: 12px;
 `;
 
-const RightButtonBox = styled.div`
-  display: flex;
-  height: 44px;
-  align-items: center;
-  justify-content: center;
-  padding: 0 10px;
-`;
-const SearchBar = styled.div`
-  display: flex;
-  min-width: 270px;
-  flex: 1;
-  background-color: var(--background-bright);
-  border-radius: 8px;
-  border: none;
-  justify-content: space-evenly;
-  padding: 12px 16px;
-`;
-const SearchInput = styled.input`
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  flex: 1 0 0;
-  border: none;
-  border-radius: 8px;
-  background-color: var(--background-bright);
-  color: var(--text-default);
-  font-size: 15px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 150%;
-  font-family: 'Pretendard';
-  &::placeholder {
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 130%;
-    letter-spacing: -0.014px;
-    color: var(--disabled);
-  }
-  &:focus {
-    outline: none;
-  }
-`;
-
-const AutoSearchContainer = styled.div`
-  z-index: 3;
-`;
-
-const AutoSearchWrap = styled.ul`
-  list-style: none;
-  padding: 0 20px;
-  margin: 0;
-`;
-
-const AutoSearchData = styled.li`
-  height: 52px;
-  width: 100%;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 130%;
-  letter-spacing: -0.016px;
-  z-index: 4;
-  &:hover {
-    cursor: pointer;
-  }
-
-  a {
-    color: #c3c3c6;
-    line-height: 52px;
-  }
-`;
-
-const ExitBox = styled.div`
-  display: flex;
-  align-items: center;
-  position: relative;
-`;
-
 const NoSearchResult = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--dark-grey-700, #c3c3c6);
+  color: var(--text-default);
   text-align: center;
   padding: 16px 0px;
 
