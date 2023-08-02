@@ -1,74 +1,121 @@
 import { styled } from 'styled-components';
 
-const images: string[] = [
-  './src/assets/img/image 1.png',
-  './src/assets/img/image 1.png',
-  './src/assets/img/image 1.png',
-  './src/assets/img/image 1.png',
-  './src/assets/img/image 1.png',
-  './src/assets/img/image 1.png',
-  './src/assets/img/image 1.png',
-  './src/assets/img/image 1.png',
+interface MovieDto {
+  poster: string;
+  title: string;
+  openDate: number;
+  janre: string[];
+  country: string;
+}
+const movies: MovieDto[] = [
+  {
+    poster: './src/assets/img/image 1.png',
+    title: '아이언 맨 2',
+    openDate: 2010,
+    janre: ['액션', '드라마', 'SF'],
+    country: '미국',
+  },
+  {
+    poster: './src/assets/img/image 1.png',
+    title: '아이언 맨 2',
+    openDate: 2010,
+    janre: ['액션', '드라마', 'SF'],
+    country: '미국',
+  },
+  {
+    poster: './src/assets/img/image 1.png',
+    title: '아이언 맨 2',
+    openDate: 2010,
+    janre: ['액션', '드라마', 'SF'],
+    country: '미국',
+  },
+  {
+    poster: './src/assets/img/image 1.png',
+    title: '아이언 맨 2',
+    openDate: 2010,
+    janre: ['액션', '드라마', 'SF'],
+    country: '미국',
+  },
+  {
+    poster: './src/assets/img/image 1.png',
+    title: '아이언 맨 2',
+    openDate: 2010,
+    janre: ['액션', '드라마', 'SF'],
+    country: '미국',
+  },
 ];
-
-function renderImage(imageUrl: string, index: number) {
-  return (
-    <ImageItem key={index}>
-      <img src={imageUrl} alt={`Image ${index + 1}`} />
-    </ImageItem>
-  );
-}
-
-function renderMovie() {
-  return (
-    <MovieImage>
-      {images.map((imageUrl, index) => renderImage(imageUrl, index))}
-    </MovieImage>
-  );
-}
 
 function ResultSearch() {
   return (
     <>
       <Subtitle>검색 된 영화</Subtitle>
-      {renderMovie()}
+      <MovieList>
+        {movies.map((movie) => (
+          <EachMovie>
+            <Poster>
+              <img src={movie.poster} />
+            </Poster>
+            <Info>
+              <div className="title">{movie.title}</div>
+              <div className="etcInfo">
+                {movie.openDate} | {movie.janre.join(',')} | {movie.country}
+              </div>
+            </Info>
+          </EachMovie>
+        ))}
+      </MovieList>
     </>
   );
 }
 
 export default ResultSearch;
 
-const Subtitle = styled.div`
+const MovieList = styled.div`
+  padding-left: 20px;
+  color: var(--disabled);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 130%;
+`;
+const EachMovie = styled.div`
   display: flex;
   align-items: center;
-  gap: 10px;
   align-self: stretch;
-  height: 56px;
-  padding: 0px 4px 0px 20px;
-  color: #e4e4e5;
-  font-size: 18px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: normal;
-  letter-spacing: -0.09px;
-`;
+  padding: 12px 4px;
+  gap: 8px;
 
-const MovieImage = styled.div`
+  .title {
+    color: var(--text-emphasize);
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: -0.048px;
+    margin-bottom: 4px;
+  }
+`;
+const Poster = styled.div`
   display: flex;
-  /* width: 335px; */
-  padding: 0px 20px 8px 20px;
-  align-items: flex-start;
-  gap: 4px;
-  flex-wrap: wrap;
-}
-`;
-
-const ImageItem = styled.div`
-  height: 100%;
-
+  align-items: center;
+  width: 30px;
+  height: 42.3px;
   img {
     width: 100%;
     height: 100%;
     object-fit: cover;
   }
+`;
+const Info = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+const Subtitle = styled.div`
+  display: flex;
+  align-items: center;
+  align-self: stretch;
+  gap: 10px;
+  height: 56px;
+  padding: 0px 20px;
+  color: var(--text-emphasize);
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.09px;
 `;
