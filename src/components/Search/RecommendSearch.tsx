@@ -1,27 +1,32 @@
 import styled from 'styled-components';
+import { RecentSearchChip } from './RecentSearch';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/swiper-bundle.min.css';
+import 'swiper/swiper.min.css';
 
 const movieList: string[] = ['아이언맨', '아이언하트', '아이언'];
 
 export default function RecommendSearch() {
   return (
     <>
-      <SubtitleList>
+      <Recommendtitle>
         <div className="title">추천 영화 검색어</div>
-      </SubtitleList>
-      {movieList.length > 0 && (
-        <Parent>
-          <RecommendList>
-            {movieList.map((search) => (
-              <RecommendBtn>{search}</RecommendBtn>
+      </Recommendtitle>
+      <SwiperContainer>
+        <Swiper slidesPerView={'auto'} spaceBetween={10}>
+          {movieList.length > 0 &&
+            movieList.map((search, idx) => (
+              <SwiperSlide>
+                <RecentSearchChip>{search}</RecentSearchChip>
+              </SwiperSlide>
             ))}
-          </RecommendList>
-        </Parent>
-      )}
+        </Swiper>
+      </SwiperContainer>
     </>
   );
 }
 
-const SubtitleList = styled.div`
+const Recommendtitle = styled.div`
   display: flex;
   height: 56px;
   padding: 0 20px;
@@ -32,12 +37,24 @@ const SubtitleList = styled.div`
     flex-direction: column;
     justify-content: center;
     flex: 1 0 0;
-    color: #e4e4e5;
+    color: var(--text-emphasize);
     font-size: 14px;
-    font-style: normal;
     font-weight: 600;
-    line-height: normal;
     letter-spacing: -0.014px;
+  }
+`;
+
+const SwiperContainer = styled.div`
+  margin-left: 20px;
+  height: 52px;
+  width: max-content;
+  display: flex;
+  align-items: center;
+  .swiper {
+    width: 100%;
+  }
+  .swiper-slide {
+    width: fit-content;
   }
 `;
 

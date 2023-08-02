@@ -1,10 +1,13 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import { ReactComponent as CancelSvg } from '../../assets/icon/btn-cancel.svg';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/swiper-bundle.min.css';
+import 'swiper/swiper.min.css';
 
 const movieList: string[] = ['아이언맨', '아이언하트', '아이언', '범죄도시'];
 
-export default function RecentSearch() {
+export function RecentSearch() {
   const [recentSearch, setRecentSearch] = useState<string[]>(movieList);
   function handleRemoveSearch(index: number) {
     const updatedSearches = [...recentSearch];
@@ -24,90 +27,85 @@ export default function RecentSearch() {
           전체삭제
         </div>
       </SubtitleList>
-      {recentSearch.length > 0 && (
-        <Parent>
-          <RecentList>
-            {recentSearch.map((search, idx) => (
-              <RecentBtn>
-                {search}
-                <CancelSvg
-                  onClick={() => {
-                    handleRemoveSearch(idx);
-                  }}
-                />
-              </RecentBtn>
+      <SwiperContainer>
+        <Swiper slidesPerView={'auto'} spaceBetween={10}>
+          {recentSearch.length > 0 &&
+            recentSearch.map((search, idx) => (
+              <SwiperSlide>
+                <RecentSearchChip>
+                  {search}
+                  <CancelSvg
+                    onClick={() => {
+                      handleRemoveSearch(idx);
+                    }}
+                  />
+                </RecentSearchChip>
+              </SwiperSlide>
             ))}
-          </RecentList>
-        </Parent>
-      )}
+        </Swiper>
+      </SwiperContainer>
     </>
   );
 }
 
-const SubtitleList = styled.div`
+const SwiperContainer = styled.div`
+  margin-left: 20px;
+  width: max-content;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  .swiper {
+    width: 100%;
+  }
+
+  .swiper-slide {
+    width: fit-content;
+  }
+`;
+
+export const SubtitleList = styled.div`
   display: flex;
   height: 56px;
   padding: 0 20px;
   align-items: center;
   gap: 10px;
+
   .title {
     display: flex;
+    flex: 1 0 0;
     flex-direction: column;
     justify-content: center;
-    flex: 1 0 0;
-    color: #e4e4e5;
+    color: var(--text-emphasize);
     font-size: 14px;
-    font-style: normal;
     font-weight: 600;
-    line-height: normal;
     letter-spacing: -0.014px;
   }
 
   .deleteBtn {
     display: flex;
-    padding-left: 12px;
     justify-content: flex-end;
     align-items: center;
-    gap: 2px;
     align-self: stretch;
-    color: #7e7e87;
+    padding-left: 12px;
+    gap: 2px;
+    color: var(--disabled);
     font-size: 12px;
-    font-style: normal;
     font-weight: 500;
     line-height: 130%;
   }
 `;
 
-const RecentBtn = styled.div`
+export const RecentSearchChip = styled.div`
   display: flex;
   align-items: center;
   width: fit-content;
-  height: 21px;
-  color: #9087f4;
+  padding: 4px 8px;
+  gap: 2px;
+  color: var(--main);
   font-size: 16px;
-  font-style: normal;
   font-weight: 500;
   line-height: 130%;
   letter-spacing: -0.016px;
-  padding: 4px 8px;
-  gap: 2px;
   border-radius: 100px;
   background: #2f2f51;
-`;
-
-const RecentList = styled.div`
-  width: max-content;
-  display: flex;
-  height: 52px;
-  padding: 0px 8px 0px 24px;
-  align-items: center;
-  gap: 10px;
-  overflow: hidden;
-`;
-
-const Parent = styled.div`
-  overflow: scroll;
-  &::-webkit-scrollbar {
-    display: none;
-  }
 `;

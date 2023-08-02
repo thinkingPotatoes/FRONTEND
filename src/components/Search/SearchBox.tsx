@@ -32,6 +32,7 @@ function SearchBox({ onChange, onSearch }: SearchBoxProps) {
   const [isSearch, setIsSearch] = useState(false);
 
   const debouncedData = useDebounce(keyword);
+
   useEffect(() => {
     if (debouncedData) {
       updateData();
@@ -59,9 +60,7 @@ function SearchBox({ onChange, onSearch }: SearchBoxProps) {
 
   async function updateData() {
     const res = await fetchData();
-    const b = res
-      .filter((list: Movie) => list.city.includes(keyword))
-      .slice(0, 8);
+    const b = res.filter((list: Movie) => list.city.includes(keyword)).slice(0, 8);
     setSearchResults(b);
   }
 
@@ -79,7 +78,7 @@ function SearchBox({ onChange, onSearch }: SearchBoxProps) {
           <LeftPrevSvg />
         </LeftButtonBox>
         <SearchBar>
-          <Search
+          <SearchInput
             value={keyword}
             onChange={onChangeData}
             placeholder="검색어를 입력해주세요."
@@ -135,10 +134,10 @@ export default SearchBox;
 
 const SearchContainer = styled.div`
   display: flex;
-  width: 375px;
-  height: 44px;
-  margin: 6px 0px;
-  align-items: stretch;
+  width: calc(100%);
+  padding: 6px 16px 0 0;
+  font-family: Pretendard;
+  align-items: flex-start;
 `;
 
 const LeftButtonBox = styled.div`
@@ -154,34 +153,41 @@ const LeftButtonBox = styled.div`
 
 const RightButtonBox = styled.div`
   display: flex;
-  width: 40px;
   height: 44px;
   align-items: center;
-  gap: 10px;
-  flex-shrink: 0;
-  padding: 0px 16px 0px 4px;
   justify-content: center;
+  padding: 0 10px;
 `;
-
-const Search = styled.input`
+const SearchBar = styled.div`
+  display: flex;
+  min-width: 270px;
+  flex: 1;
+  background-color: var(--background-bright);
+  border-radius: 8px;
+  border: none;
+  justify-content: space-evenly;
+  padding: 12px 16px;
+`;
+const SearchInput = styled.input`
   display: flex;
   align-items: center;
   gap: 4px;
   flex: 1 0 0;
-  border-radius: 8px;
-  background-color: #1c1c25;
   border: none;
-  color: #c3c3c6;
+  border-radius: 8px;
+  background-color: var(--background-bright);
+  color: var(--text-default);
   font-size: 15px;
   font-style: normal;
   font-weight: 400;
   line-height: 150%;
+  font-family: 'Pretendard';
   &::placeholder {
     font-size: 14px;
     font-weight: 500;
     line-height: 130%;
     letter-spacing: -0.014px;
-    color: #7e7e87;
+    color: var(--disabled);
   }
   &:focus {
     outline: none;
@@ -221,17 +227,6 @@ const ExitBox = styled.div`
   display: flex;
   align-items: center;
   position: relative;
-`;
-
-const SearchBar = styled.div`
-  display: flex;
-  min-width: 240px;
-  width: 75%;
-  background-color: #1c1c25;
-  border-radius: 8px;
-  border: none;
-  justify-content: space-evenly;
-  padding: 12px 16px;
 `;
 
 const NoSearchResult = styled.div`
