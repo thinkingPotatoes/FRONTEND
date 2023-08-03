@@ -1,25 +1,41 @@
-import React from 'react';
 import styled from 'styled-components';
 import { MovieData } from './SearchBox';
+import { MAX_RECENT_SEARCH, localStorageKey } from './RecentSearch';
 
 interface AutoSearchListProps {
   searchResults: MovieData[];
   onClick: (city: string) => void;
 }
 
-const AutoSearchList: React.FC<AutoSearchListProps> = ({ searchResults, onClick }) => {
+function AutoSearchList({ searchResults, onClick }: AutoSearchListProps) {
+  const handleSearchItemClick = (city: string) => {
+    onClick(city);
+
+    const storedList = localStorage.getItem(localStorageKey);
+    let updatedSearches: string[] = [];
+    if (storedList) {
+      updatedSearches = JSON.parse(storedList);
+    }
+
+    if (updatedSearches.length >= MAX_RECENT_SEARCH) {
+      updatedSearches.pop();
+    }
+    updatedSearches.unshift(city);
+    localStorage.setItem(localStorageKey, JSON.stringify(updatedSearches));
+  };
+
   return (
     <AutoSearchContainer>
       <AutoSearchWrap>
-        {searchResults.map((search) => (
-          <AutoSearchData key={search.city} onClick={() => onClick(search.city)}>
+        {searchResults.map((search, idx) => (
+          <AutoSearchData key={search.city} onClick={() => handleSearchItemClick(search.city)}>
             <a href="#">{search.city}</a>
           </AutoSearchData>
         ))}
       </AutoSearchWrap>
     </AutoSearchContainer>
   );
-};
+}
 
 export default AutoSearchList;
 

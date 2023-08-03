@@ -4,6 +4,7 @@ import useDebounce from '../../hooks/useDebounce';
 import { ReactComponent as LeftPrevSvg } from '../../assets/icon/angle-left-btn.svg';
 import AutoSearchList from './AutoSearchList';
 import SearchInputBar from './SearchInputBar';
+import { MAX_RECENT_SEARCH, localStorageKey } from './RecentSearch';
 
 // API로 받아오는 MovieData (현재 랜덤 API 이용)
 export interface MovieData {
@@ -30,6 +31,14 @@ function SearchBox({ onChange, onSearch }: SearchBoxProps) {
   const [keyword, setKeyword] = useState<string>('');
   const [searchResults, setSearchResults] = useState<MovieData[]>([]);
   const [isSearch, setIsSearch] = useState(false);
+  const [recentSearch, setRecentSearch] = useState<string[]>();
+
+  useEffect(() => {
+    const storedList = localStorage.getItem(localStorageKey);
+    if (storedList) {
+      setRecentSearch(JSON.parse(storedList));
+    }
+  }, []);
 
   const debouncedData = useDebounce(keyword);
 
@@ -37,7 +46,7 @@ function SearchBox({ onChange, onSearch }: SearchBoxProps) {
     if (debouncedData) {
       updateData();
     }
-  });
+  }, [debouncedData]);
 
   function onChangeData(e: React.FormEvent<HTMLInputElement>) {
     setKeyword(e.currentTarget.value);
@@ -71,6 +80,23 @@ function SearchBox({ onChange, onSearch }: SearchBoxProps) {
     setIsSearch(false);
   }
 
+  function onSearchClick() {
+    setKeyword(keyword);
+    onSearch(keyword, true);
+    onChange(false);
+    if (keyword.trim() !== '') {
+      const updatedRecentSearches = recentSearch ? [...recentSearch] : [];
+      if (!updatedRecentSearches.includes(keyword)) {
+        updatedRecentSearches.unshift(keyword);
+        if (updatedRecentSearches.length > MAX_RECENT_SEARCH) {
+          updatedRecentSearches.pop();
+        }
+        setRecentSearch(updatedRecentSearches);
+        localStorage.setItem(localStorageKey, JSON.stringify(updatedRecentSearches));
+      }
+    }
+  }
+
   return (
     <>
       <SearchContainer>
@@ -81,11 +107,7 @@ function SearchBox({ onChange, onSearch }: SearchBoxProps) {
           keyword={keyword}
           onChange={onChangeData}
           onClear={removeKeyword}
-          onSearch={() => {
-            setKeyword(keyword);
-            onSearch(keyword, true);
-            onChange(false);
-          }}
+          onSearch={onSearchClick}
           isSearch={isSearch}
         />
       </SearchContainer>

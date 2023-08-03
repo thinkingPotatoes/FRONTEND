@@ -1,29 +1,43 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { ReactComponent as CancelSvg } from '../../assets/icon/btn-cancel.svg';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.min.css';
 import 'swiper/swiper.min.css';
 
-const movieList: string[] = ['아이언맨', '아이언하트', '아이언', '범죄도시'];
+export const MAX_RECENT_SEARCH = 10;
+export const localStorageKey = 'recentSearchList';
+const defaultMovieList: string[] = ['아이언맨', '아이언하트', '아이언', '범죄도시'];
 
 export function RecentSearch() {
-  const [recentSearch, setRecentSearch] = useState<string[]>(movieList);
+  const [recentSearch, setRecentSearch] = useState<string[]>(defaultMovieList);
+
+  useEffect(() => {
+    const storedList = localStorage.getItem(localStorageKey);
+    if (storedList) {
+      setRecentSearch(JSON.parse(storedList));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem(localStorageKey, JSON.stringify(recentSearch));
+  }, [recentSearch]);
+
   function handleRemoveSearch(index: number) {
     const updatedSearches = [...recentSearch];
     updatedSearches.splice(index, 1);
     setRecentSearch(updatedSearches);
   }
+
+  function handleClearSearches() {
+    setRecentSearch([]);
+  }
+
   return (
     <>
       <SubtitleList>
         <div className="title">최근 검색어</div>
-        <div
-          className="deleteBtn"
-          onClick={() => {
-            setRecentSearch([]);
-          }}
-        >
+        <div className="deleteBtn" onClick={handleClearSearches}>
           전체삭제
         </div>
       </SubtitleList>
@@ -31,14 +45,10 @@ export function RecentSearch() {
         <Swiper slidesPerView={'auto'} spaceBetween={10}>
           {recentSearch.length > 0 &&
             recentSearch.map((search, idx) => (
-              <SwiperSlide>
+              <SwiperSlide key={idx}>
                 <RecentSearchChip>
                   {search}
-                  <CancelSvg
-                    onClick={() => {
-                      handleRemoveSearch(idx);
-                    }}
-                  />
+                  <CancelSvg onClick={() => handleRemoveSearch(idx)} />
                 </RecentSearchChip>
               </SwiperSlide>
             ))}
@@ -54,6 +64,7 @@ const SwiperContainer = styled.div`
   height: 52px;
   display: flex;
   align-items: center;
+
   .swiper {
     width: 100%;
   }

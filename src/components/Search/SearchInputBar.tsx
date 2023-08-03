@@ -11,13 +11,7 @@ interface SearchBarProps {
   isSearch: boolean;
 }
 
-const SearchInputBar: React.FC<SearchBarProps> = ({
-  keyword,
-  onChange,
-  onClear,
-  onSearch,
-  isSearch,
-}) => {
+function SearchInputBar({ keyword, onChange, onClear, onSearch, isSearch }: SearchBarProps) {
   const [isSearching, setIsSearching] = useState(false);
 
   const handleSearch = () => {
@@ -42,7 +36,7 @@ const SearchInputBar: React.FC<SearchBarProps> = ({
       )}
     </BarFrame>
   );
-};
+}
 
 export default SearchInputBar;
 
