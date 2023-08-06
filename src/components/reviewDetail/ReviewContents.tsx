@@ -32,7 +32,7 @@ const dummyData: Props = {
 
 const ReviewContents = () => {
   return (
-    <ContentsWrapper>
+    <ContentsWrapper className="wrapper">
       <WriterInfo />
       <CategoryChips categoryList={dummyData.category} />
       <RateInfo rate={dummyData.rate} />
@@ -45,7 +45,7 @@ const ReviewContents = () => {
 
 const ContentsWrapper = styled.div`
   overflow-y: scroll;
-  overflow-x: clip;
+  overflow-x: hidden;
 
   .title {
     color: var(--text-emphasize);
@@ -61,6 +61,7 @@ const ContentsWrapper = styled.div`
     font-weight: 500;
     line-height: 130%; /* 20.8px */
     letter-spacing: -0.016px;
+    margin-bottom: 100px;
   }
 `;
 export default ReviewContents;
