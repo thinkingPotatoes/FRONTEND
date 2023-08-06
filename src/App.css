@@ -1,3 +1,6 @@
 #root {
-  max-width: 370px;
+  max-width: 390px;
+  min-height: 100vh;
+  background-color: var(--main-background);
+  padding: 0 20px;
 }

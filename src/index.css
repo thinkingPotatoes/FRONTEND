@@ -10,10 +10,15 @@
   --icon-default: #9e9ea4;
   --icon-activated: #ffffff;
   --main-gradient: linear-gradient(#00ffc2, #e335ff);
+  --background-bright: #1c1c25;
 }
 
 * {
   box-sizing: border-box;
   padding: 0px;
   margin: 0px;
+}
+
+button {
+  all: unset;
 }
