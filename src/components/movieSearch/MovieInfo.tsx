@@ -1,5 +1,20 @@
 import { styled } from 'styled-components';
-import Chip from '../common/Chip.tsx';
+import Chip, { ChipProps } from '../common/Chip.tsx';
+
+const example: ChipProps[] = [
+  {
+    text: '액션',
+    deletable: false,
+  },
+  {
+    text: 'SF',
+    deletable: false,
+  },
+  {
+    text: '드라마',
+    deletable: false,
+  },
+];
 
 function MovieInfo() {
   return (
@@ -16,27 +31,9 @@ function MovieInfo() {
           </BasicInfo>
         </BasicInfoWrapper>
         <GenreList>
-          <Chip
-            props={{
-              text: '액션',
-              deletable: false,
-              bgColor: 'gray',
-            }}
-          />
-          <Chip
-            props={{
-              text: 'SF',
-              deletable: false,
-              bgColor: 'gray',
-            }}
-          />
-          <Chip
-            props={{
-              text: '드라마',
-              deletable: false,
-              bgColor: 'gray',
-            }}
-          />
+          {example.map((info) => (
+            <Chip props={info} />
+          ))}
         </GenreList>
         <Description>
           세계 최강의 무기업체를 이끄는 CEO이자, 타고난 매력으로 셀러브리티
