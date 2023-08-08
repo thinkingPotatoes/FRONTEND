@@ -9,7 +9,7 @@ export const MAX_RECENT_SEARCH = 10;
 export const localStorageKey = 'recentSearchList';
 const defaultMovieList: string[] = ['아이언맨', '아이언하트', '아이언', '범죄도시'];
 
-export function RecentSearch() {
+function RecentSearch() {
   const [recentSearch, setRecentSearch] = useState<string[]>(defaultMovieList);
 
   useEffect(() => {
@@ -120,3 +120,5 @@ export const RecentSearchChip = styled.div`
   border-radius: 100px;
   background: #2f2f51;
 `;
+
+export default RecentSearch;

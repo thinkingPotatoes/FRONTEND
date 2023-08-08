@@ -37,8 +37,6 @@ function AutoSearchList({ searchResults, onClick }: AutoSearchListProps) {
   );
 }
 
-export default AutoSearchList;
-
 const AutoSearchContainer = styled.div`
   z-index: 3;
 `;
@@ -67,3 +65,5 @@ const AutoSearchData = styled.li`
     line-height: 52px;
   }
 `;
+
+export default AutoSearchList;

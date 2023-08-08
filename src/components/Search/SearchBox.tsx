@@ -130,8 +130,6 @@ function SearchBox({ onChange, onSearch }: SearchBoxProps) {
   );
 }
 
-export default SearchBox;
-
 const SearchContainer = styled.div`
   display: flex;
   width: calc(100%);
@@ -164,3 +162,5 @@ const NoSearchResult = styled.div`
   font-weight: 600;
   letter-spacing: -0.048px;
 `;
+
+export default SearchBox;

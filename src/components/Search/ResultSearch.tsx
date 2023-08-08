@@ -68,8 +68,6 @@ function ResultSearch() {
   );
 }
 
-export default ResultSearch;
-
 const MovieList = styled.div`
   padding-left: 20px;
   color: var(--disabled);
@@ -119,3 +117,5 @@ const Subtitle = styled.div`
   font-weight: 600;
   letter-spacing: -0.09px;
 `;
+
+export default ResultSearch;

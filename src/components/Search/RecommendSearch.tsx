@@ -6,7 +6,7 @@ import 'swiper/swiper.min.css';
 
 const movieList: string[] = ['아이언맨', '아이언하트', '아이언'];
 
-export default function RecommendSearch() {
+function RecommendSearch() {
   return (
     <>
       <Recommendtitle>
@@ -91,3 +91,5 @@ const Parent = styled.div`
     display: none;
   }
 `;
+
+export default RecommendSearch;

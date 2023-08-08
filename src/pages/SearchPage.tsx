@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { RecentSearch } from '../components/Search/RecentSearch.tsx';
+import { styled } from 'styled-components';
+import RecentSearch from '../components/Search/RecentSearch.tsx';
 import SearchBox from '../components/Search/SearchBox.tsx';
 import HotSearch from '../components/Search/HotSearch.tsx';
 import ResultSearch from '../components/Search/ResultSearch.tsx';
 import RecommendSearch from '../components/Search/RecommendSearch.tsx';
-import { styled } from 'styled-components';
 
 function SearchPage() {
   const [keyword, setKeyword] = useState('');
@@ -37,8 +37,9 @@ function SearchPage() {
     </SearchFrame>
   );
 }
-export default SearchPage;
 
 const SearchFrame = styled.div`
   margin: 0 -20px;
 `;
+
+export default SearchPage;

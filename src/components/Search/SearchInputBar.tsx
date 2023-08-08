@@ -38,8 +38,6 @@ function SearchInputBar({ keyword, onChange, onClear, onSearch, isSearch }: Sear
   );
 }
 
-export default SearchInputBar;
-
 const BarFrame = styled.div`
   display: flex;
   align-items: center;
@@ -98,3 +96,5 @@ const ExitBox = styled.div`
   position: relative;
   cursor: pointer;
 `;
+
+export default SearchInputBar;
