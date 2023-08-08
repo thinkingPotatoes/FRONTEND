@@ -75,6 +75,7 @@ const MovieList = styled.div`
   font-weight: 500;
   line-height: 130%;
 `;
+
 const EachMovie = styled.div`
   display: flex;
   align-items: center;
@@ -90,6 +91,7 @@ const EachMovie = styled.div`
     margin-bottom: 4px;
   }
 `;
+
 const Poster = styled.div`
   display: flex;
   align-items: center;
@@ -101,10 +103,12 @@ const Poster = styled.div`
     object-fit: cover;
   }
 `;
+
 const Info = styled.div`
   display: flex;
   flex-direction: column;
 `;
+
 const Subtitle = styled.div`
   display: flex;
   align-items: center;

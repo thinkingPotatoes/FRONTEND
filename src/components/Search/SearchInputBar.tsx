@@ -43,6 +43,7 @@ const BarFrame = styled.div`
   align-items: center;
   flex: 1;
 `;
+
 const RightButtonBox = styled.div`
   display: flex;
   height: 44px;

@@ -57,39 +57,4 @@ const SwiperContainer = styled.div`
     width: fit-content;
   }
 `;
-
-const RecommendBtn = styled.div`
-  display: flex;
-  align-items: center;
-  width: fit-content;
-  height: 21px;
-  color: #9087f4;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 130%;
-  letter-spacing: -0.016px;
-  padding: 4px 8px;
-  gap: 2px;
-  border-radius: 100px;
-  background: #2f2f51;
-`;
-
-const RecommendList = styled.div`
-  width: max-content;
-  display: flex;
-  height: 52px;
-  padding: 0px 8px 0px 24px;
-  align-items: center;
-  gap: 10px;
-  overflow: hidden;
-`;
-
-const Parent = styled.div`
-  overflow: scroll;
-  &::-webkit-scrollbar {
-    display: none;
-  }
-`;
-
 export default RecommendSearch;

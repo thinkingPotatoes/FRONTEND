@@ -8,7 +8,7 @@ interface AutoSearchListProps {
 }
 
 function AutoSearchList({ searchResults, onClick }: AutoSearchListProps) {
-  const handleSearchItemClick = (city: string) => {
+  function handleSearchItemClick(city: string) {
     onClick(city);
 
     const storedList = localStorage.getItem(localStorageKey);
@@ -22,7 +22,7 @@ function AutoSearchList({ searchResults, onClick }: AutoSearchListProps) {
     }
     updatedSearches.unshift(city);
     localStorage.setItem(localStorageKey, JSON.stringify(updatedSearches));
-  };
+  }
 
   return (
     <AutoSearchContainer>
