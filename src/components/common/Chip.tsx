@@ -1,9 +1,8 @@
 import { styled } from 'styled-components';
 
-type ChipProps = {
+export type ChipProps = {
   text: string;
   deletable: boolean;
-  bgColor: string;
 };
 
 function Chip({ props }: { props: ChipProps }) {
@@ -22,7 +21,6 @@ const ChipWrapper = styled.span`
   background: var(--dark-grey-200, #3c3c47);
 
   color: var(--dark-grey-700, #c3c3c6);
-  /* font-family: Pretendard; */
   font-size: 12px;
   font-style: normal;
   font-weight: 400;
