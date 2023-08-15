@@ -1,5 +1,8 @@
 import { styled } from 'styled-components';
+
 import Chip, { ChipProps } from '../common/Chip.tsx';
+import { Movie } from '../types/movie.ts';
+import MoviePlot from './MoviePlot.tsx';
 
 const example: ChipProps[] = [
   {
@@ -16,30 +19,26 @@ const example: ChipProps[] = [
   },
 ];
 
-function MovieInfo() {
+function MovieInfo({ movie }: { movie: Movie }) {
   return (
     <MovieInfoWrapper>
       <MainContent>
         <BasicInfoWrapper>
-          <Title>아이언맨 2</Title>
+          <Title>{movie.title}</Title>
           <BasicInfo>
-            <span>2010</span>
+            <span>{movie.prodYear}</span>
             <span>|</span>
-            <span>미국</span>
+            <span>{movie.nation}</span>
             <span>|</span>
-            <span>12세이상</span>
+            <span>{movie.rating}</span>
           </BasicInfo>
         </BasicInfoWrapper>
         <GenreList>
           {example.map((info) => (
-            <Chip props={info} />
+            <Chip key={info.text} props={info} />
           ))}
         </GenreList>
-        <Description>
-          세계 최강의 무기업체를 이끄는 CEO이자, 타고난 매력으로 셀러브리티
-          못지않은 화려한 삶을 살아가던 토니 스타크. 기자회견을 통해 자신이
-          아이언맨이라고 정체를 밝힌 이후, ...더보기
-        </Description>
+        <MoviePlot plot={movie.plot} />
       </MainContent>
     </MovieInfoWrapper>
   );
@@ -95,17 +94,6 @@ const BasicInfo = styled.div`
 const GenreList = styled.div`
   display: flex;
   gap: 4px;
-`;
-
-const Description = styled.div`
-  color: var(--dark-grey-700, #c3c3c6);
-
-  /* Body2 */
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 130%; /* 18.2px */
-  letter-spacing: -0.014px;
 `;
 
 export default MovieInfo;
