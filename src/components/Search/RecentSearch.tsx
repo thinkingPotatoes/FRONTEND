@@ -7,19 +7,15 @@ import 'swiper/swiper.min.css';
 
 export const MAX_RECENT_SEARCH = 10;
 export const localStorageKey = 'recentSearchList';
-const defaultMovieList: string[] = ['아이언맨', '아이언하트', '아이언', '범죄도시'];
 
 function RecentSearch() {
-  const [recentSearch, setRecentSearch] = useState<string[]>(defaultMovieList);
+  const storedList = localStorage.getItem(localStorageKey);
+  const [recentSearch, setRecentSearch] = useState<string[]>(
+    storedList ? JSON.parse(storedList) : [],
+  );
 
   useEffect(() => {
-    const storedList = localStorage.getItem(localStorageKey);
-    if (storedList) {
-      setRecentSearch(JSON.parse(storedList));
-    }
-  }, []);
-
-  useEffect(() => {
+    console.log(JSON.stringify(recentSearch));
     localStorage.setItem(localStorageKey, JSON.stringify(recentSearch));
   }, [recentSearch]);
 
