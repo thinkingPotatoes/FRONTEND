@@ -4,15 +4,16 @@ import { ReactComponent as CancelSvg } from '../../assets/icon/btn-cancel.svg';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.min.css';
 import 'swiper/swiper.min.css';
+import useLocalStorage from '../../hooks/useLocalStorage';
 
 export const MAX_RECENT_SEARCH = 10;
 export const localStorageKey = 'recentSearchList';
 
 function RecentSearch() {
-  const storedList = localStorage.getItem(localStorageKey);
-  const [recentSearch, setRecentSearch] = useState<string[]>(
-    storedList ? JSON.parse(storedList) : [],
-  );
+  const [recentSearch, setRecentSearch] = useLocalStorage({
+    key: localStorageKey,
+    initialValue: [],
+  });
 
   useEffect(() => {
     console.log(JSON.stringify(recentSearch));
@@ -40,7 +41,7 @@ function RecentSearch() {
       <SwiperContainer>
         <Swiper slidesPerView={'auto'} spaceBetween={10}>
           {recentSearch.length > 0 &&
-            recentSearch.map((search, idx) => (
+            recentSearch.map((search: string, idx: number) => (
               <SwiperSlide key={idx}>
                 <RecentSearchChip>
                   {search}

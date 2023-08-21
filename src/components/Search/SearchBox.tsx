@@ -5,6 +5,7 @@ import { ReactComponent as LeftPrevSvg } from '../../assets/icon/angle-left-btn.
 import AutoSearchList from './AutoSearchList';
 import SearchInputBar from './SearchInputBar';
 import { MAX_RECENT_SEARCH, localStorageKey } from './RecentSearch';
+import useLocalStorage from '../../hooks/useLocalStorage';
 
 // API로 받아오는 MovieData (현재 랜덤 API 이용)
 export interface MovieData {
@@ -31,14 +32,10 @@ function SearchBox({ onChange, onSearch }: SearchBoxProps) {
   const [keyword, setKeyword] = useState<string>('');
   const [searchResults, setSearchResults] = useState<MovieData[]>([]);
   const [isSearch, setIsSearch] = useState(false);
-  const [recentSearch, setRecentSearch] = useState<string[]>();
-
-  useEffect(() => {
-    const storedList = localStorage.getItem(localStorageKey);
-    if (storedList) {
-      setRecentSearch(JSON.parse(storedList));
-    }
-  }, []);
+  const [recentSearch, setRecentSearch] = useLocalStorage({
+    key: localStorageKey,
+    initialValue: [],
+  });
 
   const debouncedData = useDebounce(keyword);
 
