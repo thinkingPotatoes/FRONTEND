@@ -5,11 +5,12 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.min.css';
 import 'swiper/swiper.min.css';
 import useLocalStorage from '../../hooks/useLocalStorage';
+import { SearchBoxProps } from './SearchBox';
 
 export const MAX_RECENT_SEARCH = 10;
 export const localStorageKey = 'recentSearchList';
 
-function RecentSearch() {
+function RecentSearch({ onChange, onSearch }: SearchBoxProps) {
   const [recentSearch, setRecentSearch] = useLocalStorage({
     key: localStorageKey,
     initialValue: [],
@@ -30,6 +31,12 @@ function RecentSearch() {
     setRecentSearch([]);
   }
 
+  function handleRecentChipSearch(search: string) {
+    console.log('search', search);
+    onSearch(search, true);
+    onChange(false);
+  }
+
   return (
     <>
       <SubtitleList>
@@ -44,7 +51,7 @@ function RecentSearch() {
             recentSearch.map((search: string, idx: number) => (
               <SwiperSlide key={idx}>
                 <RecentSearchChip>
-                  {search}
+                  <div onClick={() => handleRecentChipSearch(search)}>{search}</div>
                   <CancelSvg onClick={() => handleRemoveSearch(idx)} />
                 </RecentSearchChip>
               </SwiperSlide>

@@ -23,7 +23,7 @@ interface Movie {
   city: string;
 }
 
-interface SearchBoxProps {
+export interface SearchBoxProps {
   onSearch: (keyword: string, booleanCheck: boolean) => void;
   onChange: (keyword: boolean) => void;
 }

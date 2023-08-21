@@ -24,7 +24,7 @@ function SearchPage() {
       <SearchBox onSearch={handleSearch} onChange={handleChange}></SearchBox>
       {showDefaultSearch && (
         <>
-          <RecentSearch />
+          <RecentSearch onSearch={handleSearch} onChange={handleChange} />
           <HotSearch />
         </>
       )}
