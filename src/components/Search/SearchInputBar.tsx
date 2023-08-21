@@ -19,10 +19,24 @@ function SearchInputBar({ keyword, onChange, onClear, onSearch, isSearch }: Sear
     setIsSearching(true);
   };
 
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    //console.log(e);
+    //향수 이름 검색에 ENTER 지원
+    if (e.key === 'Enter') {
+      onSearch();
+      setIsSearching(false);
+    }
+  };
+
   return (
     <BarFrame>
       <SearchBarContainer>
-        <SearchInput value={keyword} onChange={onChange} placeholder="검색어를 입력해주세요." />
+        <SearchInput
+          value={keyword}
+          onChange={onChange}
+          placeholder="검색어를 입력해주세요."
+          onKeyDown={handleKeyPress}
+        />
         {keyword && (
           <ExitBox onClick={onClear}>
             <InputCancelSvg />
