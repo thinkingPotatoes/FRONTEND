@@ -17,7 +17,6 @@ function RecentSearch({ onChange, onSearch }: SearchBoxProps) {
   });
 
   useEffect(() => {
-    console.log(JSON.stringify(recentSearch));
     localStorage.setItem(localStorageKey, JSON.stringify(recentSearch));
   }, [recentSearch]);
 
@@ -32,7 +31,6 @@ function RecentSearch({ onChange, onSearch }: SearchBoxProps) {
   }
 
   function handleRecentChipSearch(search: string) {
-    console.log('search', search);
     onSearch(search, true);
     onChange(false);
   }
