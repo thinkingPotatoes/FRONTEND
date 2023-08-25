@@ -11,6 +11,18 @@
   --icon-activated: #ffffff;
   --main-gradient: linear-gradient(#00ffc2, #e335ff);
   --background-bright: #1c1c25;
+
+  --dark-bg-down: #101013;
+  --dark-grey-50: #202027;
+  --dark-grey-100: #2c2c35;
+  --dark-grey-200: #3c3c47;
+  --dark-grey-300: #4d4d59;
+  --dark-grey-400: #62626d;
+  --dark-grey-500: #7e7e87;
+  --dark-grey-600: #9e9ea4;
+  --dark-grey-700: #c3c3c6;
+  --dark-grey-800: #e4e4e5;
+  --dark-border-border: #3c3c47;
 }
 
 * {
