@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { ReactComponent as LeftPrevSvg } from '../../assets/icon/angle-left-btn.svg';
 import AutoSearchList from './AutoSearchList';
@@ -8,10 +8,12 @@ import useLocalStorage from '../../hooks/useLocalStorage';
 
 import { useQuery } from 'react-query';
 import axios from '../../api/apiController';
+import { MovieResponseList } from '../types/search';
 
 export interface SearchBoxProps {
   onSearch: (keyword: string, booleanCheck: boolean) => void;
   onChange: (keyword: boolean) => void;
+  setResults: React.Dispatch<React.SetStateAction<MovieResponseList[]>>;
 }
 
 export const fetchAutocompleteSuggestions = async (keyword: string) => {
@@ -32,7 +34,7 @@ export function useAutocompleteQuery(keyword: string) {
   });
 }
 
-function SearchBox({ onChange, onSearch }: SearchBoxProps) {
+function SearchBox({ onChange, onSearch, setResults }: SearchBoxProps) {
   const [keyword, setKeyword] = useState<string>('');
   const [isSearch, setIsSearch] = useState(false);
   const [recentSearch, setRecentSearch] = useLocalStorage({
@@ -40,6 +42,10 @@ function SearchBox({ onChange, onSearch }: SearchBoxProps) {
     initialValue: [],
   });
   const { data: searchResults } = useAutocompleteQuery(keyword);
+
+  useEffect(() => {
+    setResults(searchResults);
+  }, [searchResults]);
 
   function onChangeData(e: React.FormEvent<HTMLInputElement>) {
     setKeyword(e.currentTarget.value);

@@ -3,6 +3,8 @@ export interface MovieResponseList {
   title: string;
   poster: string;
   prodYear: string;
+  janre: string[];
+  country: string;
 }
 
 export interface searchMovieBar {

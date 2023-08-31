@@ -7,6 +7,7 @@ import ResultSearch from '../components/Search/ResultSearch.tsx';
 import RecommendSearch from '../components/Search/RecommendSearch.tsx';
 
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { MovieResponseList } from '../components/types/search.ts';
 
 const queryClient = new QueryClient();
 
@@ -14,6 +15,7 @@ function SearchPage() {
   const [keyword, setKeyword] = useState('');
   const [showDefaultSearch, setDefaultSearch] = useState(true);
   const [showResult, setShowResult] = useState(false);
+  const [searchResults, setSearchResults] = useState<MovieResponseList[]>([]);
 
   const handleSearch = (searchWord: string, booleanCheck: boolean) => {
     setKeyword(searchWord);
@@ -26,17 +28,21 @@ function SearchPage() {
   return (
     <QueryClientProvider client={queryClient}>
       <SearchFrame>
-        <SearchBox onSearch={handleSearch} onChange={handleChange}></SearchBox>
+        <SearchBox onSearch={handleSearch} onChange={handleChange} setResults={setSearchResults} />
         {showDefaultSearch && (
           <>
-            <RecentSearch onSearch={handleSearch} onChange={handleChange} />
+            <RecentSearch
+              onSearch={handleSearch}
+              onChange={handleChange}
+              setResults={setSearchResults}
+            />
             <HotSearch />
           </>
         )}
         {showResult && (
           <>
             <RecommendSearch />
-            <ResultSearch />
+            <ResultSearch results={searchResults} />
           </>
         )}
       </SearchFrame>

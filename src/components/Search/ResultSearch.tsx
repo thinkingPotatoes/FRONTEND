@@ -1,4 +1,5 @@
 import { styled } from 'styled-components';
+import { MovieResponseList } from '../types/search';
 
 interface MovieDto {
   poster: string;
@@ -45,29 +46,32 @@ const movies: MovieDto[] = [
   },
 ];
 
-function ResultSearch() {
+function ResultSearch({ results }: { results: MovieResponseList[] }) {
   return (
     <>
       <Subtitle>검색 된 영화</Subtitle>
       <MovieList>
-        {movies.map((movie, idx) => (
-          <EachMovie key={idx}>
-            <Poster>
-              <img src={movie.poster} />
-            </Poster>
-            <Info>
-              <div className="title">{movie.title}</div>
-              <div className="etcInfo">
-                {movie.openDate} | {movie.janre.join(',')} | {movie.country}
-              </div>
-            </Info>
-          </EachMovie>
-        ))}
+        {results ? (
+          results.map((movie, idx) => (
+            <EachMovie key={idx}>
+              <Poster>
+                <img src={movie.poster} />
+              </Poster>
+              <Info>
+                <div className="title">{movie.title}</div>
+                <div className="etcInfo">{movie.prodYear}</div>
+              </Info>
+            </EachMovie>
+          ))
+        ) : (
+          <>검색된 영화가 없습니다</>
+        )}
       </MovieList>
     </>
   );
 }
 
+//| {movie.janre.join(',')} | {movie.country} //추후 DB 변경시 수정
 const MovieList = styled.div`
   padding-left: 20px;
   color: var(--disabled);
