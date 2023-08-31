@@ -50,8 +50,8 @@ function ResultSearch() {
     <>
       <Subtitle>검색 된 영화</Subtitle>
       <MovieList>
-        {movies.map((movie) => (
-          <EachMovie>
+        {movies.map((movie, idx) => (
+          <EachMovie key={idx}>
             <Poster>
               <img src={movie.poster} />
             </Poster>
