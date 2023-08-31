@@ -1,9 +1,9 @@
 import styled from 'styled-components';
-import { MovieData } from './SearchBox';
 import { MAX_RECENT_SEARCH, localStorageKey } from './RecentSearch';
+import { MovieResponseList } from '../types/search';
 
 interface AutoSearchListProps {
-  searchResults: MovieData[];
+  searchResults: MovieResponseList[];
   onClick: (city: string) => void;
 }
 
@@ -28,8 +28,8 @@ function AutoSearchList({ searchResults, onClick }: AutoSearchListProps) {
     <AutoSearchContainer>
       <AutoSearchWrap>
         {searchResults.map((search, idx) => (
-          <AutoSearchData key={search.city} onClick={() => handleSearchItemClick(search.city)}>
-            <a href="#">{search.city}</a>
+          <AutoSearchData key={search.title} onClick={() => handleSearchItemClick(search.title)}>
+            <a href="#">{search.title}</a>
           </AutoSearchData>
         ))}
       </AutoSearchWrap>
@@ -63,6 +63,7 @@ const AutoSearchData = styled.li`
   a {
     color: #c3c3c6;
     line-height: 52px;
+    text-decoration: none;
   }
 `;
 

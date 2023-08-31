@@ -1,49 +1,45 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import useDebounce from '../../hooks/useDebounce';
 import { ReactComponent as LeftPrevSvg } from '../../assets/icon/angle-left-btn.svg';
 import AutoSearchList from './AutoSearchList';
 import SearchInputBar from './SearchInputBar';
 import { MAX_RECENT_SEARCH, localStorageKey } from './RecentSearch';
 import useLocalStorage from '../../hooks/useLocalStorage';
 
-// API로 받아오는 MovieData (현재 랜덤 API 이용)
-export interface MovieData {
-  city: string;
-  growth_from_2000_to_2013: string;
-  latitude: number;
-  longitude: number;
-  population: string;
-  rank: string;
-  state: string;
-}
-
-interface Movie {
-  includes(data: string): boolean;
-  city: string;
-}
+import { useQuery } from 'react-query';
+import axios from '../../api/apiController';
 
 export interface SearchBoxProps {
   onSearch: (keyword: string, booleanCheck: boolean) => void;
   onChange: (keyword: boolean) => void;
 }
 
+export const fetchAutocompleteSuggestions = async (keyword: string) => {
+  try {
+    const response = await axios.post(`/movies/search?page=0&size=10&sort=repRlsDate,desc`, {
+      keyword: keyword,
+    });
+    return response.data.data.searchMovieResponseList;
+  } catch (error) {
+    console.log(error);
+    throw new Error('Network response was not ok');
+  }
+};
+
+export function useAutocompleteQuery(keyword: string) {
+  return useQuery(['autocomplete', keyword], () => fetchAutocompleteSuggestions(keyword), {
+    //custom query
+  });
+}
+
 function SearchBox({ onChange, onSearch }: SearchBoxProps) {
   const [keyword, setKeyword] = useState<string>('');
-  const [searchResults, setSearchResults] = useState<MovieData[]>([]);
   const [isSearch, setIsSearch] = useState(false);
   const [recentSearch, setRecentSearch] = useLocalStorage({
     key: localStorageKey,
     initialValue: [],
   });
-
-  const debouncedData = useDebounce(keyword);
-
-  useEffect(() => {
-    if (debouncedData) {
-      updateData();
-    }
-  }, [debouncedData]);
+  const { data: searchResults } = useAutocompleteQuery(keyword);
 
   function onChangeData(e: React.FormEvent<HTMLInputElement>) {
     setKeyword(e.currentTarget.value);
@@ -56,20 +52,6 @@ function SearchBox({ onChange, onSearch }: SearchBoxProps) {
     }
   }
 
-  async function fetchData() {
-    const res = await fetch(
-      'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json',
-    );
-    const data = await res.json();
-    return data.slice(0, 100);
-  }
-
-  async function updateData() {
-    const res = await fetchData();
-    const b = res.filter((list: Movie) => list.city.includes(keyword)).slice(0, 8);
-    setSearchResults(b);
-  }
-
   function removeKeyword() {
     setKeyword('');
     onChange(true);
@@ -79,7 +61,9 @@ function SearchBox({ onChange, onSearch }: SearchBoxProps) {
 
   function onSearchClick() {
     setKeyword(keyword);
+
     onSearch(keyword, true);
+    setIsSearch(true);
     onChange(false);
     if (keyword.trim() !== '') {
       const updatedRecentSearches = recentSearch ? [...recentSearch] : [];
@@ -108,8 +92,7 @@ function SearchBox({ onChange, onSearch }: SearchBoxProps) {
           isSearch={isSearch}
         />
       </SearchContainer>
-
-      {searchResults.length > 0 && keyword && !isSearch && (
+      {searchResults?.length > 0 && keyword && !isSearch && (
         <AutoSearchList
           searchResults={searchResults}
           onClick={(city) => {
@@ -119,8 +102,7 @@ function SearchBox({ onChange, onSearch }: SearchBoxProps) {
           }}
         />
       )}
-
-      {searchResults.length === 0 && keyword && (
+      {searchResults?.length === 0 && keyword && (
         <NoSearchResult>검색된 결과가 없습니다.</NoSearchResult>
       )}
     </>

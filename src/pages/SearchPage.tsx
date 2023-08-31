@@ -6,6 +6,10 @@ import HotSearch from '../components/Search/HotSearch.tsx';
 import ResultSearch from '../components/Search/ResultSearch.tsx';
 import RecommendSearch from '../components/Search/RecommendSearch.tsx';
 
+import { QueryClient, QueryClientProvider } from 'react-query';
+
+const queryClient = new QueryClient();
+
 function SearchPage() {
   const [keyword, setKeyword] = useState('');
   const [showDefaultSearch, setDefaultSearch] = useState(true);
@@ -20,21 +24,23 @@ function SearchPage() {
     setDefaultSearch(booleanCheck);
   };
   return (
-    <SearchFrame>
-      <SearchBox onSearch={handleSearch} onChange={handleChange}></SearchBox>
-      {showDefaultSearch && (
-        <>
-          <RecentSearch onSearch={handleSearch} onChange={handleChange} />
-          <HotSearch />
-        </>
-      )}
-      {showResult && (
-        <>
-          <RecommendSearch />
-          <ResultSearch />
-        </>
-      )}
-    </SearchFrame>
+    <QueryClientProvider client={queryClient}>
+      <SearchFrame>
+        <SearchBox onSearch={handleSearch} onChange={handleChange}></SearchBox>
+        {showDefaultSearch && (
+          <>
+            <RecentSearch onSearch={handleSearch} onChange={handleChange} />
+            <HotSearch />
+          </>
+        )}
+        {showResult && (
+          <>
+            <RecommendSearch />
+            <ResultSearch />
+          </>
+        )}
+      </SearchFrame>
+    </QueryClientProvider>
   );
 }
 
