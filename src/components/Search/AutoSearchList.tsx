@@ -4,12 +4,12 @@ import { MovieResponseList } from '../types/search';
 
 interface AutoSearchListProps {
   searchResults: MovieResponseList[];
-  onClick: (city: string) => void;
+  onClick: (movie: string) => void;
 }
 
 function AutoSearchList({ searchResults, onClick }: AutoSearchListProps) {
-  function handleSearchItemClick(city: string) {
-    onClick(city);
+  function handleSearchItemClick(movie: string) {
+    onClick(movie);
 
     const storedList = localStorage.getItem(localStorageKey);
     let updatedSearches: string[] = [];
@@ -20,7 +20,7 @@ function AutoSearchList({ searchResults, onClick }: AutoSearchListProps) {
     if (updatedSearches.length >= MAX_RECENT_SEARCH) {
       updatedSearches.pop();
     }
-    updatedSearches.unshift(city);
+    updatedSearches.unshift(movie);
     localStorage.setItem(localStorageKey, JSON.stringify(updatedSearches));
   }
 

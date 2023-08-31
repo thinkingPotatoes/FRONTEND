@@ -101,9 +101,9 @@ function SearchBox({ onChange, onSearch, setResults }: SearchBoxProps) {
       {searchResults?.length > 0 && keyword && !isSearch && (
         <AutoSearchList
           searchResults={searchResults}
-          onClick={(city) => {
-            setKeyword(city);
-            onSearch(city, true);
+          onClick={(movie) => {
+            setKeyword(movie);
+            onSearch(movie, true);
             setIsSearch(true);
           }}
         />

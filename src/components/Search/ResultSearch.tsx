@@ -1,51 +1,6 @@
 import { styled } from 'styled-components';
 import { MovieResponseList } from '../types/search';
 
-interface MovieDto {
-  poster: string;
-  title: string;
-  openDate: number;
-  janre: string[];
-  country: string;
-}
-const movies: MovieDto[] = [
-  {
-    poster: './src/assets/img/image 1.png',
-    title: '아이언 맨 2',
-    openDate: 2010,
-    janre: ['액션', '드라마', 'SF'],
-    country: '미국',
-  },
-  {
-    poster: './src/assets/img/image 1.png',
-    title: '아이언 맨 2',
-    openDate: 2010,
-    janre: ['액션', '드라마', 'SF'],
-    country: '미국',
-  },
-  {
-    poster: './src/assets/img/image 1.png',
-    title: '아이언 맨 2',
-    openDate: 2010,
-    janre: ['액션', '드라마', 'SF'],
-    country: '미국',
-  },
-  {
-    poster: './src/assets/img/image 1.png',
-    title: '아이언 맨 2',
-    openDate: 2010,
-    janre: ['액션', '드라마', 'SF'],
-    country: '미국',
-  },
-  {
-    poster: './src/assets/img/image 1.png',
-    title: '아이언 맨 2',
-    openDate: 2010,
-    janre: ['액션', '드라마', 'SF'],
-    country: '미국',
-  },
-];
-
 function ResultSearch({ results }: { results: MovieResponseList[] }) {
   return (
     <>
@@ -99,11 +54,9 @@ const EachMovie = styled.div`
 const Poster = styled.div`
   display: flex;
   align-items: center;
-  width: 30px;
-  height: 42.3px;
   img {
-    width: 100%;
-    height: 100%;
+    width: 30px;
+    height: 42.3px;
     object-fit: cover;
   }
 `;
