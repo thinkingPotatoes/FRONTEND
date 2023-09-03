@@ -4,8 +4,19 @@ import { ReactComponent as KakaoIcon } from '../assets/image/icon/KakaoTalk_logo
 import { ReactComponent as NaverIcon } from '../assets/image/icon/Naver_logo.svg';
 import { ReactComponent as GoogleIcon } from '../assets/image/icon/Google_logo.svg';
 import SocialLoginButton from '../components/login/SocialLoginButton';
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
+  const navigate = useNavigate();
+
+  const onClickEmail = () => {
+    navigate('/login/email');
+  };
+
+  const onClickRegister = () => {
+    navigate('/register/email');
+  };
+
   return (
     <>
       <LogoContainer>
@@ -25,8 +36,13 @@ function Login() {
           <GoogleIcon />
           구글로 시작하기
         </SocialLoginButton>
-        <SocialLoginButton backgroundColor="#1C1C25" color="#E4E4E5">
+        <SocialLoginButton backgroundColor="#1C1C25" color="#E4E4E5" onClick={onClickEmail}>
           이메일로 시작하기
+        </SocialLoginButton>
+
+        {/* 회원가입 페이지를 보여주기 위한 임시 버튼 */}
+        <SocialLoginButton backgroundColor="#1C1C25" color="#E4E4E5" onClick={onClickRegister}>
+          회원가입
         </SocialLoginButton>
       </LoginButtonContainer>
     </>
