@@ -1,15 +1,32 @@
-import { useRef } from 'react';
+import { useState } from 'react';
 import { ReactComponent as BackArrow } from '../assets/image/icon/backArrow.svg';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import { isValidateEmail } from '../utils/vaildation';
+
+type EmailState = {
+  email: string;
+  isValid: boolean;
+};
 
 function LoginEamilInputPage() {
-  const inputRef = useRef<HTMLInputElement | null>(null);
+  const [emailState, setEmailState] = useState<EmailState>({
+    email: '',
+    isValid: false,
+  });
   const navigate = useNavigate();
 
   const onClickNext = () => {
-    const email = inputRef.current?.value || '';
-    navigate('/login/password', { state: { email } });
+    navigate('/login/password', { state: { email: emailState.email } });
+  };
+
+  const onInputEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newEmail = e.target.value;
+
+    setEmailState({
+      email: newEmail,
+      isValid: isValidateEmail(newEmail),
+    });
   };
 
   return (
@@ -20,8 +37,10 @@ function LoginEamilInputPage() {
         </BackButton>
       </Header>
       <Head1>이메일을 입력해주세요</Head1>
-      <Input placeholder="abc@naver.com" ref={inputRef} />
-      <NextButton onClick={onClickNext}>다음</NextButton>
+      <Input placeholder="abc@naver.com" value={emailState.email} onChange={onInputEmail} />
+      <NextButton onClick={onClickNext} disabled={!emailState.isValid}>
+        다음
+      </NextButton>
     </>
   );
 }
@@ -73,7 +92,10 @@ const Input = styled.input`
   }
 `;
 
-const NextButton = styled.button`
+interface ButtonProps {
+  disabled: boolean;
+}
+const NextButton = styled.button<ButtonProps>`
   position: fixed;
   left: 0px;
   bottom: 0;
@@ -81,10 +103,12 @@ const NextButton = styled.button`
   justify-content: center;
   align-items: center;
   font-family: 'Pretendard';
-  color: #ffffff;
+  color: ${({ disabled }: ButtonProps) => (disabled ? 'var(--disabled)' : '#ffffff')};
   height: 52px;
   width: 100%;
-  background-color: var(--main);
+  background-color: ${({ disabled }: ButtonProps) =>
+    disabled ? 'var(--background-bright)' : 'var(--main)'};
+
   margin-top: auto;
 `;
 

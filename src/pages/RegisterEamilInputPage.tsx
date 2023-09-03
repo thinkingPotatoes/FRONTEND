@@ -1,15 +1,33 @@
-import { useRef } from 'react';
+import { useState } from 'react';
 import { ReactComponent as BackArrow } from '../assets/image/icon/backArrow.svg';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import { isValidateEmail } from '../utils/vaildation';
+
+type EmailState = {
+  email: string;
+  isValid: boolean;
+};
 
 function RegisterEamilInputPage() {
-  const inputRef = useRef<HTMLInputElement | null>(null);
+  const [emailState, setEmailState] = useState<EmailState>({
+    email: '',
+    isValid: false,
+  });
+
   const navigate = useNavigate();
 
+  const onInputEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newEmail = e.target.value;
+
+    setEmailState({
+      email: newEmail,
+      isValid: isValidateEmail(newEmail),
+    });
+  };
+
   const onClickNext = () => {
-    const email = inputRef.current?.value || '';
-    navigate('/register/password', { state: { email } });
+    navigate('/register/password', { state: { email: emailState.email } });
   };
 
   return (
@@ -20,7 +38,7 @@ function RegisterEamilInputPage() {
         </BackButton>
       </Header>
       <Head1>이메일을 입력해주세요</Head1>
-      <Input placeholder="abc@naver.com" ref={inputRef} />
+      <Input placeholder="abc@naver.com" value={emailState.email} onChange={onInputEmail} />
       <NextButton onClick={onClickNext}>다음</NextButton>
     </>
   );
