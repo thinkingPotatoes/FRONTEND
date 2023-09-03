@@ -1,17 +1,22 @@
 import { ReactComponent as BackArrow } from '../assets/image/icon/backArrow.svg';
 import styled from 'styled-components';
-import { useRef } from 'react';
+import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
 function LoginPasswordInputPage() {
-  const inputRef = useRef<HTMLInputElement | null>(null);
+  const [password, setPassword] = useState<string>('');
+
   const {
     state: { email },
   } = useLocation();
 
-  const onClickNext = () => {
-    const password = inputRef.current?.value || '';
+  const onInputPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newPassword = e.target.value;
 
+    setPassword(newPassword);
+  };
+
+  const onClickNext = () => {
     fetch('http://localhost:8080/users/login', {
       method: 'POST',
       headers: {
@@ -19,7 +24,7 @@ function LoginPasswordInputPage() {
       },
       body: JSON.stringify({
         userId: email,
-        password: password,
+        password,
       }),
     })
       .then((res) => res.json())
@@ -36,8 +41,11 @@ function LoginPasswordInputPage() {
         </BackButton>
       </Header>
       <Head1>비밀번호를 입력해주세요.</Head1>
-      <Input type="password" ref={inputRef} />
-      <NextButton onClick={onClickNext}>다음</NextButton>
+      <Input type="password" value={password} onChange={onInputPassword} />
+      <Body2>영문, 숫자, 특수문자를 포함해 8자 이상</Body2>
+      <NextButton onClick={onClickNext} disabled={!!!password}>
+        다음
+      </NextButton>
     </>
   );
 }
@@ -76,6 +84,7 @@ const Input = styled.input`
   background-color: var(--background-bright);
   height: 56px;
   color: var(--text-default);
+  margin-bottom: 11px;
 
   &::placeholder {
     font-size: 14px;
@@ -89,7 +98,21 @@ const Input = styled.input`
   }
 `;
 
-const NextButton = styled.button`
+const Body2 = styled.div`
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 130%; /* 18.2px */
+  letter-spacing: -0.014px;
+  color: var(--disabled);
+  font-family: 'Pretendard';
+`;
+
+interface ButtonProps {
+  disabled: boolean;
+}
+
+const NextButton = styled.button<ButtonProps>`
   position: fixed;
   left: 0px;
   bottom: 0;
@@ -97,10 +120,11 @@ const NextButton = styled.button`
   justify-content: center;
   align-items: center;
   font-family: 'Pretendard';
-  color: #ffffff;
+  color: ${({ disabled }: ButtonProps) => (disabled ? 'var(--disabled)' : '#ffffff')};
   height: 52px;
   width: 100%;
-  background-color: var(--main);
+  background-color: ${({ disabled }: ButtonProps) =>
+    disabled ? 'var(--background-bright)' : 'var(--main)'};
   margin-top: auto;
 `;
 

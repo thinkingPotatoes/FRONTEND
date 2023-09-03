@@ -1,18 +1,63 @@
-import { useRef } from 'react';
+import { useState } from 'react';
 import { ReactComponent as BackArrow } from '../assets/image/icon/backArrow.svg';
 
 import styled from 'styled-components';
 import { useLocation, useNavigate } from 'react-router-dom';
 
+type PasswordState = {
+  password: string;
+  isValid: boolean;
+  message: string;
+};
+
 function RegisterPasswordInputPage() {
-  const inputRef = useRef<HTMLInputElement | null>(null);
+  const [passwordState, setPasswordState] = useState<PasswordState>({
+    password: '',
+    isValid: true,
+    message: '',
+  });
+
   const navigate = useNavigate();
+
   const {
     state: { email },
   } = useLocation();
 
+  const validatePassword = (password: string) => {
+    const englishRegex = /(?=.*[a-zA-Z])/;
+    const numberRegex = /(?=.*[0-9])/;
+    const specialCharRegex = /(?=.*[!@#$%^&*=-])/;
+
+    if (password.length < 8) {
+      return { isValid: false, message: '8자 이상 입력해주세요' };
+    }
+
+    if (!englishRegex.test(password)) {
+      return { isValid: false, message: '영문을 포함해주세요' };
+    }
+
+    if (!numberRegex.test(password)) {
+      return { isValid: false, message: '숫자를 포함해주세요' };
+    }
+
+    if (!specialCharRegex.test(password)) {
+      return { isValid: false, message: '특수 문자를 포함해주세요' };
+    }
+
+    return { isValid: true, message: '' };
+  };
+
+  const onInputPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newPassword = e.target.value;
+
+    setPasswordState({
+      password: newPassword,
+      ...validatePassword(newPassword),
+    });
+  };
+
   const onClickNext = () => {
-    const password = inputRef.current?.value || '';
+    const { password } = passwordState;
 
     fetch('http://localhost:8080/users/signup', {
       method: 'POST',
@@ -21,7 +66,7 @@ function RegisterPasswordInputPage() {
       },
       body: JSON.stringify({
         userId: email,
-        password: password,
+        password,
       }),
     })
       .then((res) => res.json())
@@ -38,8 +83,18 @@ function RegisterPasswordInputPage() {
         </BackButton>
       </Header>
       <Head1>비밀번호를 입력해주세요.</Head1>
-      <Input type="password" ref={inputRef} />
-      <NextButton onClick={onClickNext}>다음</NextButton>
+      <Input type="password" onChange={onInputPassword} />
+      {passwordState.isValid && (
+        <Body2 color="var(--disabled)">영문, 숫자, 특수문자를 포함해 8자 이상</Body2>
+      )}
+      {!passwordState.isValid && <Body2 color="#D24545">{passwordState.message}</Body2>}
+
+      <NextButton
+        onClick={onClickNext}
+        disabled={!!!passwordState.password || !passwordState.isValid}
+      >
+        다음
+      </NextButton>
     </>
   );
 }
@@ -78,6 +133,7 @@ const Input = styled.input`
   background-color: var(--background-bright);
   height: 56px;
   color: var(--text-default);
+  margin-bottom: 11px;
 
   &::placeholder {
     font-size: 14px;
@@ -90,8 +146,24 @@ const Input = styled.input`
     outline: none;
   }
 `;
+interface Body2Props {
+  color: string;
+}
+const Body2 = styled.div<Body2Props>`
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 130%; /* 18.2px */
+  letter-spacing: -0.014px;
+  color: ${({ color }) => color};
+  font-family: 'Pretendard';
+`;
 
-const NextButton = styled.button`
+interface ButtonProps {
+  disabled: boolean;
+}
+
+const NextButton = styled.button<ButtonProps>`
   position: fixed;
   left: 0px;
   bottom: 0;
@@ -99,11 +171,11 @@ const NextButton = styled.button`
   justify-content: center;
   align-items: center;
   font-family: 'Pretendard';
-  color: #ffffff;
+  color: ${({ disabled }: ButtonProps) => (disabled ? 'var(--disabled)' : '#ffffff')};
   height: 52px;
   width: 100%;
-  background-color: var(--main);
+  background-color: ${({ disabled }: ButtonProps) =>
+    disabled ? 'var(--background-bright)' : 'var(--main)'};
   margin-top: auto;
 `;
-
 export default RegisterPasswordInputPage;
