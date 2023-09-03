@@ -29,7 +29,20 @@ function LoginPasswordInputPage() {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log('data', data);
+
+  const onClickChangePassword = () => {
+    fetch('http://localhost:8080/users/email-send', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        userId: email,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        navigate('/password/check');
       });
   };
 
@@ -43,6 +56,9 @@ function LoginPasswordInputPage() {
       <Head1>비밀번호를 입력해주세요.</Head1>
       <Input type="password" value={password} onChange={onInputPassword} />
       <Body2>영문, 숫자, 특수문자를 포함해 8자 이상</Body2>
+      <SettingButton onClick={onClickChangePassword}>
+        <Body3>비밀번호 재설정하기</Body3>
+      </SettingButton>
       <NextButton onClick={onClickNext} disabled={!!!password}>
         다음
       </NextButton>
