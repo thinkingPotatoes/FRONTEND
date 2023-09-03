@@ -1,6 +1,33 @@
 import { ReactComponent as BackArrow } from '../assets/image/icon/backArrow.svg';
+import styled from 'styled-components';
+import { useRef } from 'react';
+import { useLocation } from 'react-router-dom';
 
 function LoginPasswordInputPage() {
+  const inputRef = useRef<HTMLInputElement | null>(null);
+  const {
+    state: { email },
+  } = useLocation();
+
+  const onClickNext = () => {
+    const password = inputRef.current?.value || '';
+
+    fetch('http://localhost:8080/users/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        userId: email,
+        password: password,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log('data', data);
+      });
+  };
+
   return (
     <>
       <Header>
@@ -9,13 +36,11 @@ function LoginPasswordInputPage() {
         </BackButton>
       </Header>
       <Head1>비밀번호를 입력해주세요.</Head1>
-      <Input type="password" />
-      <NextButton>다음</NextButton>
+      <Input type="password" ref={inputRef} />
+      <NextButton onClick={onClickNext}>다음</NextButton>
     </>
   );
 }
-
-import styled from 'styled-components';
 
 const Head1 = styled.div`
   font-size: 24px;
