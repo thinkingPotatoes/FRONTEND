@@ -2,12 +2,15 @@ import { styled, css } from 'styled-components';
 import { ReactComponent as BackArrow } from '../assets/image/icon/backArrow.svg';
 import ConfettiLottieData from '../assets/lottie/confetti_transp.json';
 import Lottie from 'react-lottie';
+import { useNavigate } from 'react-router-dom';
 
 interface Body2Props {
   isCenter: boolean;
 }
 
 function RegisterSuccess() {
+  const navigate = useNavigate();
+
   const confettiOptions = {
     loop: false,
     autoplay: true,
@@ -15,6 +18,10 @@ function RegisterSuccess() {
     rendererSettings: {
       preserveAspectRatio: 'xMidYMid slice',
     },
+  };
+
+  const onClickNext = () => {
+    navigate('/home');
   };
 
   return (
@@ -30,7 +37,7 @@ function RegisterSuccess() {
         <Lottie options={confettiOptions} height={256} width={256} />
       </LottieContainer>
       <Body2 isCenter={true}>앞으로 자동 로그인 할게요</Body2>
-      <NextButton>추천 받고 시작하기</NextButton>
+      <NextButton onClick={onClickNext}>추천 받고 시작하기</NextButton>
     </Container>
   );
 }

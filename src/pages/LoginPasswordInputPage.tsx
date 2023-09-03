@@ -1,10 +1,12 @@
 import { ReactComponent as BackArrow } from '../assets/image/icon/backArrow.svg';
 import styled from 'styled-components';
 import { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 function LoginPasswordInputPage() {
   const [password, setPassword] = useState<string>('');
+
+  const navigate = useNavigate();
 
   const {
     state: { email },
@@ -29,6 +31,9 @@ function LoginPasswordInputPage() {
     })
       .then((res) => res.json())
       .then((data) => {
+        navigate('/home');
+      });
+  };
 
   const onClickChangePassword = () => {
     fetch('http://localhost:8080/users/email-send', {
@@ -122,6 +127,7 @@ const Body2 = styled.div`
   letter-spacing: -0.014px;
   color: var(--disabled);
   font-family: 'Pretendard';
+  margin-bottom: 16px;
 `;
 
 interface ButtonProps {
@@ -142,6 +148,25 @@ const NextButton = styled.button<ButtonProps>`
   background-color: ${({ disabled }: ButtonProps) =>
     disabled ? 'var(--background-bright)' : 'var(--main)'};
   margin-top: auto;
+`;
+
+const SettingButton = styled.button`
+  border-radius: 8px;
+  background-color: var(--background-bright);
+  height: 32px;
+  width: 121px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const Body3 = styled.div`
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 130%; /* 15.6px */
+  font-family: 'Pretendard';
+  color: var(--text-default);
 `;
 
 export default LoginPasswordInputPage;
