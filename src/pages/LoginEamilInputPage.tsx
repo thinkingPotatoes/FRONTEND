@@ -1,6 +1,17 @@
+import { useRef } from 'react';
 import { ReactComponent as BackArrow } from '../assets/image/icon/backArrow.svg';
+import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
 function LoginEamilInputPage() {
+  const inputRef = useRef<HTMLInputElement | null>(null);
+  const navigate = useNavigate();
+
+  const onClickNext = () => {
+    const email = inputRef.current?.value || '';
+    navigate('/login/password', { state: { email } });
+  };
+
   return (
     <>
       <Header>
@@ -9,13 +20,11 @@ function LoginEamilInputPage() {
         </BackButton>
       </Header>
       <Head1>이메일을 입력해주세요</Head1>
-      <Input placeholder="abc@naver.com" />
-      <NextButton>다음</NextButton>
+      <Input placeholder="abc@naver.com" ref={inputRef} />
+      <NextButton onClick={onClickNext}>다음</NextButton>
     </>
   );
 }
-
-import styled from 'styled-components';
 
 const Head1 = styled.div`
   font-size: 24px;
