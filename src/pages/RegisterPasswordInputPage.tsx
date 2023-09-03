@@ -75,10 +75,14 @@ function RegisterPasswordInputPage() {
         navigate('/register/check');
       });
   };
+
+  const onClickGoBack = () => {
+    navigate(-1);
+  };
   return (
     <>
       <Header>
-        <BackButton>
+        <BackButton onClick={onClickGoBack}>
           <BackArrow />
         </BackButton>
       </Header>
