@@ -8,6 +8,7 @@ import RegisterSuccess from '../pages/RegisterSuccess.tsx';
 import RegisterEamilInputPage from '../pages/RegisterEamilInputPage.tsx';
 import RegisterPasswordInputPage from '../pages/RegisterPasswordInputPage.tsx';
 import Redirect from '../pages/Redirect.tsx';
+import MovieTasteSelection from '../pages/MovieTasteSelection.tsx';
 
 export const commonRouter = [
   {
@@ -47,6 +48,10 @@ export const commonRouter = [
   {
     path: '/password/check',
     element: <EmailCheck />,
+  },
+  {
+    path: '/register/select',
+    element: <MovieTasteSelection />,
   },
 ];
 

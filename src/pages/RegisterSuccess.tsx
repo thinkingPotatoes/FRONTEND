@@ -21,7 +21,7 @@ function RegisterSuccess() {
   };
 
   const onClickNext = () => {
-    navigate('/home');
+    navigate('/register/select');
   };
 
   return (
