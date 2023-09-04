@@ -37,6 +37,10 @@ function MovieTasteSelection() {
     }
   };
 
+  const onClickNext = () => {
+    navigate('/register/genre');
+  };
+
   return (
     <Container>
       <Header>
@@ -56,6 +60,7 @@ function MovieTasteSelection() {
       </Main>
       <NextButton
         disabled={selectedMovies.length !== 3}
+        onClick={onClickNext}
       >{`${selectedMovies.length} / 3 다음`}</NextButton>
     </Container>
   );
