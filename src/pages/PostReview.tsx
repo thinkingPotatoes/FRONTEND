@@ -17,6 +17,29 @@ function PostReview() {
   const subjectRef = useRef<HTMLTextAreaElement>(null);
   const contentRef = useRef<HTMLTextAreaElement>(null);
 
+  const getBytes = (str: string) => {
+    let character;
+    let charBytes = 0;
+
+    for (let i = 0; i < str.length; i += 1) {
+      character = str.charAt(i);
+
+      if (escape(character).length > 4) charBytes += 2;
+      else charBytes += 1;
+    }
+
+    return charBytes;
+  };
+
+  const validateForm = () => {
+    if (getBytes(form.subject) > 50000) {
+      throw new Error('제목 50,000 bytes 초과');
+    }
+    if (getBytes(form.content) > 50000) {
+      throw new Error('내용 50,000 bytes 초과');
+    }
+  };
+
   const handleResizeSubjectHeight = useCallback(() => {
     if (subjectRef.current) {
       subjectRef.current.style.height = 'auto';
@@ -32,7 +55,14 @@ function PostReview() {
   }, []);
 
   const handlePostReview = useCallback(() => {
-    axios.post(`${process.env.REACT_BASE_URL}/filog/create`, {
+    try {
+      validateForm();
+    } catch (e) {
+      if (e instanceof Error) alert(e.message);
+      return;
+    }
+
+    axios.post(`http://localhost:8080/filog/create`, {
       movieId: movieId,
       subject: form.subject,
       content: form.content,
@@ -87,7 +117,7 @@ const PostReviewWrapper = styled.div`
   gap: 12px;
 
   color: var(--dark-grey-800);
-  height: 100vh;
+  /* height: 100vh; */
 
   input::placeholder,
   textarea::placeholder {
