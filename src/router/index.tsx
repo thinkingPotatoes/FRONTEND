@@ -9,6 +9,7 @@ import RegisterEamilInputPage from '../pages/RegisterEamilInputPage.tsx';
 import RegisterPasswordInputPage from '../pages/RegisterPasswordInputPage.tsx';
 import Redirect from '../pages/Redirect.tsx';
 import MovieTasteSelection from '../pages/MovieTasteSelection.tsx';
+import SelectGenre from '../pages/SelectGenre.tsx';
 
 export const commonRouter = [
   {
@@ -52,6 +53,10 @@ export const commonRouter = [
   {
     path: '/register/select',
     element: <MovieTasteSelection />,
+  },
+  {
+    path: '/register/genre',
+    element: <SelectGenre />,
   },
 ];
 
