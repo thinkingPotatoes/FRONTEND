@@ -13,13 +13,21 @@ function GenreButton({ genre, onClickGenre }: Props) {
     onClickGenre(genre.id, isSelected);
     setIsSelected(!isSelected);
   };
-  return <Button onClick={onClick}>{genre.title}</Button>;
+  return (
+    <Button onClick={onClick} isSelected={isSelected}>
+      {genre.title}
+    </Button>
+  );
 }
 
-const Button = styled.button`
+interface ButtonProps {
+  isSelected: boolean;
+}
+
+const Button = styled.button<ButtonProps>`
   height: 48px;
   padding: 8px 12px;
-  color: var(--text-default);
+  color: ${({ isSelected }) => (isSelected ? 'var(--main)' : 'var(--text-default)')};
   font-family: 'Pretendard';
   font-size: 12px;
   display: flex;
@@ -27,6 +35,8 @@ const Button = styled.button`
   align-items: center;
   background-color: var(--background-bright);
   border-radius: 8px;
+  border: 1px solid #000000;
+  border-color: ${({ isSelected }) => (isSelected ? 'var(--main)' : 'none')};
 `;
 
 export default GenreButton;

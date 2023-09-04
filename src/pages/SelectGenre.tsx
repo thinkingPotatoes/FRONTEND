@@ -58,7 +58,9 @@ function SelectGenre() {
           <GenreButton genre={genre} onClickGenre={onClickGenre} />
         ))}
       </Main>
-      <Body2 isCenter={true}>다음에 입력하기</Body2>
+      <Body2 isCenter={true} style={{ marginTop: 'auto' }}>
+        다음에 입력하기
+      </Body2>
       <NextButton onClick={onClickNext}>시작하기</NextButton>
     </Container>
   );
@@ -130,7 +132,6 @@ const NextButton = styled.button`
   height: 52px;
   width: 100%;
   background-color: var(--main);
-  margin-top: auto;
   border-radius: 8px;
   margin-bottom: 20px;
 `;
