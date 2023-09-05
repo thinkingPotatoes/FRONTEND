@@ -26,13 +26,19 @@ function SearchPage() {
   return (
     <QueryClientProvider client={queryClient}>
       <SearchFrame>
-        <SearchBox onSearch={handleSearch} onChange={handleChange} setResults={setSearchResults} />
+        <SearchBox
+          onSearch={handleSearch}
+          onChange={handleChange}
+          setResults={setSearchResults}
+          keyNow={keyword}
+        />
         {showDefaultSearch && (
           <>
             <RecentSearch
               onSearch={handleSearch}
               onChange={handleChange}
               setResults={setSearchResults}
+              keyNow={keyword}
             />
           </>
         )}

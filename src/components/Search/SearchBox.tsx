@@ -9,11 +9,13 @@ import useLocalStorage from '../../hooks/useLocalStorage';
 import { useQuery } from 'react-query';
 import axios from '../../api/apiController';
 import { MovieResponseList } from '../types/search';
+import { useNavigate } from 'react-router-dom';
 
 export interface SearchBoxProps {
   onSearch: (keyword: string, booleanCheck: boolean) => void;
   onChange: (keyword: boolean) => void;
   setResults: React.Dispatch<React.SetStateAction<MovieResponseList[]>>;
+  keyNow: string;
 }
 
 export const fetchAutocompleteSuggestions = async (keyword: string) => {
@@ -34,14 +36,22 @@ export function useAutocompleteQuery(keyword: string) {
   });
 }
 
-function SearchBox({ onChange, onSearch, setResults }: SearchBoxProps) {
+function SearchBox({ onChange, onSearch, setResults, keyNow }: SearchBoxProps) {
+  const Navigate = useNavigate();
   const [keyword, setKeyword] = useState<string>('');
   const [isSearch, setIsSearch] = useState(false);
+  const [fromRecentKeyword, setFromRecentKeyword] = useState(false);
+
   const [recentSearch, setRecentSearch] = useLocalStorage({
     key: localStorageKey,
     initialValue: [],
   });
   const { data: searchResults } = useAutocompleteQuery(keyword);
+
+  useEffect(() => {
+    setKeyword(keyNow);
+    setFromRecentKeyword(true);
+  }, [keyNow]);
 
   useEffect(() => {
     setResults(searchResults);
@@ -59,6 +69,9 @@ function SearchBox({ onChange, onSearch, setResults }: SearchBoxProps) {
   }
 
   function removeKeyword() {
+    if (keyNow.length === 0) {
+      Navigate('/');
+    }
     setKeyword('');
     onChange(true);
     onSearch('', false);
@@ -98,7 +111,7 @@ function SearchBox({ onChange, onSearch, setResults }: SearchBoxProps) {
           isSearch={isSearch}
         />
       </SearchContainer>
-      {searchResults?.length > 0 && keyword && !isSearch && (
+      {searchResults?.length > 0 && keyword && !isSearch && !fromRecentKeyword && (
         <AutoSearchList
           searchResults={searchResults}
           onClick={(movie) => {
