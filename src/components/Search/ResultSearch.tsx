@@ -4,7 +4,6 @@ import { MovieResponseList } from '../types/search';
 const empty_poster = 'src/assets/image/poster/empty_poster.png';
 
 function ResultSearch({ results }: { results: MovieResponseList[] }) {
-  console.log(results);
   return (
     <>
       <Subtitle>검색 된 영화</Subtitle>

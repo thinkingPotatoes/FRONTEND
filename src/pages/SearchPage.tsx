@@ -2,9 +2,7 @@ import { useState } from 'react';
 import { styled } from 'styled-components';
 import RecentSearch from '../components/Search/RecentSearch.tsx';
 import SearchBox from '../components/Search/SearchBox.tsx';
-import HotSearch from '../components/Search/HotSearch.tsx';
 import ResultSearch from '../components/Search/ResultSearch.tsx';
-import RecommendSearch from '../components/Search/RecommendSearch.tsx';
 
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { MovieResponseList } from '../components/types/search.ts';
