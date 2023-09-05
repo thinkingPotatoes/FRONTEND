@@ -1,7 +1,10 @@
 import { styled } from 'styled-components';
 import { MovieResponseList } from '../types/search';
 
+const empty_poster = 'src/assets/image/poster/empty_poster.png';
+
 function ResultSearch({ results }: { results: MovieResponseList[] }) {
+  console.log(results);
   return (
     <>
       <Subtitle>검색 된 영화</Subtitle>
@@ -10,7 +13,7 @@ function ResultSearch({ results }: { results: MovieResponseList[] }) {
           results.map((movie, idx) => (
             <EachMovie key={idx}>
               <Poster>
-                <img src={movie.poster} />
+                <img src={movie.poster.length === 0 ? empty_poster : movie.poster} />
               </Poster>
               <Info>
                 <div className="title">{movie.title}</div>
