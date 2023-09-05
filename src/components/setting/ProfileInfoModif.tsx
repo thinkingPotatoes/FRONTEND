@@ -26,8 +26,6 @@ const ProfileInfo = styled.div`
 `;
 const Info = styled.div`
   width: 100%;
-  font-family: Pretendard;
-  font-style: normal;
 
   .nickname {
     color: var(--text-default);
