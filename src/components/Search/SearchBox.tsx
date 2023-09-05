@@ -58,6 +58,7 @@ function SearchBox({ onChange, onSearch, setResults, keyNow }: SearchBoxProps) {
   }, [searchResults]);
 
   function onChangeData(e: React.FormEvent<HTMLInputElement>) {
+    setFromRecentKeyword(false);
     setKeyword(e.currentTarget.value);
     setIsSearch(false);
     if (e.currentTarget.value.length === 0) {
