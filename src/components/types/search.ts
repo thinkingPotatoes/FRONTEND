@@ -1,10 +1,10 @@
 export interface MovieResponseList {
   docId: string;
-  title: string;
+  genre: string;
+  nation: string;
   poster: string;
   prodYear: string;
-  janre: string[];
-  country: string;
+  title: string;
 }
 
 export interface searchMovieBar {

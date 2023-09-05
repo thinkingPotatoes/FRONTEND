@@ -10,14 +10,20 @@ function ResultSearch({ results }: { results: MovieResponseList[] }) {
       <Subtitle>검색 된 영화</Subtitle>
       <MovieList>
         {results ? (
-          results.map((movie, idx) => (
+          results.map((movie: MovieResponseList, idx) => (
             <EachMovie key={idx}>
               <Poster>
                 <img src={movie.poster.length === 0 ? empty_poster : movie.poster} />
               </Poster>
               <Info>
                 <div className="title">{movie.title}</div>
-                <div className="etcInfo">{movie.prodYear}</div>
+                <div className="etcInfo">
+                  {movie.prodYear +
+                    ' | ' +
+                    movie.genre.split(',').slice(0, 3).join(',') +
+                    ' | ' +
+                    movie.nation}
+                </div>
               </Info>
             </EachMovie>
           ))
