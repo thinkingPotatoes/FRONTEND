@@ -36,12 +36,10 @@ function SearchPage() {
               onChange={handleChange}
               setResults={setSearchResults}
             />
-            <HotSearch />
           </>
         )}
         {showResult && (
           <>
-            <RecommendSearch />
             <ResultSearch results={searchResults} />
           </>
         )}
