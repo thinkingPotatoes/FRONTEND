@@ -13,7 +13,6 @@ const TopSettingNav = () => {
 };
 
 const TopNav = styled.div`
-  margin-left: -20px;
   display: flex;
   width: 375px;
   height: 44px;
