@@ -6,7 +6,7 @@ import { ReactComponent as NextArrowSvg } from '../assets/image/icon/frontArrow.
 function Setting() {
   return (
     <SettingPage>
-      <TopSettingNav />
+      <TopSettingNav props="설정" />
       <ProfileInfoModif />
 
       <SettingSection>

@@ -1,13 +1,13 @@
 import { styled } from 'styled-components';
 import { ReactComponent as BackArrowSvg } from '../../assets/image/icon/backArrow.svg';
 
-const TopSettingNav = () => {
+const TopSettingNav = ({ props }: { props: string }) => {
   return (
     <TopNav>
       <SvgWrapper>
         <BackArrowSvg />
       </SvgWrapper>
-      <div className="title">설정</div>
+      <div className="title">{props}</div>
     </TopNav>
   );
 };
