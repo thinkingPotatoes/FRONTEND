@@ -32,7 +32,6 @@ function RecentSearch({ onChange, onSearch, setResults }: SearchBoxProps) {
   }
 
   async function handleRecentChipSearch(keyword: string) {
-    // console.log(keyword);
     onSearch(keyword, true);
     onChange(false);
 
