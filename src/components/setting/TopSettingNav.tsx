@@ -32,7 +32,7 @@ const TopNav = styled.div`
   .title {
     width: 100%;
     display: flex;
-    padding-right: 20px;
+    padding-right: 45px;
     justify-content: center;
     font-size: 16px;
     color: var(--text-emphasize);

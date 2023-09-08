@@ -37,7 +37,7 @@ function Setting() {
           <div className="title">앱 버전</div>
           <SvgWrapper className="sub-text">1.0.0</SvgWrapper>
         </SectionBody>
-        <SectionBody>
+        <SectionBody onClick={() => navigate('issue-info')}>
           <div className="title">Filmo 새소식</div>
           <SvgWrapper>
             <NextArrowSvg />
