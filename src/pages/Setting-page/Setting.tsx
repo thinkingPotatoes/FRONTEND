@@ -43,7 +43,7 @@ function Setting() {
             <NextArrowSvg />
           </SvgWrapper>
         </SectionBody>
-        <SectionBody>
+        <SectionBody onClick={() => navigate('opensource-info')}>
           <div className="title">오픈소스 라이선스 보기</div>
           <SvgWrapper>
             <NextArrowSvg />
