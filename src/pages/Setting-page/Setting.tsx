@@ -2,8 +2,11 @@ import TopSettingNav from '../../components/setting/TopSettingNav';
 import ProfileInfoModif from '../../components/setting/ProfileInfoModif';
 import { styled } from 'styled-components';
 import { ReactComponent as NextArrowSvg } from '../../assets/image/icon/frontArrow.svg';
+import { useNavigate } from 'react-router-dom';
 
 function Setting() {
+  const navigate = useNavigate();
+
   return (
     <SettingPage>
       <TopSettingNav props="설정" />
@@ -18,13 +21,13 @@ function Setting() {
       </SettingSection>
       <SettingSection>
         <SubTitle>약관</SubTitle>
-        <SectionBody>
+        <SectionBody onClick={() => navigate('service-info')}>
           <div className="title">서비스 이용약관</div>
           <SvgWrapper>
             <NextArrowSvg />
           </SvgWrapper>
         </SectionBody>
-        <SectionBody>
+        <SectionBody onClick={() => navigate('private-info')}>
           <div className="title">개인정보 처리방침</div>
           <SvgWrapper>
             <NextArrowSvg />
