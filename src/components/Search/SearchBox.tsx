@@ -79,6 +79,16 @@ function SearchBox({ onChange, onSearch, setResults, keyNow }: SearchBoxProps) {
     setIsSearch(false);
   }
 
+  function linkToPrevPage() {
+    if (keyNow.length === 0) {
+      Navigate('/');
+    }
+    setKeyword('');
+    onChange(true);
+    onSearch('', false);
+    setIsSearch(false);
+  }
+
   function onSearchClick() {
     setKeyword(keyword);
 
@@ -101,7 +111,7 @@ function SearchBox({ onChange, onSearch, setResults, keyNow }: SearchBoxProps) {
   return (
     <>
       <SearchContainer>
-        <LeftButtonBox onClick={removeKeyword}>
+        <LeftButtonBox onClick={linkToPrevPage}>
           <LeftPrevSvg />
         </LeftButtonBox>
         <SearchInputBar
@@ -112,18 +122,20 @@ function SearchBox({ onChange, onSearch, setResults, keyNow }: SearchBoxProps) {
           isSearch={isSearch}
         />
       </SearchContainer>
-      {searchResults?.length > 0 && keyword && !isSearch && !fromRecentKeyword && (
-        <AutoSearchList
-          searchResults={searchResults}
-          onClick={(movie) => {
-            setKeyword(movie);
-            onSearch(movie, true);
-            setIsSearch(true);
-          }}
-        />
-      )}
-      {searchResults?.length === 0 && keyword && (
-        <NoSearchResult>검색된 결과가 없습니다.</NoSearchResult>
+      {keyword && (
+        <>
+          {searchResults?.length > 0 && !isSearch && !fromRecentKeyword && (
+            <AutoSearchList
+              searchResults={searchResults}
+              onClick={(movie) => {
+                setKeyword(movie);
+                onSearch(movie, true);
+                setIsSearch(true);
+              }}
+            />
+          )}
+          {searchResults?.length === 0 && <NoSearchResult>검색된 결과가 없습니다.</NoSearchResult>}
+        </>
       )}
     </>
   );
