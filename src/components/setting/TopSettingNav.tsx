@@ -5,10 +5,11 @@ import { useNavigate } from 'react-router-dom';
 const TopSettingNav = ({ props }: { props: string }) => {
   const navigate = useNavigate();
   const handleLink = () => {
-    if (props === '내 정보') {
-      navigate('/setting');
-    } else {
+    if (props === '설정') {
       //일반 설정일때의 전 화면 이동
+      navigate('/');
+    } else {
+      navigate('/setting');
     }
   };
   return (
@@ -23,13 +24,16 @@ const TopSettingNav = ({ props }: { props: string }) => {
 
 const TopNav = styled.div`
   display: flex;
-  width: 375px;
   height: 44px;
   padding-right: 0px;
   align-items: center;
-  gap: 134px;
+  // gap: 134px;
   flex-shrink: 0;
   .title {
+    width: 100%;
+    display: flex;
+    padding-right: 20px;
+    justify-content: center;
     font-size: 16px;
     color: var(--text-emphasize);
     font-weight: 600;
