@@ -1,10 +1,14 @@
-import React from 'react';
 import { styled } from 'styled-components';
 import { ReactComponent as NextArrowSvg } from '../../assets/image/icon/frontArrow.svg';
+import { useNavigate } from 'react-router-dom';
 
 const ProfileInfoModif = () => {
+  const navigate = useNavigate();
+  const linkToMyInfo = () => {
+    navigate('/setting-info');
+  };
   return (
-    <ProfileInfo>
+    <ProfileInfo onClick={linkToMyInfo}>
       <Info>
         <div className="nickname">닉네임님</div>
         <div className="modifBtn">내 정보 수정하기</div>

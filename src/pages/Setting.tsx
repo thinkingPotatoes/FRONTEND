@@ -11,6 +11,8 @@ function Setting() {
 
       <SettingSection>
         <SubTitle>계정</SubTitle>
+
+        {/* sns 로그인 시 비밀번호 변경 X */}
         <SectionBody>비밀번호 변경</SectionBody>
         <SectionBody>로그아웃</SectionBody>
       </SettingSection>
