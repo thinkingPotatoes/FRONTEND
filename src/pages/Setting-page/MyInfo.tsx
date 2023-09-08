@@ -1,6 +1,6 @@
-import TopSettingNav from '../components/setting/TopSettingNav';
+import TopSettingNav from '../../components/setting/TopSettingNav';
 import { styled } from 'styled-components';
-import { ReactComponent as NextArrowSvg } from '../assets/image/icon/frontArrow.svg';
+import { ReactComponent as NextArrowSvg } from '../../assets/image/icon/frontArrow.svg';
 
 function MyInfo() {
   return (

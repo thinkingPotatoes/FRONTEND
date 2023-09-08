@@ -1,7 +1,7 @@
-import TopSettingNav from '../components/setting/TopSettingNav';
-import ProfileInfoModif from '../components/setting/ProfileInfoModif';
+import TopSettingNav from '../../components/setting/TopSettingNav';
+import ProfileInfoModif from '../../components/setting/ProfileInfoModif';
 import { styled } from 'styled-components';
-import { ReactComponent as NextArrowSvg } from '../assets/image/icon/frontArrow.svg';
+import { ReactComponent as NextArrowSvg } from '../../assets/image/icon/frontArrow.svg';
 
 function Setting() {
   return (

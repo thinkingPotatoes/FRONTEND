@@ -1,7 +1,7 @@
 import Home from '../pages/Home.tsx';
 import Blog from '../pages/Blog.tsx';
-import Setting from '../pages/Setting.tsx';
-import MyInfo from '../pages/MyInfo.tsx';
+import Setting from '../pages/Setting-page/Setting.tsx';
+import MyInfo from '../pages/Setting-page/MyInfo.tsx';
 
 export const commonRouter = [
   { path: '/', element: <Home /> },
