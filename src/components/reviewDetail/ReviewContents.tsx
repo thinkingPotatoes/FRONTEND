@@ -71,7 +71,7 @@ const ReviewContents = () => {
       <CategoryChips isSpoiler={true} scope="PUBLIC" />
       <div className="title">{dummyData.subject}</div>
       <MovieInfo info={dummyData.movieDto} star={dummyData.star} />
-      <WatchInfo />
+      <WatchInfo date={dummyData.watchedAt} location={dummyData.theater} seat={dummyData.seat} />
       <div className="contents">{dummyData.content}</div>
     </ContentsWrapper>
   );
