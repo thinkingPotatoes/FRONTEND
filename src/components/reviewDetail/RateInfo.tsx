@@ -21,7 +21,7 @@ interface StarIconProps {
 }
 
 const RateWrapper = styled.div`
-  margin: 8px 0px;
+  // margin: 6px 0px;
 `;
 
 const StarIcon = styled(({ filled }: StarIconProps) =>

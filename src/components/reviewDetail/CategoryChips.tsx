@@ -1,22 +1,23 @@
 import { styled } from 'styled-components';
 
 interface Props {
-  categoryList: string[];
+  isSpoiler: boolean;
+  scope: string;
 }
 
-const CategoryChips = ({ categoryList }: Props) => {
+function CategoryChips({ isSpoiler, scope }: Props) {
   return (
     <ChipList>
-      {categoryList.map((category) => (
-        <Chip>{category}</Chip>
-      ))}
+      <Chip>{isSpoiler ? '스포일러 있음' : '스포일러 없음'}</Chip>
+      <Chip>{scope === 'PUBLIC' ? '전체공개' : '나만보기'}</Chip>
     </ChipList>
   );
-};
+}
 
 const ChipList = styled.div`
   display: flex;
   gap: 5px;
+  margin-bottom: 8px;
 `;
 
 const Chip = styled.div`
