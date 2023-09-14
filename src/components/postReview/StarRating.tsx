@@ -1,39 +1,25 @@
+import { Rating } from 'react-simple-star-rating';
 import { styled } from 'styled-components';
 import { ReactComponent as BlankStarIcon } from '../../assets/image/icon/blankStar.svg';
 import { ReactComponent as FillStarIcon } from '../../assets/image/icon/fillStar.svg';
 
 type StarRatingProps = {
-  grade: number;
   setGrade: React.Dispatch<React.SetStateAction<number>>;
 };
 
-function StarRating({ grade, setGrade }: StarRatingProps) {
-  const stars = new Array(5).fill(false);
-  stars.forEach((_, index) => {
-    stars[index] = grade > index ? true : false;
-  });
-
-  const handleRateStar = (grade: number) => setGrade(grade + 1);
+function StarRating({ setGrade }: StarRatingProps) {
+  const handleRating = (rate: number) => {
+    setGrade(rate);
+  };
 
   return (
     <StarRatingWrapper>
-      {stars.map((isFill: boolean, index) =>
-        isFill ? (
-          <FillStarIcon
-            onClick={() => handleRateStar(index)}
-            key={index}
-            width={'24px'}
-            height={'24px'}
-          />
-        ) : (
-          <BlankStarIcon
-            onClick={() => handleRateStar(index)}
-            key={index}
-            width={'24px'}
-            height={'24px'}
-          />
-        ),
-      )}
+      <Rating
+        onClick={handleRating}
+        fillIcon={<FillStarIcon width={'24px'} height={'24px'} />}
+        emptyIcon={<BlankStarIcon width={'24px'} height={'24px'} />}
+        allowFraction={true}
+      />
     </StarRatingWrapper>
   );
 }
