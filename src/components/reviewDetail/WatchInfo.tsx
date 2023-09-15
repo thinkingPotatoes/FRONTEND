@@ -39,7 +39,7 @@ const WatchInfo = ({ date, location, seat }: Props) => {
       <div className="date">
         <DateSvg /> <span>관람 일자</span> {formatDate(date)}
       </div>
-      {!isInfoVisible && (
+      {isInfoVisible && (
         <>
           <div className="location">
             <ClockSvg /> <span>관람 장소</span> {location}

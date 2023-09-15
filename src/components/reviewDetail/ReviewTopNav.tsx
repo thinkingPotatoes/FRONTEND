@@ -1,14 +1,31 @@
+import { useNavigate } from 'react-router-dom';
 import { ReactComponent as BackArrowSvg } from '../../assets/image/icon/backArrow.svg';
 import { ReactComponent as ShareSvg } from '../../assets/image/icon/share.svg';
 import { styled } from 'styled-components';
 
-const ReviewTopNav = () => {
+interface Props {
+  id: string;
+  userId: string;
+  blogDto:
+    | {
+        nickname: string;
+        title: string;
+      }
+    | undefined;
+}
+
+const ReviewTopNav = ({ id, userId, blogDto }: Props) => {
+  const navigate = useNavigate();
+
+  const handleLeftArrowClick = () => {
+    navigate('/review-list');
+  };
   return (
     <TopNavBar>
       <SvgWrapper>
-        <BackArrowSvg />
+        <BackArrowSvg onClick={handleLeftArrowClick} />
       </SvgWrapper>
-      <div className="title">Joy's Movie Space</div>
+      <div className="title">{blogDto?.title}</div>
       <SvgWrapper>
         <ShareSvg />
       </SvgWrapper>

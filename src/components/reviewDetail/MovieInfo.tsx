@@ -6,11 +6,13 @@ interface Props {
   info: Movie;
   star: number;
 }
+
+const EMPTY_POSTER = '../src/assets/image/poster/empty_poster.png';
 const MovieInfo = ({ info, star }: Props) => {
   const movieSubInfo = [info.prodYear, info.nation, info.genre];
   return (
     <MovieBox>
-      <img src={info.poster} alt="" />
+      <img src={info.poster?.length > 0 ? info.poster : EMPTY_POSTER} alt="" />
       <Info>
         <div className="title">{info.title}</div>
         <div className="content">{movieSubInfo.join(' | ')}</div>
