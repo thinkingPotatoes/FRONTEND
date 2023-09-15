@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import CommentTopNav from '../components/reviewDetail/comment/ReviewCommentTopNav';
 import { ReviewComment } from '../components/types/review';
 import CommentBox from '../components/reviewDetail/comment/CommentBox';
+import CommentInputForm from '../components/reviewDetail/comment/CommentInputForm';
 const dummyData: ReviewComment[] = [
   {
     id: '1',
@@ -72,6 +73,7 @@ function ReviewDetailComment() {
     <>
       <CommentTopNav commentCnt={dummyData.length} />
       {sortedDummyData.length !== 0 && sortedDummyData.map((data) => <CommentBox comment={data} />)}
+      <CommentInputForm reviewId={id} />
     </>
   );
 }
