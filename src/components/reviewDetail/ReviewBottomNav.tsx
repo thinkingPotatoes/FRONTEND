@@ -1,17 +1,23 @@
 import { styled } from 'styled-components';
 import { LikeBtn } from '../common/LikeBtn';
 import { ReactComponent as CommentSvg } from '../../assets/image/icon/comment.svg';
+import { useNavigate } from 'react-router-dom';
 
 interface Props {
   likeCnt: number;
   commentCnt: number;
 }
 const ReviewBottomNav = ({ likeCnt, commentCnt }: Props) => {
+  const navigate = useNavigate();
+
+  const handleDetailComment = () => {
+    navigate('comment');
+  };
   return (
     <BottomNav>
       <IconBox>
         <LikeBtn count={likeCnt} picked={true} />
-        <CommentBox>
+        <CommentBox onClick={handleDetailComment}>
           <CommentSvg />
           <div className="commentCnt">{commentCnt}</div>
         </CommentBox>
@@ -36,7 +42,7 @@ const BottomNav = styled.div`
 
 const IconBox = styled.div`
   display: flex;
-  alignment-items: center;
+  align-items: center;
   gap: 10px;
 `;
 
