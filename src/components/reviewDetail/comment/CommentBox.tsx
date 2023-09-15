@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import { ReactComponent as MoreDotSvg } from '../../../assets/icon/moreDot.svg';
+import { ReactComponent as ChildSvg } from '../../../assets/icon/child-arrow.svg';
 import { ReactComponent as LikeSvg } from '../../../assets/image/icon/heart.svg';
 import { ReactComponent as FillLikeSvg } from '../../../assets/image/icon/fillHeart.svg';
 import { ReviewComment } from '../../types/review';
@@ -22,36 +23,55 @@ const CommentBox = ({ comment }: Props) => {
       setLikeCnt(likeCnt + 1);
     }
   };
+
+  if (comment.replyId.length === 0) {
+    return (
+      <EachBox>
+        <div className="commentInfo">
+          <div className="writerInfo">
+            <div className="nickname">{comment.nickname}</div>
+            <div className="date">{comment.date}</div>
+          </div>
+          <MoreDotSvg />
+        </div>
+
+        <div className="text">{comment.contents}</div>
+        <div className="actingComment" onClick={handleLikeClick}>
+          {likeCnt > 0 ? (
+            <>
+              <CommentLike>
+                <FillLikeSvg />
+                <span className="fill">마음 {likeCnt}개</span>
+              </CommentLike>
+              <CommentReply>답글달기</CommentReply>
+            </>
+          ) : (
+            <>
+              <CommentLike>
+                <LikeSvg />
+                <span>마음</span>
+              </CommentLike>
+              <CommentReply>답글달기</CommentReply>
+            </>
+          )}
+        </div>
+      </EachBox>
+    );
+  }
   return (
     <EachBox>
       <div className="commentInfo">
-        <div className="writerInfo">
-          <div className="nickname">{comment.nickname}</div>
-          <div className="date">{comment.date}</div>
+        <div className="subcomment">
+          <ChildSvg />
+          <div className="writerInfo">
+            <div className="nickname">{comment.nickname}</div>
+            <div className="date">{comment.date}</div>
+          </div>
         </div>
+
         <MoreDotSvg />
       </div>
-
-      <div className="text">{comment.contents}</div>
-      <div className="actingComment" onClick={handleLikeClick}>
-        {likeCnt > 0 ? (
-          <>
-            <CommentLike>
-              <FillLikeSvg />
-              <span className="fill">마음 {likeCnt}개</span>
-            </CommentLike>
-            <CommentReply>답글달기</CommentReply>
-          </>
-        ) : (
-          <>
-            <CommentLike>
-              <LikeSvg />
-              <span>마음</span>
-            </CommentLike>
-            <CommentReply>답글달기</CommentReply>
-          </>
-        )}
-      </div>
+      <div className="subtext">{comment.contents}</div>
     </EachBox>
   );
 };
@@ -74,6 +94,10 @@ const EachBox = styled.div`
     align-items: center;
     justify-content: space-between;
     width: 100%;
+
+    .subcomment {
+      display: flex;
+    }
   }
 
   .date {
@@ -87,6 +111,13 @@ const EachBox = styled.div`
     font-size: 16px;
     font-weight: 500;
     letter-spacing: -0.016px;
+  }
+
+  .subtext {
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: -0.016px;
+    margin-left: 25px;
   }
 
   .actingComment {
@@ -109,13 +140,16 @@ const CommentLike = styled.div`
   line-height: 130%; /* 15.6px */
 
   span {
-    margin-top: 1px;
+    margin-top: 2px;
   }
 
   .fill {
     color: var(--main);
   }
 `;
-const CommentReply = styled.div``;
+const CommentReply = styled.div`
+  margin-top: 2px;
+  cursor: pointer;
+`;
 
 export default CommentBox;
