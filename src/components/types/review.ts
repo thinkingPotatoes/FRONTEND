@@ -26,3 +26,13 @@ export interface ReviewDetail {
   watchedAt: string;
   createdAt: string;
 }
+
+export interface ReviewComment {
+  id: string;
+  nickname: string;
+  userId: string;
+  date: string;
+  contents: string;
+  likeCnt: number;
+  replyId: string;
+}
