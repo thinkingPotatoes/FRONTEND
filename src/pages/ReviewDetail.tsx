@@ -31,7 +31,10 @@ function ReviewDetail() {
         blogDto={reviewData?.blogUserDto}
       />
       <ReviewContents data={reviewData} />
-      <ReviewBottomNav />
+      <ReviewBottomNav
+        likeCnt={reviewData?.likeCnt || 0}
+        commentCnt={reviewData?.commentCnt || 0}
+      />
     </>
   );
 }

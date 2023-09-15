@@ -2,14 +2,18 @@ import { styled } from 'styled-components';
 import { LikeBtn } from '../common/LikeBtn';
 import { ReactComponent as CommentSvg } from '../../assets/image/icon/comment.svg';
 
-const ReviewBottomNav = () => {
+interface Props {
+  likeCnt: number;
+  commentCnt: number;
+}
+const ReviewBottomNav = ({ likeCnt, commentCnt }: Props) => {
   return (
     <BottomNav>
       <IconBox>
-        <LikeBtn count={7} picked={true} />
+        <LikeBtn count={likeCnt} picked={true} />
         <CommentBox>
           <CommentSvg />
-          <div className="commentCnt">4</div>
+          <div className="commentCnt">{commentCnt}</div>
         </CommentBox>
       </IconBox>
     </BottomNav>
