@@ -1,19 +1,33 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { localStorageKey } from '../components/Search/RecentSearch';
 import Head1 from '../components/common/texts/Head1';
 import RecentSearch from '../components/selectMovie/RecentSearch';
 import SearchResult from '../components/selectMovie/SearchResult';
 import TopBar from '../components/selectMovie/TopBar';
 import useDebounce from '../hooks/useDebounce';
+import useLocalStorage from '../hooks/useLocalStorage';
 import { MovieResponseList } from '../types/search';
 import SearchBar from './SearchBar';
 
 function SelectMovie() {
   const [keyword, setKeyword] = useState('');
   const [searchResults, setSearchResults] = useState<MovieResponseList[]>([]);
-
+  const [recentSearch, setRecentSearch] = useLocalStorage({
+    key: localStorageKey,
+    initialValue: [],
+  });
   const debouncedKeyword = useDebounce(keyword);
+
+  const handleBlur = () => {
+    const newRecentSearch = JSON.parse(localStorage.getItem(localStorageKey) || '');
+    setRecentSearch([debouncedKeyword, ...newRecentSearch]);
+  };
+
+  useEffect(() => {
+    localStorage.setItem(localStorageKey, JSON.stringify(recentSearch));
+  }, [recentSearch]);
 
   useEffect(() => {
     // axios instance 머지 되면 수정 필요
@@ -37,6 +51,7 @@ function SelectMovie() {
           placeholder="영화 이름, 감독 이름 등"
           keyword={keyword}
           setKeyword={setKeyword}
+          onBlur={handleBlur}
         />
         {keyword ? <SearchResult searchResults={searchResults} /> : <RecentSearch />}
       </Main>
