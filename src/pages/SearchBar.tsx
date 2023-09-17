@@ -29,7 +29,7 @@ function SearchBar({ keyword, setKeyword, ...options }: SearchBarProps) {
         value={keyword}
         {...options}
       />
-      <ClearButton onClick={handleClear}>{keyword.length > 0 ? <CancelIcon /> : <></>}</ClearButton>
+      <Clear onClick={handleClear}>{keyword.length > 0 ? <CancelIcon /> : <></>}</Clear>
     </SearchBarWrapper>
   );
 }
@@ -62,7 +62,7 @@ const Input = styled.input`
   line-height: 150%;
 `;
 
-const ClearButton = styled.button`
+const Clear = styled.div`
   display: flex;
   align-items: center;
   padding: 4px;
