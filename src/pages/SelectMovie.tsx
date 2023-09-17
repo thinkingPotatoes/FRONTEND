@@ -11,22 +11,13 @@ import SearchBar from './SearchBar';
 
 function SelectMovie() {
   const [keyword, setKeyword] = useState('');
-  const [searchResults, setSearchResults] = useState<MovieResponseList[]>([
-    // {
-    //   docId: '',
-    //   genre: '액션,드라마,SF',
-    //   nation: '미국',
-    //   poster:
-    //     'https://upload.wikimedia.org/wikipedia/ko/1/1f/%EC%95%84%EC%9D%B4%EC%96%B8%EB%A7%A8_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg',
-    //   prodYear: '2010',
-    //   title: '아이언 맨 2',
-    // },
-  ]);
+  const [searchResults, setSearchResults] = useState<MovieResponseList[]>([]);
 
   const debouncedKeyword = useDebounce(keyword);
 
   useEffect(() => {
     // axios instance 머지 되면 수정 필요
+    if (debouncedKeyword.length === 0) return;
     axios
       .post(`http://localhost:8080/movies/search?page=0&size=10&sort=repRlsDate,desc`, {
         keyword: debouncedKeyword,
