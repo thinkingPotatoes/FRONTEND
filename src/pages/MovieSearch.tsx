@@ -4,7 +4,7 @@ import RatingBar from '../components/movieSearch/RatingBar.tsx';
 import ReviewButton from '../components/movieSearch/ReviewButton.tsx';
 import ReviewList from '../components/movieSearch/ReviewList.tsx';
 import TopBar from '../components/movieSearch/TopBar.tsx';
-import { Movie } from '../components/types/movie.ts';
+import { Movie } from '../types/movie.ts';
 
 const movie: Movie = {
   docId: '',
@@ -52,6 +52,19 @@ const movie: Movie = {
 };
 
 function MovieSearch() {
+  // const [movie, setMovie] = useState()
+
+  // useEffect(() => {
+  //   axios.get(`http://localhost:8080/movies/${movieId}`).then((data) => {
+  //     const responseMovie = data.data.data;
+  //     // setMovie({
+  //     //   title: responseMovie.title,
+  //     //   plot: responseMovie.plot,
+  //     //   poster: responseMovie.poster,
+  //     // });
+  //   });
+  // }, []);
+
   return (
     <MovieSearchWrapper>
       <TopBar />

@@ -1,7 +1,7 @@
 import { styled } from 'styled-components';
 
+import { Movie } from '../../types/movie.ts';
 import Chip, { ChipProps } from '../common/Chip.tsx';
-import { Movie } from '../types/movie.ts';
 import MoviePlot from './MoviePlot.tsx';
 
 const example: ChipProps[] = [
