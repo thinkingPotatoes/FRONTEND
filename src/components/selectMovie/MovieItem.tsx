@@ -4,10 +4,13 @@ import Poster from '../common/Poster';
 import Body3 from '../common/texts/Body3';
 import Subtitle1 from '../common/texts/Subtitle1';
 
-function MovieItem({ movie }: { movie: MovieResponseList }) {
-  console.log(movie);
+type MovieItemProps = React.HTMLProps<HTMLDivElement> & {
+  movie: MovieResponseList;
+};
+
+function MovieItem({ movie, ...options }: MovieItemProps) {
   return (
-    <MovieItemWrapper>
+    <MovieItemWrapper {...options}>
       <Poster size="s" imgUrl={movie.poster} />
       <InfoWrapper>
         <Title>
@@ -15,10 +18,22 @@ function MovieItem({ movie }: { movie: MovieResponseList }) {
         </Title>
         <Info>
           <Body3>{movie.prodYear}</Body3>
-          <Body3>|</Body3>
-          <Body3>{movie.genre}</Body3>
-          <Body3>|</Body3>
-          <Body3>{movie.nation}</Body3>
+          {movie.genre ? (
+            <>
+              <Body3>|</Body3>
+              <Body3>{movie.genre}</Body3>
+            </>
+          ) : (
+            <></>
+          )}
+          {movie.nation ? (
+            <>
+              <Body3>|</Body3>
+              <Body3>{movie.nation}</Body3>
+            </>
+          ) : (
+            <></>
+          )}
         </Info>
       </InfoWrapper>
     </MovieItemWrapper>
