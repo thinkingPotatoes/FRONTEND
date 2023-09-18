@@ -22,7 +22,7 @@ function HotSearch() {
       </SubtitleList>
       <HotSearchList>
         {topList.map((data, idx) => (
-          <EachRank>
+          <EachRank key={idx}>
             <div className="rankNum">{idx + 1}</div>
             <div className="name">{data}</div>
           </EachRank>

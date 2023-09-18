@@ -16,7 +16,7 @@ function RecommendSearch() {
         <Swiper slidesPerView={'auto'} spaceBetween={10}>
           {movieList.length > 0 &&
             movieList.map((search, idx) => (
-              <SwiperSlide>
+              <SwiperSlide key={idx}>
                 <RecentSearchChip>{search}</RecentSearchChip>
               </SwiperSlide>
             ))}
