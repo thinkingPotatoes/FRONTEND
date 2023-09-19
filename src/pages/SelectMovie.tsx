@@ -1,6 +1,6 @@
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import axios from '../api/apiController';
 import { localStorageKey } from '../components/Search/RecentSearch';
 import Head1 from '../components/common/texts/Head1';
 import RecentSearch from '../components/selectMovie/RecentSearch';
@@ -30,10 +30,9 @@ function SelectMovie() {
   }, [recentSearch]);
 
   useEffect(() => {
-    // axios instance 머지 되면 수정 필요
     if (debouncedKeyword.length === 0) return;
     axios
-      .post(`http://localhost:8080/movies/search?page=0&size=10&sort=repRlsDate,desc`, {
+      .post(`/movies/search?page=0&size=10&sort=repRlsDate,desc`, {
         keyword: debouncedKeyword,
       })
       .then((data) => {
