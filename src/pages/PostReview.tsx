@@ -1,7 +1,7 @@
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { styled } from 'styled-components';
+import axios from '../api/apiController';
 import ReviewForm from '../components/postReview/ReviewForm';
 import SelectedMovie from '../components/postReview/SelectedMovie';
 import TopBar from '../components/postReview/TopBar';
@@ -33,7 +33,7 @@ function PostReview() {
       return;
     }
 
-    axios.post(`http://localhost:8080/filog/create`, {
+    axios.post(`/filog/create`, {
       movieId,
       subject,
       content,
@@ -42,7 +42,8 @@ function PostReview() {
       theater: 'CGV', // 누락(option)
       seat: '1', // 누락(option)
       spoiler: false, // 누락
-      watchedAt: '2023-08-10 17:08:00', // 누락
+      watchedAt: '2023-08-10', // 누락
+      watchedTime: 'MORNING', // 누락
     });
   };
 
