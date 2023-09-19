@@ -1,15 +1,15 @@
 import styled from 'styled-components';
-import { MovieData } from './SearchBox';
 import { MAX_RECENT_SEARCH, localStorageKey } from './RecentSearch';
+import { MovieResponseList } from '../types/search';
 
 interface AutoSearchListProps {
-  searchResults: MovieData[];
-  onClick: (city: string) => void;
+  searchResults: MovieResponseList[];
+  onClick: (movie: string) => void;
 }
 
 function AutoSearchList({ searchResults, onClick }: AutoSearchListProps) {
-  function handleSearchItemClick(city: string) {
-    onClick(city);
+  function handleSearchItemClick(movie: string) {
+    onClick(movie);
 
     const storedList = localStorage.getItem(localStorageKey);
     let updatedSearches: string[] = [];
@@ -20,7 +20,7 @@ function AutoSearchList({ searchResults, onClick }: AutoSearchListProps) {
     if (updatedSearches.length >= MAX_RECENT_SEARCH) {
       updatedSearches.pop();
     }
-    updatedSearches.unshift(city);
+    updatedSearches.unshift(movie);
     localStorage.setItem(localStorageKey, JSON.stringify(updatedSearches));
   }
 
@@ -28,8 +28,8 @@ function AutoSearchList({ searchResults, onClick }: AutoSearchListProps) {
     <AutoSearchContainer>
       <AutoSearchWrap>
         {searchResults.map((search, idx) => (
-          <AutoSearchData key={search.city} onClick={() => handleSearchItemClick(search.city)}>
-            <a href="#">{search.city}</a>
+          <AutoSearchData key={search.title} onClick={() => handleSearchItemClick(search.title)}>
+            <a href="#">{search.title}</a>
           </AutoSearchData>
         ))}
       </AutoSearchWrap>
@@ -63,6 +63,7 @@ const AutoSearchData = styled.li`
   a {
     color: #c3c3c6;
     line-height: 52px;
+    text-decoration: none;
   }
 `;
 
