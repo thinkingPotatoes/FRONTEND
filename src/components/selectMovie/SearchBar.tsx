@@ -1,7 +1,7 @@
 import React, { FormEvent, SetStateAction, useRef } from 'react';
 import styled from 'styled-components';
-import { ReactComponent as CancelIcon } from '../assets/image/icon/cancel.svg';
-import { ReactComponent as SearchIcon } from '../assets/image/icon/search.svg';
+import { ReactComponent as CancelIcon } from '../../assets/image/icon/cancel.svg';
+import { ReactComponent as SearchIcon } from '../../assets/image/icon/search.svg';
 
 type SearchBarProps = React.HTMLProps<HTMLInputElement> & {
   keyword: string;
