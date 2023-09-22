@@ -17,7 +17,8 @@ function RecentSearch({ setKeyword }: { setKeyword: React.Dispatch<SetStateActio
     localStorage.setItem(localStorageKey, JSON.stringify(recentSearch));
   }, [recentSearch]);
 
-  const handleRemoveSearch = (index: number) => {
+  const handleRemoveSearch = (e: React.MouseEvent, index: number) => {
+    e.stopPropagation();
     const updatedSearches = [...recentSearch];
     updatedSearches.splice(index, 1);
     setRecentSearch(updatedSearches);
@@ -33,7 +34,7 @@ function RecentSearch({ setKeyword }: { setKeyword: React.Dispatch<SetStateActio
         <ListItem
           key={item}
           text={item}
-          right={<X onClick={() => handleRemoveSearch(idx)} />}
+          right={<X onClick={(e) => handleRemoveSearch(e, idx)} />}
           textStyle={{
             color: '--dark-grey-700',
             weight: 700,
