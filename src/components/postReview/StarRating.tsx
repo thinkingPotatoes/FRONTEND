@@ -1,6 +1,6 @@
 import { Rating } from 'react-simple-star-rating';
 import { styled } from 'styled-components';
-import { ReactComponent as BlankStarIcon } from '../../assets/image/icon/blankStar.svg';
+import { ReactComponent as BlankStarIcon } from '../../assets/image/icon/blankStarColorless.svg';
 import { ReactComponent as FillStarIcon } from '../../assets/image/icon/fillStar.svg';
 
 type StarRatingProps = {
