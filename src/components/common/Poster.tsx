@@ -8,6 +8,10 @@ function Poster({ imgUrl, size }: { imgUrl: string; size: string }) {
     width = 30;
     height = 42.3;
   }
+  if (size === 'sm') {
+    width = 40;
+    height = 57.5;
+  }
   if (size === 'm') {
     width = 80;
     height = 114;
