@@ -23,6 +23,10 @@ function SelectMovie() {
 
   const saveRecentSearch = (title: string) => {
     const newRecentSearch = JSON.parse(localStorage.getItem(localStorageKey) || '');
+    const exist = newRecentSearch.indexOf(title);
+    if (exist !== -1) {
+      newRecentSearch.splice(exist, 1);
+    }
     setRecentSearch([title, ...newRecentSearch]);
   };
 
