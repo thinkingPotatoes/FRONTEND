@@ -4,10 +4,11 @@ import { ReactComponent as BlankStarIcon } from '../../assets/image/icon/blankSt
 import { ReactComponent as FillStarIcon } from '../../assets/image/icon/fillStar.svg';
 
 type StarRatingProps = {
+  grade: number;
   setGrade: React.Dispatch<React.SetStateAction<number>>;
 };
 
-function StarRating({ setGrade }: StarRatingProps) {
+function StarRating({ grade, setGrade }: StarRatingProps) {
   const handleRating = (rate: number) => {
     setGrade(rate);
   };
@@ -16,9 +17,17 @@ function StarRating({ setGrade }: StarRatingProps) {
     <StarRatingWrapper>
       <Rating
         onClick={handleRating}
-        fillIcon={<FillStarIcon width={'24px'} height={'24px'} />}
-        emptyIcon={<BlankStarIcon width={'24px'} height={'24px'} />}
+        fillIcon={<FillStarIcon width={'32px'} height={'32px'} fill="var(--main)" />}
+        emptyIcon={
+          <BlankStarIcon
+            width={'32px'}
+            height={'32px'}
+            color="#ffffff"
+            fill={grade === 0 ? 'var(--dark-grey-500)' : 'var(--main)'}
+          />
+        }
         allowFraction={true}
+        initialValue={grade}
       />
     </StarRatingWrapper>
   );
@@ -26,7 +35,6 @@ function StarRating({ setGrade }: StarRatingProps) {
 
 const StarRatingWrapper = styled.div`
   padding: 16px 0;
-  border-bottom: 1px solid var(--dark-border-border);
 `;
 
 export default StarRating;
