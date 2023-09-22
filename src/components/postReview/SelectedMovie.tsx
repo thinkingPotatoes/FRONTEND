@@ -1,63 +1,55 @@
-import { useEffect, useState } from 'react';
+import { Rating } from 'react-simple-star-rating';
 import { styled } from 'styled-components';
-import axios from '../../api/apiController';
+import { ReactComponent as BlankStarIcon } from '../../assets/image/icon/blankStar.svg';
+import { ReactComponent as FillStarIcon } from '../../assets/image/icon/fillStar.svg';
+import empty from '../../assets/image/poster/empty_poster.png';
+import { Movie } from '../../types/movie';
+import MovieDetails from '../common/MovieDetails';
 import Poster from '../common/Poster';
-import Body3 from '../common/texts/Body3';
 import Subtitle1 from '../common/texts/Subtitle1';
 
-type SelectedMovieType = {
-  title: string;
-  plot: string;
-  poster: string;
-};
-
-function SelectedMovie({ movieId }: { movieId: string }) {
-  const [movie, setMovie] = useState<SelectedMovieType>();
-  useEffect(() => {
-    axios.get(`/movies/${movieId}`).then((data) => {
-      const responseMovie = data.data.data;
-      setMovie({
-        title: responseMovie.title,
-        plot: responseMovie.plot,
-        poster: responseMovie.poster,
-      });
-    });
-  }, []);
+function SelectedMovie({
+  movie,
+  grade,
+  handleShowModal,
+}: {
+  movie: Movie;
+  grade: number;
+  handleShowModal: (showModal: boolean) => void;
+}) {
   return (
     <SelectedMovieWrapper>
-      <Poster imgUrl={movie?.poster || ''} size="m" />
+      <Poster imgUrl={movie?.poster || empty} size="sm" />
       <Contents>
         <Subtitle1>{movie?.title}</Subtitle1>
-        <Body3>
-          <Plot>{movie?.plot}</Plot>
-        </Body3>
+        <MovieDetails movie={movie} />
+        <div onClick={() => handleShowModal(true)}>
+          <Rating
+            readonly
+            initialValue={grade}
+            fillIcon={<FillStarIcon width={24} height={24} fill={'var(--main)'} />}
+            emptyIcon={<BlankStarIcon width={24} height={24} fill={'var(--main)'} />}
+            allowFraction={true}
+          />
+        </div>
       </Contents>
     </SelectedMovieWrapper>
   );
 }
 
-const Contents = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-`;
-
-const Plot = styled.div`
-  word-break: break-word;
-  text-overflow: ellipsis;
-  overflow: hidden;
-
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-`;
-
 const SelectedMovieWrapper = styled.div`
   display: flex;
+  align-items: center;
   gap: 8px;
   padding: 20px 16px 12px 16px;
   border-radius: 8px;
   border: 1px solid var(--dark-border-border);
+`;
+
+const Contents = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 `;
 
 export default SelectedMovie;
