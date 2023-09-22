@@ -4,10 +4,20 @@ import { MovieResponseList } from '../../types/search';
 import Subtitle1 from '../common/texts/Subtitle1';
 import MovieItem from './MovieItem';
 
-function SearchResult({ searchResults }: { searchResults: MovieResponseList[] }) {
+function SearchResult({
+  searchResults,
+  saveRecentSearch,
+}: {
+  searchResults: MovieResponseList[];
+  saveRecentSearch: (title: string) => void;
+}) {
   const navigate = useNavigate();
-  const handleReview = (id: string) => {
+  const handleReview = async (id: string, title: string) => {
+    await handleSave(title);
     navigate(`/review/${id}`);
+  };
+  const handleSave = async (title: string) => {
+    saveRecentSearch(title);
   };
 
   return (
@@ -17,7 +27,7 @@ function SearchResult({ searchResults }: { searchResults: MovieResponseList[] })
           <MovieItem
             key={movieResponse.docId}
             movie={movieResponse}
-            onClick={() => handleReview(movieResponse.docId)}
+            onClick={() => handleReview(movieResponse.docId, movieResponse.title)}
           />
         ))
       ) : (
