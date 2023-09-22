@@ -1,12 +1,9 @@
 import React, { useCallback, useRef } from 'react';
 import styled from 'styled-components';
-import StarRating from './StarRating';
 
 type Props = {
   subject: string;
   setSubject: React.Dispatch<React.SetStateAction<string>>;
-  grade: number;
-  setGrade: React.Dispatch<React.SetStateAction<number>>;
   content: string;
   setContent: React.Dispatch<React.SetStateAction<string>>;
 };
@@ -39,7 +36,6 @@ function ReviewForm(props: Props) {
         placeholder="리뷰 제목"
         rows={1}
       />
-      <StarRating setGrade={props.setGrade} />
       <Content
         value={props.content}
         onChange={(e) => props.setContent(e.target.value)}
