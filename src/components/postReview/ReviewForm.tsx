@@ -41,7 +41,7 @@ function ReviewForm(props: Props) {
         onChange={(e) => props.setContent(e.target.value)}
         ref={contentRef}
         onInput={handleResizeContentHeight}
-        placeholder="영화리뷰를 작성해주세요"
+        placeholder="50,000 바이트 이내로 작성해주세요"
       />
     </ReviewFormWrapper>
   );
