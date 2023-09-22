@@ -4,12 +4,12 @@ import axios from '../api/apiController';
 import { localStorageKey } from '../components/Search/RecentSearch';
 import Head1 from '../components/common/texts/Head1';
 import RecentSearch from '../components/selectMovie/RecentSearch';
+import SearchBar from '../components/selectMovie/SearchBar';
 import SearchResult from '../components/selectMovie/SearchResult';
 import TopBar from '../components/selectMovie/TopBar';
 import useDebounce from '../hooks/useDebounce';
 import useLocalStorage from '../hooks/useLocalStorage';
 import { MovieResponseList } from '../types/search';
-import SearchBar from './SearchBar';
 
 function SelectMovie() {
   const [keyword, setKeyword] = useState('');
