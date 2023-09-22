@@ -103,6 +103,7 @@ const PostReviewWrapper = styled.div`
 
   input::placeholder,
   textarea::placeholder {
+    font-family: Pretendard;
     color: var(--dark-grey-500);
   }
 `;
