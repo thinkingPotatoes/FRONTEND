@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import empty from '../../assets/image/poster/empty_poster.png';
 import { MovieResponseList } from '../../types/search';
 import Poster from '../common/Poster';
 import Body3 from '../common/texts/Body3';
@@ -11,7 +12,7 @@ type MovieItemProps = React.HTMLProps<HTMLDivElement> & {
 function MovieItem({ movie, ...options }: MovieItemProps) {
   return (
     <MovieItemWrapper {...options}>
-      <Poster size="s" imgUrl={movie.poster} />
+      <Poster size="s" imgUrl={movie.poster || empty} />
       <InfoWrapper>
         <Title>
           <Subtitle1>{movie.title}</Subtitle1>

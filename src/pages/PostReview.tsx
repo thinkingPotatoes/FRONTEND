@@ -3,6 +3,7 @@ import { useParams } from 'react-router';
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 import axios from '../api/apiController';
+import empty from '../assets/image/poster/empty_poster.png';
 import Modal from '../components/common/Modal';
 import ReviewForm from '../components/postReview/ReviewForm';
 import SelectedMovie from '../components/postReview/SelectedMovie';
@@ -82,7 +83,7 @@ function PostReview() {
           contentNode={
             <StarRateBox
               grade={grade}
-              posterUrl={movie?.poster}
+              posterUrl={movie?.poster || empty}
               setGrade={setGrade}
               handleShowModal={handleShowModal}
             />
