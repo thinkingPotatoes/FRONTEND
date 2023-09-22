@@ -1,13 +1,19 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 import axios from '../api/apiController';
+import Modal from '../components/common/Modal';
 import ReviewForm from '../components/postReview/ReviewForm';
 import SelectedMovie from '../components/postReview/SelectedMovie';
+import StarRateBox from '../components/postReview/StarRateBox';
 import TopBar from '../components/postReview/TopBar';
+import { Movie } from '../types/movie';
 import getBytes from '../utils/getBytes';
 
 function PostReview() {
+  const navigate = useNavigate();
+  const [showModal, setShowModal] = useState(true);
   const [disabled, setDisabled] = useState(true);
   const [grade, setGrade] = useState(0);
   const [subject, setSubject] = useState('');
@@ -15,6 +21,19 @@ function PostReview() {
 
   const { id } = useParams();
   const movieId = id || '';
+
+  const [movie, setMovie] = useState<Movie>();
+  useEffect(() => {
+    axios.get(`/movies/${movieId}`).then((data) => {
+      const responseMovie = data.data.data;
+      setMovie(responseMovie);
+    });
+  }, []);
+
+  const handleShowModal = (newShowModal: boolean) => {
+    if (grade === 0) return;
+    setShowModal(newShowModal);
+  };
 
   const validateForm = () => {
     if (getBytes(subject) > 50000) {
@@ -25,26 +44,14 @@ function PostReview() {
     }
   };
 
-  const handlePostReview = () => {
+  const handleGoNext = () => {
     try {
       validateForm();
     } catch (e) {
       if (e instanceof Error) alert(e.message);
       return;
     }
-
-    axios.post(`/filog/create`, {
-      movieId,
-      subject,
-      content,
-      grade,
-      scope: 'PUBLIC', // 누락
-      theater: 'CGV', // 누락(option)
-      seat: '1', // 누락(option)
-      spoiler: false, // 누락
-      watchedAt: '2023-08-10', // 누락
-      watchedTime: 'MORNING', // 누락
-    });
+    navigate(`/review/${id}/required`, { state: { subject, content, grade, movieId: id } });
   };
 
   useEffect(() => {
@@ -55,20 +62,33 @@ function PostReview() {
     }
   }, [content.length, subject.length, grade]);
 
+  if (movie === undefined) return <div>해당 영화를 찾지 못했습니다.</div>;
+
   return (
     <PostReviewWrapper>
-      <TopBar onClick={handlePostReview} disabled={disabled} />
+      <TopBar onClick={handleGoNext} disabled={disabled} text={'다음'} />
       <Main>
-        <SelectedMovie movieId={movieId} />
+        <SelectedMovie movie={movie} grade={grade} handleShowModal={handleShowModal} />
         <ReviewForm
           subject={subject}
           setSubject={setSubject}
-          grade={grade}
-          setGrade={setGrade}
           content={content}
           setContent={setContent}
         />
       </Main>
+      {showModal ? (
+        <Modal
+          handleShowModal={handleShowModal}
+          contentNode={
+            <StarRateBox
+              grade={grade}
+              posterUrl={movie?.poster}
+              setGrade={setGrade}
+              handleShowModal={handleShowModal}
+            />
+          }
+        />
+      ) : null}
     </PostReviewWrapper>
   );
 }
