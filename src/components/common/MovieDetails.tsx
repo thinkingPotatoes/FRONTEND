@@ -3,18 +3,18 @@ import { Movie } from '../../types/movie';
 import Body3 from './texts/Body3';
 
 function MovieDetails({ movie }: { movie: Movie }) {
-  const details = [movie.prodYear, movie.nation, movie.rating, movie.genre];
+  const details = [movie.prodYear, movie.nation, movie.rating, movie.genre].filter(
+    (detail) => detail.length > 0,
+  );
+
   return (
     <Info>
-      {details.map((detail, idx) => {
-        if (detail.length === 0) return;
-        return (
-          <Detail key={detail}>
-            <Body3>{detail}</Body3>
-            {idx !== details.length - 1 && <Body3>|</Body3>}
-          </Detail>
-        );
-      })}
+      {details.map((detail, idx) => (
+        <Detail key={detail}>
+          <Body3>{detail}</Body3>
+          {idx !== details.length - 1 && <Body3>|</Body3>}
+        </Detail>
+      ))}
     </Info>
   );
 }
