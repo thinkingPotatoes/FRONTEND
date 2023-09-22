@@ -3,7 +3,15 @@ import { styled } from 'styled-components';
 import { ReactComponent as BackButton } from '../../assets/icon/angle-left-btn.svg';
 import Subtitle2 from '../common/texts/Subtitle2';
 
-function TopBar({ onClick, disabled }: { onClick: () => void; disabled: boolean }) {
+function TopBar({
+  onClick,
+  disabled,
+  text,
+}: {
+  onClick: () => void;
+  disabled: boolean;
+  text: string;
+}) {
   const navigate = useNavigate();
   const handleGoBack = () => navigate(-1);
 
@@ -13,7 +21,7 @@ function TopBar({ onClick, disabled }: { onClick: () => void; disabled: boolean 
         <BackButton onClick={handleGoBack} width={24} height={24} />
       </BackButtonWrapper>
       <PostButton disabled={disabled} onClick={onClick}>
-        <Subtitle2>등록</Subtitle2>
+        <Subtitle2>{text}</Subtitle2>
       </PostButton>
     </TopBarWrapper>
   );
