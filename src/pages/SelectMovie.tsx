@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import axios from '../api/apiController';
-import { localStorageKey } from '../components/Search/RecentSearch';
 import Head1 from '../components/common/texts/Head1';
 import RecentSearch from '../components/selectMovie/RecentSearch';
 import SearchBar from '../components/selectMovie/SearchBar';
@@ -10,6 +9,8 @@ import TopBar from '../components/selectMovie/TopBar';
 import useDebounce from '../hooks/useDebounce';
 import useLocalStorage from '../hooks/useLocalStorage';
 import { MovieResponseList } from '../types/search';
+
+const localStorageKey = 'recentSearchList';
 
 function SelectMovie() {
   const [keyword, setKeyword] = useState('');
@@ -20,9 +21,9 @@ function SelectMovie() {
   });
   const debouncedKeyword = useDebounce(keyword);
 
-  const handleBlur = () => {
+  const saveRecentSearch = (title: string) => {
     const newRecentSearch = JSON.parse(localStorage.getItem(localStorageKey) || '');
-    setRecentSearch([debouncedKeyword, ...newRecentSearch]);
+    setRecentSearch([title, ...newRecentSearch]);
   };
 
   useEffect(() => {
@@ -32,7 +33,7 @@ function SelectMovie() {
   useEffect(() => {
     if (debouncedKeyword.length === 0) return;
     axios
-      .post(`/movies/search?page=0&size=10&sort=repRlsDate,desc`, {
+      .post(`/movies/search?page=0&size=20&sort=repRlsDate,desc`, {
         keyword: debouncedKeyword,
       })
       .then((data) => {
@@ -50,9 +51,12 @@ function SelectMovie() {
           placeholder="영화 이름, 감독 이름 등"
           keyword={keyword}
           setKeyword={setKeyword}
-          onBlur={handleBlur}
         />
-        {keyword ? <SearchResult searchResults={searchResults} /> : <RecentSearch />}
+        {keyword ? (
+          <SearchResult searchResults={searchResults} saveRecentSearch={saveRecentSearch} />
+        ) : (
+          <RecentSearch setKeyword={setKeyword} />
+        )}
       </Main>
     </SelectMovieWrapper>
   );

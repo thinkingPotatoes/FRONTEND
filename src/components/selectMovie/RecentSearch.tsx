@@ -1,13 +1,13 @@
 import { ReactComponent as X } from '../../assets/image/icon/multiply.svg';
 
-import { useEffect } from 'react';
+import React, { SetStateAction, useEffect } from 'react';
 import styled from 'styled-components';
 import useLocalStorage from '../../hooks/useLocalStorage';
 import ListItem from '../common/ListItem';
 
 export const localStorageKey = 'recentSearchList';
 
-function RecentSearch() {
+function RecentSearch({ setKeyword }: { setKeyword: React.Dispatch<SetStateAction<string>> }) {
   const [recentSearch, setRecentSearch] = useLocalStorage({
     key: localStorageKey,
     initialValue: [],
@@ -23,6 +23,10 @@ function RecentSearch() {
     setRecentSearch(updatedSearches);
   };
 
+  const handleClickItem = (title: string) => {
+    setKeyword(title);
+  };
+
   return (
     <RecentSearchWrapper>
       {recentSearch.map((item: string, idx: number) => (
@@ -35,6 +39,7 @@ function RecentSearch() {
             weight: 700,
             size: 16,
           }}
+          onClick={() => handleClickItem(item)}
         />
       ))}
     </RecentSearchWrapper>
