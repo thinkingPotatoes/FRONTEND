@@ -2,6 +2,7 @@ import { styled } from 'styled-components';
 
 import { Movie } from '../../types/movie.ts';
 import Chip, { ChipProps } from '../common/Chip.tsx';
+import MovieDetails from '../common/MovieDetails.tsx';
 import MoviePlot from './MoviePlot.tsx';
 
 const example: ChipProps[] = [
@@ -25,13 +26,7 @@ function MovieInfo({ movie }: { movie: Movie }) {
       <MainContent>
         <BasicInfoWrapper>
           <Title>{movie.title}</Title>
-          <BasicInfo>
-            <span>{movie.prodYear}</span>
-            <span>|</span>
-            <span>{movie.nation}</span>
-            <span>|</span>
-            <span>{movie.rating}</span>
-          </BasicInfo>
+          <MovieDetails size="m" details={[movie.prodYear, movie.nation, movie.rating]} />
         </BasicInfoWrapper>
         <GenreList>
           {example.map((info) => (
@@ -73,22 +68,6 @@ const Title = styled.div`
   font-weight: 600;
   line-height: 130%; /* 31.2px */
   letter-spacing: -0.24px;
-`;
-
-const BasicInfo = styled.div`
-  display: flex;
-  gap: 4px;
-
-  > span {
-    color: var(--dark-grey-500, #7e7e87);
-
-    /* Body2 */
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 130%; /* 18.2px */
-    letter-spacing: -0.014px;
-  }
 `;
 
 const GenreList = styled.div`

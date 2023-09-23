@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 import empty from '../../assets/image/poster/empty_poster.png';
 import { MovieResponseList } from '../../types/search';
+import MovieDetails from '../common/MovieDetails';
 import Poster from '../common/Poster';
-import Body3 from '../common/texts/Body3';
 import Subtitle1 from '../common/texts/Subtitle1';
 
 type MovieItemProps = React.HTMLProps<HTMLDivElement> & {
@@ -18,23 +18,7 @@ function MovieItem({ movie, ...options }: MovieItemProps) {
           <Subtitle1>{movie.title}</Subtitle1>
         </Title>
         <Info>
-          <Body3>{movie.prodYear}</Body3>
-          {movie.genre ? (
-            <>
-              <Body3>|</Body3>
-              <Body3>{movie.genre}</Body3>
-            </>
-          ) : (
-            <></>
-          )}
-          {movie.nation ? (
-            <>
-              <Body3>|</Body3>
-              <Body3>{movie.nation}</Body3>
-            </>
-          ) : (
-            <></>
-          )}
+          <MovieDetails details={[movie.prodYear, movie.genre, movie.nation]} size={'s'} />
         </Info>
       </InfoWrapper>
     </MovieItemWrapper>
