@@ -2,26 +2,16 @@ import { useState } from 'react';
 import { ReactComponent as BackArrow } from '../assets/image/icon/backArrow.svg';
 
 import styled from 'styled-components';
-import { useLocation, useNavigate } from 'react-router-dom';
-
-type PasswordState = {
-  password: string;
-  isValid: boolean;
-  message: string;
-};
+import { useNavigate } from 'react-router-dom';
+import { useAccountDispatch, useAccountState } from '../context/AccountContext';
+import axios from '../api/apiController.tsx';
 
 function RegisterPasswordInputPage() {
-  const [passwordState, setPasswordState] = useState<PasswordState>({
-    password: '',
-    isValid: true,
-    message: '',
-  });
+  const [message, setMessage] = useState<string>('');
+  const { email, password, isPasswordValid } = useAccountState();
+  const dispatch = useAccountDispatch();
 
   const navigate = useNavigate();
-
-  const {
-    state: { email },
-  } = useLocation();
 
   const validatePassword = (password: string) => {
     const englishRegex = /(?=.*[a-zA-Z])/;
@@ -49,36 +39,23 @@ function RegisterPasswordInputPage() {
 
   const onInputPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newPassword = e.target.value;
-
-    setPasswordState({
-      password: newPassword,
-      ...validatePassword(newPassword),
-    });
+    const { isValid, message } = validatePassword(newPassword);
+    dispatch({ type: 'SET_PASSWORD', password: newPassword, isPasswordValid: isValid });
+    setMessage(message);
   };
 
-  const onClickNext = () => {
-    const { password } = passwordState;
+  const onClickNext = async () => {
+    const { status } = await axios.post('/users/signup', { userId: email, password });
 
-    fetch('http://localhost:8080/users/signup', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        userId: email,
-        password,
-      }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log('data', data);
-        navigate('/register/check');
-      });
+    if (status === 200) {
+      navigate('/register/check');
+    }
   };
 
   const onClickGoBack = () => {
     navigate(-1);
   };
+
   return (
     <>
       <Header>
@@ -88,15 +65,12 @@ function RegisterPasswordInputPage() {
       </Header>
       <Head1>비밀번호를 입력해주세요.</Head1>
       <Input type="password" onChange={onInputPassword} />
-      {passwordState.isValid && (
+      {isPasswordValid && (
         <Body2 color="var(--disabled)">영문, 숫자, 특수문자를 포함해 8자 이상</Body2>
       )}
-      {!passwordState.isValid && <Body2 color="#D24545">{passwordState.message}</Body2>}
+      {!isPasswordValid && <Body2 color="#D24545">{message}</Body2>}
 
-      <NextButton
-        onClick={onClickNext}
-        disabled={!!!passwordState.password || !passwordState.isValid}
-      >
+      <NextButton onClick={onClickNext} disabled={!!!password || !isPasswordValid}>
         다음
       </NextButton>
     </>
