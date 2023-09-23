@@ -1,14 +1,9 @@
-import { useState } from 'react';
 import { ReactComponent as BackArrow } from '../assets/image/icon/backArrow.svg';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { isValidateEmail } from '../utils/vaildation';
 import axios from '../api/apiController.tsx';
-
-type EmailState = {
-  email: string;
-  isValid: boolean;
-};
+import { useAccountDispatch, useAccountState } from '../context/AccountContext.tsx';
 
 type AccountStatus = 'WAITED' | 'INACTIVE' | 'ACTIVE' | 'WITHDRAWL';
 
@@ -20,10 +15,9 @@ type AccountResponse = {
 };
 
 function LoginEamilInputPage() {
-  const [emailState, setEmailState] = useState<EmailState>({
-    email: '',
-    isValid: false,
-  });
+  const { email, isEmailValid } = useAccountState();
+  const dispatch = useAccountDispatch();
+
   const navigate = useNavigate();
 
   const onClickNext = async () => {
@@ -32,7 +26,7 @@ function LoginEamilInputPage() {
         data: { check },
       },
     } = await axios.post<AccountResponse>('/users/check-user', {
-      useId: emailState.email,
+      useId: email,
     });
 
     switch (check) {
@@ -50,11 +44,7 @@ function LoginEamilInputPage() {
 
   const onInputEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newEmail = e.target.value;
-
-    setEmailState({
-      email: newEmail,
-      isValid: isValidateEmail(newEmail),
-    });
+    dispatch({ type: 'SET_EMAIL', email: newEmail, isEmailValid: isValidateEmail(newEmail) });
   };
 
   const onClickGoBack = () => {
@@ -69,8 +59,8 @@ function LoginEamilInputPage() {
         </BackButton>
       </Header>
       <Head1>이메일을 입력해주세요</Head1>
-      <Input placeholder="abc@naver.com" value={emailState.email} onChange={onInputEmail} />
-      <NextButton onClick={onClickNext} disabled={!emailState.isValid}>
+      <Input placeholder="abc@naver.com" value={email} onChange={onInputEmail} />
+      <NextButton onClick={onClickNext} disabled={!isEmailValid}>
         다음
       </NextButton>
     </>
