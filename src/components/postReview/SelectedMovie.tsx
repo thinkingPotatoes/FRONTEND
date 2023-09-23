@@ -22,7 +22,10 @@ function SelectedMovie({
       <Poster imgUrl={movie?.poster || empty} size="sm" />
       <Contents>
         <Subtitle1>{movie?.title}</Subtitle1>
-        <MovieDetails details={[movie.prodYear, movie.nation, movie.rating, movie.genre]} />
+        <MovieDetails
+          size="s"
+          details={[movie.prodYear, movie.nation, movie.rating, movie.genre]}
+        />
         <div onClick={() => handleShowModal(true)}>
           <Rating
             readonly
