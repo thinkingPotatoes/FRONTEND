@@ -12,7 +12,7 @@ interface Props {
 }
 
 const CommentBox = ({ comment, inputRef }: Props) => {
-  const [likeCnt, setLikeCnt] = useState(comment.likeCnt);
+  const [likeCnt, setLikeCnt] = useState(comment.likeCnt ? comment.likeCnt : 0);
   const [isLike, setLike] = useState(comment.likeCnt > 0);
 
   const handleLikeClick = () => {
@@ -30,6 +30,19 @@ const CommentBox = ({ comment, inputRef }: Props) => {
     }
   };
 
+  const likeCountElement =
+    likeCnt > 0 ? (
+      <CommentLike onClick={handleLikeClick}>
+        <FillLikeSvg />
+        <span className="fill">마음 {likeCnt}개</span>
+      </CommentLike>
+    ) : (
+      <CommentLike onClick={handleLikeClick}>
+        <LikeSvg />
+        <span>마음</span>
+      </CommentLike>
+    );
+
   if (!comment.replyId || comment.replyId.length === 0) {
     return (
       <EachBox>
@@ -44,24 +57,9 @@ const CommentBox = ({ comment, inputRef }: Props) => {
         </div>
 
         <div className="text">{comment.content}</div>
-        <div className="actingComment" onClick={handleLikeClick}>
-          {likeCnt > 0 ? (
-            <>
-              <CommentLike>
-                <FillLikeSvg />
-                <span className="fill">마음 {likeCnt ? likeCnt : 0}개</span>
-              </CommentLike>
-              <CommentReply onClick={handleReplyClick}>답글달기</CommentReply>
-            </>
-          ) : (
-            <>
-              <CommentLike>
-                <LikeSvg />
-                <span>마음</span>
-              </CommentLike>
-              <CommentReply onClick={handleReplyClick}>답글달기</CommentReply>
-            </>
-          )}
+        <div className="actingComment">
+          {likeCountElement}
+          <CommentReply onClick={handleReplyClick}>답글달기</CommentReply>
         </div>
       </EachBox>
     );
@@ -78,9 +76,9 @@ const CommentBox = ({ comment, inputRef }: Props) => {
             <div className="date">{comment.updatedAt.split('T')[0]}</div>
           </div>
         </div>
-
         <MoreDotSvg />
       </div>
+
       <div className="subtext">{comment.content}</div>
     </EachBox>
   );
