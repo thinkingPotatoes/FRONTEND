@@ -1,12 +1,14 @@
-import { useState, ChangeEvent, KeyboardEvent } from 'react';
+import { useState, ChangeEvent, KeyboardEvent, RefObject } from 'react';
 import { styled } from 'styled-components';
 import axios from '../../../api/apiController';
 
 interface Props {
   reviewId: string | undefined;
   setUpdateData: React.Dispatch<React.SetStateAction<boolean>>;
+  inputRef: RefObject<HTMLInputElement>;
 }
-function CommentInputForm({ reviewId, setUpdateData }: Props) {
+
+function CommentInputForm({ reviewId, setUpdateData, inputRef }: Props) {
   const [commentContent, setCommentContent] = useState('');
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -38,6 +40,7 @@ function CommentInputForm({ reviewId, setUpdateData }: Props) {
     <CommentInputContainer>
       <CommentInputBox>
         <CommentInput
+          ref={inputRef}
           value={commentContent}
           onChange={handleChange}
           onKeyDown={handleKeyPress}

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from '../api/apiController';
 import CommentTopNav from '../components/reviewDetail/comment/ReviewCommentTopNav';
@@ -6,46 +6,6 @@ import { ReviewComment } from '../components/types/review';
 import CommentBox from '../components/reviewDetail/comment/CommentBox';
 import CommentInputForm from '../components/reviewDetail/comment/CommentInputForm';
 import styled from 'styled-components';
-/*
-const dummyData: ReviewComment[] = [
-  {
-    id: '1',
-    contents: '저도 어제 이 영화 봤는데! 너무 공감되네요. 글 잘봤어요!',
-    date: '2023.12.25',
-    likeCnt: 0,
-    nickname: 'Comment01',
-    replyId: '',
-    userId: '123',
-  },
-  {
-    id: '2',
-    contents: '저도 어제 이 영화 봤는데! 너무 공감되네요. 글 잘봤어요!',
-    date: '2023.12.25',
-    likeCnt: 2,
-    nickname: 'Comment02',
-    replyId: '',
-    userId: '456',
-  },
-  {
-    id: '3',
-    contents: '저도 어제 이 영화 봤는데! 너무 공감되네요. 글 잘봤어요!',
-    date: '2023.12.25',
-    likeCnt: 0,
-    nickname: 'Comment03',
-    replyId: '2',
-    userId: '789',
-  },
-  {
-    id: '4',
-    contents: '저도 어제 이 영화 봤는데! 너무 공감되네요. 글 잘봤어요!',
-    date: '2023.12.25',
-    likeCnt: 0,
-    nickname: 'Comment04',
-    replyId: '1',
-    userId: '123',
-  },
-];
-*/
 
 const getSortedReviewList = (data: ReviewComment[]) => {
   const newSortedData: ReviewComment[] = [];
@@ -72,6 +32,7 @@ function ReviewDetailComment() {
   const [sortedData, setSortedData] = useState<ReviewComment[]>([]);
   const [updateData, setUpdateData] = useState<boolean>(false);
   const [commentCnt, setCommentCnt] = useState<number>(0);
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
     const fetchReviewDetailData = async () => {
@@ -92,9 +53,12 @@ function ReviewDetailComment() {
     <>
       <CommentTopNav commentCnt={commentCnt} />
       <CommentFrame>
-        {commentCnt !== 0 && sortedData.map((data, idx) => <CommentBox key={idx} comment={data} />)}
+        {commentCnt !== 0 &&
+          sortedData.map((data, idx) => (
+            <CommentBox key={idx} comment={data} inputRef={inputRef} />
+          ))}
       </CommentFrame>
-      <CommentInputForm reviewId={id} setUpdateData={setUpdateData} />
+      <CommentInputForm reviewId={id} setUpdateData={setUpdateData} inputRef={inputRef} />
     </>
   );
 }

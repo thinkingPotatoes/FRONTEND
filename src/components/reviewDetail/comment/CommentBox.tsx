@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { RefObject, useState } from 'react';
 import styled from 'styled-components';
 import { ReactComponent as MoreDotSvg } from '../../../assets/icon/moreDot.svg';
 import { ReactComponent as ChildSvg } from '../../../assets/icon/child-arrow.svg';
@@ -8,9 +8,10 @@ import { ReviewComment } from '../../types/review';
 
 interface Props {
   comment: ReviewComment;
+  inputRef: RefObject<HTMLInputElement>;
 }
 
-const CommentBox = ({ comment }: Props) => {
+const CommentBox = ({ comment, inputRef }: Props) => {
   const [likeCnt, setLikeCnt] = useState(comment.likeCnt);
   const [isLike, setLike] = useState(comment.likeCnt > 0);
 
@@ -21,6 +22,11 @@ const CommentBox = ({ comment }: Props) => {
     } else {
       setLike(true);
       setLikeCnt(likeCnt + 1);
+    }
+  };
+  const handleReplyClick = () => {
+    if (inputRef.current) {
+      inputRef.current.focus();
     }
   };
 
@@ -45,7 +51,7 @@ const CommentBox = ({ comment }: Props) => {
                 <FillLikeSvg />
                 <span className="fill">마음 {likeCnt ? likeCnt : 0}개</span>
               </CommentLike>
-              <CommentReply>답글달기</CommentReply>
+              <CommentReply onClick={handleReplyClick}>답글달기</CommentReply>
             </>
           ) : (
             <>
@@ -53,7 +59,7 @@ const CommentBox = ({ comment }: Props) => {
                 <LikeSvg />
                 <span>마음</span>
               </CommentLike>
-              <CommentReply>답글달기</CommentReply>
+              <CommentReply onClick={handleReplyClick}>답글달기</CommentReply>
             </>
           )}
         </div>
