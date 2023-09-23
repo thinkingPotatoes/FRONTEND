@@ -2,14 +2,15 @@ import { useState } from 'react';
 import { styled } from 'styled-components';
 import RecentSearch from '../components/Search/RecentSearch.tsx';
 import SearchBox from '../components/Search/SearchBox.tsx';
-import HotSearch from '../components/Search/HotSearch.tsx';
 import ResultSearch from '../components/Search/ResultSearch.tsx';
-import RecommendSearch from '../components/Search/RecommendSearch.tsx';
+
+import { MovieResponseList } from '../components/types/search.ts';
 
 function SearchPage() {
   const [keyword, setKeyword] = useState('');
   const [showDefaultSearch, setDefaultSearch] = useState(true);
   const [showResult, setShowResult] = useState(false);
+  const [searchResults, setSearchResults] = useState<MovieResponseList[]>([]);
 
   const handleSearch = (searchWord: string, booleanCheck: boolean) => {
     setKeyword(searchWord);
@@ -21,17 +22,25 @@ function SearchPage() {
   };
   return (
     <SearchFrame>
-      <SearchBox onSearch={handleSearch} onChange={handleChange}></SearchBox>
+      <SearchBox
+        onSearch={handleSearch}
+        onChange={handleChange}
+        setResults={setSearchResults}
+        keyNow={keyword}
+      />
       {showDefaultSearch && (
         <>
-          <RecentSearch onSearch={handleSearch} onChange={handleChange} />
-          <HotSearch />
+          <RecentSearch
+            onSearch={handleSearch}
+            onChange={handleChange}
+            setResults={setSearchResults}
+            keyNow={keyword}
+          />
         </>
       )}
       {showResult && (
         <>
-          <RecommendSearch />
-          <ResultSearch />
+          <ResultSearch results={searchResults} />
         </>
       )}
     </SearchFrame>
