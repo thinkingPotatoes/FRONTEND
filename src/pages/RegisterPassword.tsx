@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { ReactComponent as BackArrow } from '../assets/image/icon/backArrow.svg';
 
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
@@ -7,6 +6,7 @@ import { useAccountDispatch, useAccountState } from '../context/AccountContext.t
 import axios from '../api/apiController.tsx';
 import Input from '../components/account/Input.tsx';
 import NextButton from '../components/account/NextButton.tsx';
+import HeaderWithBack from '../components/common/HeaderWithBack.tsx';
 
 function RegisterPasswordInputPage() {
   const [message, setMessage] = useState<string>('');
@@ -54,17 +54,9 @@ function RegisterPasswordInputPage() {
     }
   };
 
-  const onClickGoBack = () => {
-    navigate(-1);
-  };
-
   return (
     <>
-      <Header>
-        <BackButton onClick={onClickGoBack}>
-          <BackArrow />
-        </BackButton>
-      </Header>
+      <HeaderWithBack />
       <Head1>비밀번호를 입력해주세요.</Head1>
       <Input type="password" onChange={onInputPassword} />
       {isPasswordValid && (
@@ -88,20 +80,6 @@ const Head1 = styled.div`
   color: #ffffff;
   font-family: 'Pretendard';
   margin-bottom: 17px;
-`;
-
-const Header = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 11.5px 0;
-  height: 44px;
-  margin-bottom: 24px;
-`;
-
-const BackButton = styled.button`
-  position: absolute;
-  left: 16px;
 `;
 
 interface Body2Props {

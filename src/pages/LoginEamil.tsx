@@ -1,5 +1,3 @@
-import { ReactComponent as BackArrow } from '../assets/image/icon/backArrow.svg';
-import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { isValidateEmail } from '../utils/vaildation.ts';
 import axios from '../api/apiController.tsx';
@@ -7,6 +5,7 @@ import { useAccountDispatch, useAccountState } from '../context/AccountContext.t
 import Input from '../components/account/Input.tsx';
 import Head1 from '../components/common/texts/Head1.ts';
 import NextButton from '../components/account/NextButton.tsx';
+import HeaderWithBack from '../components/common/HeaderWithBack.tsx';
 
 type AccountStatus = 'WAITED' | 'INACTIVE' | 'ACTIVE' | 'WITHDRAWL';
 
@@ -51,17 +50,9 @@ function LoginEamilInputPage() {
     dispatch({ type: 'SET_EMAIL', email: newEmail, isEmailValid: isValidateEmail(newEmail) });
   };
 
-  const onClickGoBack = () => {
-    navigate(-1);
-  };
-
   return (
     <>
-      <Header>
-        <BackButton onClick={onClickGoBack}>
-          <BackArrow />
-        </BackButton>
-      </Header>
+      <HeaderWithBack />
       <Head1 color="var(--dark-grey-800)" marginBottom="17px">
         이메일을 입력해주세요
       </Head1>
@@ -72,19 +63,5 @@ function LoginEamilInputPage() {
     </>
   );
 }
-
-const Header = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 11.5px 0;
-  height: 44px;
-  margin-bottom: 24px;
-`;
-
-const BackButton = styled.button`
-  position: absolute;
-  left: 16px;
-`;
 
 export default LoginEamilInputPage;
