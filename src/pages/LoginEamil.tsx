@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { isValidateEmail } from '../utils/vaildation.ts';
 import axios from '../api/apiController.tsx';
 import { useAccountDispatch, useAccountState } from '../context/AccountContext.tsx';
+import Input from '../components/account/Input.tsx';
 import Head1 from '../components/common/texts/Head1.ts';
 
 type AccountStatus = 'WAITED' | 'INACTIVE' | 'ACTIVE' | 'WITHDRAWL';
@@ -83,28 +84,6 @@ const Header = styled.div`
 const BackButton = styled.button`
   position: absolute;
   left: 16px;
-`;
-
-const Input = styled.input`
-  display: flex;
-  border: none;
-  width: 100%;
-  border-radius: 8px;
-  padding: 12px 16px;
-  background-color: var(--background-bright);
-  height: 56px;
-  color: var(--text-default);
-
-  &::placeholder {
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 130%;
-    letter-spacing: -0.014px;
-    color: var(--disabled);
-  }
-  &:focus {
-    outline: none;
-  }
 `;
 
 interface ButtonProps {

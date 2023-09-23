@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useAccountDispatch, useAccountState } from '../context/AccountContext.tsx';
 import axios from '../api/apiController.tsx';
+import Input from '../components/account/Input.tsx';
 
 function RegisterPasswordInputPage() {
   const [message, setMessage] = useState<string>('');
@@ -102,28 +103,6 @@ const BackButton = styled.button`
   left: 16px;
 `;
 
-const Input = styled.input`
-  display: flex;
-  border: none;
-  width: 100%;
-  border-radius: 8px;
-  padding: 12px 16px;
-  background-color: var(--background-bright);
-  height: 56px;
-  color: var(--text-default);
-  margin-bottom: 11px;
-
-  &::placeholder {
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 130%;
-    letter-spacing: -0.014px;
-    color: var(--disabled);
-  }
-  &:focus {
-    outline: none;
-  }
-`;
 interface Body2Props {
   color: string;
 }
