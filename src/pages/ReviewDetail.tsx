@@ -32,6 +32,7 @@ function ReviewDetail() {
       />
       <ReviewContents data={reviewData} />
       <ReviewBottomNav
+        id={reviewData?.id}
         likeCnt={reviewData?.likeCnt || 0}
         commentCnt={reviewData?.commentCnt || 0}
       />
