@@ -14,7 +14,7 @@ interface Props {
     | undefined;
 }
 
-const ReviewTopNav = ({ id, userId, blogDto }: Props) => {
+const ReviewTopNav = ({ blogDto }: Props) => {
   const navigate = useNavigate();
 
   const handleLeftArrowClick = () => {

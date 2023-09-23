@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import styled from 'styled-components';
 import { ReactComponent as CancelSvg } from '../../assets/icon/btn-cancel.svg';
 import { Swiper, SwiperSlide } from 'swiper/react';
