@@ -3,21 +3,35 @@ import { ReactComponent as Home } from '../../assets/image/icon/home.svg';
 import { ReactComponent as User } from '../../assets/image/icon/user.svg';
 import { ReactComponent as Pencil } from '../../assets/image/icon/pencil.svg';
 import { useNavigate } from 'react-router';
+import { useState } from 'react';
+
+enum Tab {
+  HOME,
+  BLOG,
+}
 
 function Footer() {
+  const [tab, setTab] = useState<Tab>(Tab.HOME);
+
   const navigate = useNavigate();
   const onClickHome = () => {
+    setTab(Tab.HOME);
     navigate('/');
   };
 
   const onClickBlog = () => {
+    setTab(Tab.BLOG);
     navigate('/blog');
+  };
+
+  const activateTab = (curTab: Tab) => {
+    return curTab === tab ? 'var(--icon-activated)' : 'var(--disabled)';
   };
 
   return (
     <FooterContainer>
       <FooterItem onClick={onClickHome}>
-        <Home />
+        <Home style={{ fill: activateTab(Tab.HOME) }} />
       </FooterItem>
       <FooterItem>
         <ReviewWriteButton>
@@ -25,7 +39,7 @@ function Footer() {
         </ReviewWriteButton>
       </FooterItem>
       <FooterItem onClick={onClickBlog}>
-        <User />
+        <User style={{ fill: activateTab(Tab.BLOG) }} />
       </FooterItem>
     </FooterContainer>
   );
