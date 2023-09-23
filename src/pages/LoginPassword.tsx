@@ -46,7 +46,9 @@ function LoginPasswordInputPage() {
   return (
     <>
       <HeaderWithBack />
-      <Head1>비밀번호를 입력해주세요.</Head1>
+      <Head1 color="var(--dark-grey-800)" marginBottom="17px">
+        비밀번호를 입력해주세요.
+      </Head1>
       <Input type="password" value={password} onChange={onInputPassword} />
       <Body2 color="var(--disabled)" marginBottom="16px">
         영문, 숫자, 특수문자를 포함해 8자 이상
