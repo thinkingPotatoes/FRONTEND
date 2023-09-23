@@ -9,9 +9,9 @@ function RatedStar({ starCount }: { starCount: number }) {
     <div>
       {stars.map((isFill: boolean, index) =>
         isFill ? (
-          <FillStarIcon key={index} width={'16px'} height={'16px'} />
+          <FillStarIcon key={index} width={'16px'} height={'16px'} fill="var(--main)" />
         ) : (
-          <BlankStarIcon key={index} width={'16px'} height={'16px'} />
+          <BlankStarIcon key={index} width={'16px'} height={'16px'} fill="var(--main)" />
         ),
       )}
     </div>
