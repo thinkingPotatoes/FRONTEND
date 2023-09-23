@@ -2,11 +2,21 @@ import { styled } from 'styled-components';
 import { ReactComponent as Home } from '../../assets/image/icon/home.svg';
 import { ReactComponent as User } from '../../assets/image/icon/user.svg';
 import { ReactComponent as Pencil } from '../../assets/image/icon/pencil.svg';
+import { useNavigate } from 'react-router';
 
 function Footer() {
+  const navigate = useNavigate();
+  const onClickHome = () => {
+    navigate('/');
+  };
+
+  const onClickBlog = () => {
+    navigate('/blog');
+  };
+
   return (
     <FooterContainer>
-      <FooterItem>
+      <FooterItem onClick={onClickHome}>
         <Home />
       </FooterItem>
       <FooterItem>
@@ -14,7 +24,7 @@ function Footer() {
           <Pencil />
         </ReviewWriteButton>
       </FooterItem>
-      <FooterItem>
+      <FooterItem onClick={onClickBlog}>
         <User />
       </FooterItem>
     </FooterContainer>
