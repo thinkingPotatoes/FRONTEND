@@ -3,10 +3,20 @@ import { ReactComponent as BackArrow } from '../assets/image/icon/backArrow.svg'
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { isValidateEmail } from '../utils/vaildation';
+import axios from '../api/apiController.tsx';
 
 type EmailState = {
   email: string;
   isValid: boolean;
+};
+
+type AccountStatus = 'WAITED' | 'INACTIVE' | 'ACTIVE' | 'WITHDRAWL';
+
+type AccountResponse = {
+  meesage: string;
+  data: {
+    check: AccountStatus;
+  };
 };
 
 function LoginEamilInputPage() {
@@ -16,8 +26,26 @@ function LoginEamilInputPage() {
   });
   const navigate = useNavigate();
 
-  const onClickNext = () => {
-    navigate('/login/password', { state: { email: emailState.email } });
+  const onClickNext = async () => {
+    const {
+      data: {
+        data: { check },
+      },
+    } = await axios.post<AccountResponse>('/users/check-user', {
+      useId: emailState.email,
+    });
+
+    switch (check) {
+      case 'WAITED':
+        navigate('/register/password');
+        break;
+      case 'INACTIVE':
+        break;
+      case 'ACTIVE':
+        break;
+      case 'WITHDRAWL':
+        break;
+    }
   };
 
   const onInputEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
