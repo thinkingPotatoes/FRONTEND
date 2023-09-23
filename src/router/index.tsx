@@ -10,10 +10,10 @@ import SearchPage from '../pages/SearchPage.tsx';
 import SelectMovie from '../pages/SelectMovie.tsx';
 import RegisterSuccess from '../pages/RegisterSuccess.tsx';
 import MovieTasteSelection from '../pages/MovieTasteSelection.tsx';
-import SelectGenre from '../pages/SelectGenre.tsx';
 import Redirect from '../pages/Redirect.tsx';
 import Login from '../pages/Login.tsx';
 import LoginEamilInputPage from '../pages/LoginEamilInputPage.tsx';
+import LoginPasswordInputPage from '../pages/LoginPasswordInputPage.tsx';
 
 export const commonRouter = [
   { path: '/', element: <Login /> },
@@ -26,6 +26,10 @@ export const publicRouter = [
   {
     path: '/login/email',
     element: <LoginEamilInputPage />,
+  },
+  {
+    path: 'login/password',
+    element: <LoginPasswordInputPage />,
   },
   {
     path: '/register/password',
@@ -50,10 +54,6 @@ export const publicRouter = [
   {
     path: '/register/select',
     element: <MovieTasteSelection />,
-  },
-  {
-    path: '/register/genre',
-    element: <SelectGenre />,
   },
 ];
 
