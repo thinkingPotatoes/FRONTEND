@@ -1,4 +1,4 @@
-import { useState, ChangeEvent, KeyboardEvent, RefObject, useEffect } from 'react';
+import { useState, ChangeEvent, KeyboardEvent, RefObject } from 'react';
 import { styled } from 'styled-components';
 import { POST_OPTION } from '../../../pages/ReviewDetailComment';
 import axios from '../../../api/apiController';
@@ -73,16 +73,16 @@ function CommentInputForm({
           onChange={handleChange}
           onKeyDown={handleKeyPress}
           placeholder={postCommentAction === POST_OPTION.REPLY ? '답글 달기' : '댓글 달기'}
-          hasContent={commentContent.trim().length > 0}
+          $hasContent={commentContent.trim().length > 0}
         />
         <CommentButton
-          hasContent={commentContent.trim().length > 0}
+          $hasContent={commentContent.trim().length > 0}
           onClick={() => handleCommentSubmit(postCommentAction, commentId)}
         >
           {postCommentAction === POST_OPTION.PUT ? '수정' : '등록'}
         </CommentButton>
         {postCommentAction !== POST_OPTION.POST && (
-          <CommentButton hasContent={true} onClick={() => setNowPostStatus(POST_OPTION.POST)}>
+          <CommentButton $hasContent={true} onClick={() => setNowPostStatus(POST_OPTION.POST)}>
             취소
           </CommentButton>
         )}
@@ -113,7 +113,7 @@ const CommentInputBox = styled.div`
 `;
 
 interface CommentButtonProps {
-  hasContent: boolean;
+  $hasContent: boolean;
 }
 
 const CommentInput = styled.input<CommentButtonProps>`
@@ -142,14 +142,14 @@ const CommentInput = styled.input<CommentButtonProps>`
 `;
 
 const CommentButton = styled.button<CommentButtonProps>`
-  cursor: ${({ hasContent }) => (hasContent ? 'pointer' : '')};
+  cursor: ${({ $hasContent }) => ($hasContent ? 'pointer' : '')};
   flex: 0 0 auto;
   border: none;
   border-radius: 20px;
   font-size: 14px;
   font-weight: 600;
   letter-spacing: -0.014px;
-  color: ${({ hasContent }) => (hasContent ? 'var(--main)' : 'var(--disabled)')};
+  color: ${({ $hasContent }) => ($hasContent ? 'var(--main)' : 'var(--disabled)')};
 `;
 
 export default CommentInputForm;
