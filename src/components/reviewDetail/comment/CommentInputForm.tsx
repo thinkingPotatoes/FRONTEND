@@ -2,7 +2,11 @@ import { useState, ChangeEvent, KeyboardEvent } from 'react';
 import { styled } from 'styled-components';
 import axios from '../../../api/apiController';
 
-function CommentInputForm({ reviewId }: { reviewId: string | undefined }) {
+interface Props {
+  reviewId: string | undefined;
+  setUpdateData: React.Dispatch<React.SetStateAction<boolean>>;
+}
+function CommentInputForm({ reviewId, setUpdateData }: Props) {
   const [commentContent, setCommentContent] = useState('');
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -12,10 +16,10 @@ function CommentInputForm({ reviewId }: { reviewId: string | undefined }) {
   const handleCommentSubmit = async () => {
     if (commentContent.trim().length > 0) {
       try {
-        const response = await axios.post('/filog/comment/', {
-          reviewId,
+        await axios.post(`/comment/${reviewId}`, {
           content: commentContent,
         });
+        setUpdateData((prev) => !prev);
         setCommentContent('');
       } catch (error) {
         console.error('댓글 등록 중 오류:', error);

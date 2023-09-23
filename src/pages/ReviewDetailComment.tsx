@@ -1,9 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import axios from '../api/apiController';
 import CommentTopNav from '../components/reviewDetail/comment/ReviewCommentTopNav';
 import { ReviewComment } from '../components/types/review';
 import CommentBox from '../components/reviewDetail/comment/CommentBox';
 import CommentInputForm from '../components/reviewDetail/comment/CommentInputForm';
+import styled from 'styled-components';
+/*
 const dummyData: ReviewComment[] = [
   {
     id: '1',
@@ -42,40 +45,63 @@ const dummyData: ReviewComment[] = [
     userId: '123',
   },
 ];
+*/
+
+const getSortedReviewList = (data: ReviewComment[]) => {
+  const newSortedData: ReviewComment[] = [];
+  data.forEach((comment) => {
+    if (comment.replyId) {
+      const indexToInsert = newSortedData.findIndex((item) => item.id === comment.replyId);
+      if (indexToInsert !== -1) {
+        // 찾은 경우
+        newSortedData.splice(indexToInsert + 1, 0, comment);
+      } else {
+        // 찾지 못한 경우, 그냥 배열 끝에 추가
+        newSortedData.push(comment);
+      }
+    } else {
+      // replyId가 없는 경우, 그냥 배열 끝에 추가
+      newSortedData.push(comment);
+    }
+  });
+  return newSortedData;
+};
 
 function ReviewDetailComment() {
   const { id } = useParams<{ id: string }>();
-  const [sortedDummyData, setSortedDummyData] = useState<ReviewComment[]>([]);
+  const [sortedData, setSortedData] = useState<ReviewComment[]>([]);
+  const [updateData, setUpdateData] = useState<boolean>(false);
+  const [commentCnt, setCommentCnt] = useState<number>(0);
 
   useEffect(() => {
-    //replyId에 따라 재정렬
-    const newSortedDummyData: ReviewComment[] = [];
-
-    dummyData.forEach((comment) => {
-      if (comment.replyId) {
-        const indexToInsert = newSortedDummyData.findIndex((item) => item.id === comment.replyId);
-        if (indexToInsert !== -1) {
-          // 찾은 경우
-          newSortedDummyData.splice(indexToInsert + 1, 0, comment);
-        } else {
-          // 찾지 못한 경우, 그냥 배열 끝에 추가
-          newSortedDummyData.push(comment);
-        }
-      } else {
-        // replyId가 없는 경우, 그냥 배열 끝에 추가
-        newSortedDummyData.push(comment);
+    const fetchReviewDetailData = async () => {
+      try {
+        const response = await axios.get(`/comment/get/${id}`);
+        const sortedData = getSortedReviewList(response.data.data.list);
+        setSortedData(sortedData);
+        setCommentCnt(response.data.data.totalCnt);
+      } catch (error: any) {
+        console.error('오류:', error.message);
       }
-    });
+    };
 
-    setSortedDummyData(newSortedDummyData);
-  }, []);
+    fetchReviewDetailData();
+  }, [updateData]);
+
   return (
     <>
-      <CommentTopNav commentCnt={dummyData.length} />
-      {sortedDummyData.length !== 0 && sortedDummyData.map((data) => <CommentBox comment={data} />)}
-      <CommentInputForm reviewId={id} />
+      <CommentTopNav commentCnt={commentCnt} />
+      <CommentFrame>
+        {commentCnt !== 0 && sortedData.map((data, idx) => <CommentBox key={idx} comment={data} />)}
+      </CommentFrame>
+      <CommentInputForm reviewId={id} setUpdateData={setUpdateData} />
     </>
   );
 }
+
+const CommentFrame = styled.div`
+  height: 80dvh;
+  overflow-y: scroll;
+`;
 
 export default ReviewDetailComment;

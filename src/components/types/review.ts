@@ -29,10 +29,11 @@ export interface ReviewDetail {
 
 export interface ReviewComment {
   id: string;
+  articleId: string;
   nickname: string;
   userId: string;
-  date: string;
-  contents: string;
+  content: string;
+  updatedAt: string;
   likeCnt: number;
   replyId: string;
 }

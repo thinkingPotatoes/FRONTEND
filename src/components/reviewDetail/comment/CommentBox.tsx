@@ -24,24 +24,26 @@ const CommentBox = ({ comment }: Props) => {
     }
   };
 
-  if (comment.replyId.length === 0) {
+  if (!comment.replyId || comment.replyId.length === 0) {
     return (
       <EachBox>
         <div className="commentInfo">
           <div className="writerInfo">
-            <div className="nickname">{comment.nickname}</div>
-            <div className="date">{comment.date}</div>
+            <div className="nickname">
+              {comment.nickname ? comment.nickname : '아직 닉네임이 없어요'}
+            </div>
+            <div className="date">{comment.updatedAt.split('T')[0]}</div>
           </div>
           <MoreDotSvg />
         </div>
 
-        <div className="text">{comment.contents}</div>
+        <div className="text">{comment.content}</div>
         <div className="actingComment" onClick={handleLikeClick}>
           {likeCnt > 0 ? (
             <>
               <CommentLike>
                 <FillLikeSvg />
-                <span className="fill">마음 {likeCnt}개</span>
+                <span className="fill">마음 {likeCnt ? likeCnt : 0}개</span>
               </CommentLike>
               <CommentReply>답글달기</CommentReply>
             </>
@@ -64,14 +66,16 @@ const CommentBox = ({ comment }: Props) => {
         <div className="subcomment">
           <ChildSvg />
           <div className="writerInfo">
-            <div className="nickname">{comment.nickname}</div>
-            <div className="date">{comment.date}</div>
+            <div className="nickname">
+              {comment.nickname ? comment.nickname : '아직 닉네임이 없어요'}
+            </div>
+            <div className="date">{comment.updatedAt.split('T')[0]}</div>
           </div>
         </div>
 
         <MoreDotSvg />
       </div>
-      <div className="subtext">{comment.contents}</div>
+      <div className="subtext">{comment.content}</div>
     </EachBox>
   );
 };
@@ -79,7 +83,7 @@ const CommentBox = ({ comment }: Props) => {
 const EachBox = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 16px 20px 16px 0;
+  padding: 16px 0;
   align-items: flex-start;
   gap: 4px;
   border-bottom: 1px solid var(--dark-grey-100);

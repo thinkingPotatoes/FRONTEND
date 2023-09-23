@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { ReactComponent as BackArrowSvg } from '../../../assets/image/icon/backArrow.svg';
 import { styled } from 'styled-components';
 
@@ -8,9 +8,9 @@ interface Props {
 
 const CommentTopNav = ({ commentCnt }: Props) => {
   const navigate = useNavigate();
-
+  const { id } = useParams<{ id: string }>();
   const handleLeftArrowClick = () => {
-    navigate(-1);
+    navigate(`/review/${id}`);
   };
   return (
     <TopNavBar>
