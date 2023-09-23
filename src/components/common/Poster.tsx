@@ -1,31 +1,49 @@
 import { styled } from 'styled-components';
 
+type Size = {
+  width: number;
+  height: number;
+};
+
+type Sizes = {
+  s: Size;
+  sm: Size;
+  m: Size;
+  l: Size;
+  xl: Size;
+};
+
+const SIZES: Sizes = {
+  s: {
+    width: 30,
+    height: 42.3,
+  },
+  sm: {
+    width: 40,
+    height: 57.5,
+  },
+  m: {
+    width: 40,
+    height: 57.5,
+  },
+  l: {
+    width: 120,
+    height: 170,
+  },
+  xl: {
+    width: 188,
+    height: 286,
+  },
+};
+
 function Poster({ imgUrl, size }: { imgUrl: string; size: string }) {
-  let width = 0;
-  let height = 0;
-
-  if (size === 's') {
-    width = 30;
-    height = 42.3;
-  }
-  if (size === 'sm') {
-    width = 40;
-    height = 57.5;
-  }
-  if (size === 'm') {
-    width = 80;
-    height = 114;
-  }
-  if (size === 'l') {
-    width = 120;
-    height = 170;
-  }
-  if (size === 'xl') {
-    width = 188;
-    height = 286;
-  }
-
-  return <PosterImg src={imgUrl} $width={width} $height={height} />;
+  return (
+    <PosterImg
+      src={imgUrl}
+      $width={SIZES[size as keyof Sizes].width}
+      $height={SIZES[size as keyof Sizes].height}
+    />
+  );
 }
 
 const PosterImg = styled.img<{ $width: number; $height: number }>`
