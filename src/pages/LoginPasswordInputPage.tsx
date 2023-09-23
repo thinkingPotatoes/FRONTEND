@@ -1,38 +1,25 @@
 import { ReactComponent as BackArrow } from '../assets/image/icon/backArrow.svg';
 import styled from 'styled-components';
-import { useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { useAccountDispatch, useAccountState } from '../context/AccountContext';
+import axios from '../api/apiController.tsx';
 
 function LoginPasswordInputPage() {
-  const [password, setPassword] = useState<string>('');
-
+  const { email, password } = useAccountState();
+  const dispatch = useAccountDispatch();
   const navigate = useNavigate();
-
-  const {
-    state: { email },
-  } = useLocation();
 
   const onInputPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newPassword = e.target.value;
-
-    setPassword(newPassword);
+    dispatch({ type: 'SET_PASSWORD', password: newPassword });
   };
 
-  const onClickNext = () => {
-    fetch('http://localhost:8080/users/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        userId: email,
-        password,
-      }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        navigate('/home');
-      });
+  const onClickNext = async () => {
+    const { status } = await axios.post('/users/login', { userId: email, password });
+
+    if (status === 200) {
+      navigate('/home');
+    }
   };
 
   const onClickChangePassword = () => {

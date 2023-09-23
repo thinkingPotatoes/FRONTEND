@@ -36,6 +36,7 @@ function LoginEamilInputPage() {
       case 'INACTIVE':
         break;
       case 'ACTIVE':
+        navigate('/login/password');
         break;
       case 'WITHDRAWL':
         break;
