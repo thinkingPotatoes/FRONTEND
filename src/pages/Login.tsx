@@ -13,10 +13,6 @@ function Login() {
     navigate('/login/email');
   };
 
-  const onClickRegister = () => {
-    navigate('/register/email');
-  };
-
   return (
     <>
       <LogoContainer>
@@ -38,11 +34,6 @@ function Login() {
         </SocialLoginButton>
         <SocialLoginButton backgroundColor="#1C1C25" color="#E4E4E5" onClick={onClickEmail}>
           이메일로 시작하기
-        </SocialLoginButton>
-
-        {/* 회원가입 페이지를 보여주기 위한 임시 버튼 */}
-        <SocialLoginButton backgroundColor="#1C1C25" color="#E4E4E5" onClick={onClickRegister}>
-          회원가입
         </SocialLoginButton>
       </LoginButtonContainer>
     </>

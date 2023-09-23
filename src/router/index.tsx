@@ -5,7 +5,6 @@ import MovieSearch from '../pages/MovieSearch.tsx';
 import PostReview from '../pages/PostReview.tsx';
 import PostReviewOption from '../pages/PostReviewOption.tsx';
 import PostReviewRequired from '../pages/PostReviewRequired.tsx';
-import RegisterEamilInputPage from '../pages/RegisterEamilInputPage.tsx';
 import RegisterPasswordInputPage from '../pages/RegisterPasswordInputPage.tsx';
 import SearchPage from '../pages/SearchPage.tsx';
 import SelectMovie from '../pages/SelectMovie.tsx';
@@ -13,18 +12,20 @@ import RegisterSuccess from '../pages/RegisterSuccess.tsx';
 import MovieTasteSelection from '../pages/MovieTasteSelection.tsx';
 import SelectGenre from '../pages/SelectGenre.tsx';
 import Redirect from '../pages/Redirect.tsx';
+import Login from '../pages/Login.tsx';
+import LoginEamilInputPage from '../pages/LoginEamilInputPage.tsx';
 
 export const commonRouter = [
-  { path: '/', element: <Home /> },
+  { path: '/', element: <Login /> },
+  { path: '/home', element: <Home /> },
   { path: '/moviesearch', element: <MovieSearch /> },
   { path: '/search', element: <SearchPage /> },
 ];
 
 export const publicRouter = [
-  { path: '/home', element: <Home /> },
   {
-    path: '/register/email',
-    element: <RegisterEamilInputPage />,
+    path: '/login/email',
+    element: <LoginEamilInputPage />,
   },
   {
     path: '/register/password',
@@ -53,7 +54,7 @@ export const publicRouter = [
   {
     path: '/register/genre',
     element: <SelectGenre />,
-  }
+  },
 ];
 
 export const privateRouter = [
