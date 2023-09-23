@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { isValidateEmail } from '../utils/vaildation.ts';
 import axios from '../api/apiController.tsx';
 import { useAccountDispatch, useAccountState } from '../context/AccountContext.tsx';
+import Head1 from '../components/common/texts/Head1.ts';
 
 type AccountStatus = 'WAITED' | 'INACTIVE' | 'ACTIVE' | 'WITHDRAWL';
 
@@ -59,7 +60,9 @@ function LoginEamilInputPage() {
           <BackArrow />
         </BackButton>
       </Header>
-      <Head1>이메일을 입력해주세요</Head1>
+      <Head1 color="var(--dark-grey-800)" marginBottom="17px">
+        이메일을 입력해주세요
+      </Head1>
       <Input placeholder="abc@naver.com" value={email} onChange={onInputEmail} />
       <NextButton onClick={onClickNext} disabled={!isEmailValid}>
         다음
@@ -67,17 +70,6 @@ function LoginEamilInputPage() {
     </>
   );
 }
-
-const Head1 = styled.div`
-  font-size: 24px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: 130%;
-  letter-spacing: -0.24px;
-  color: #ffffff;
-  font-family: 'Pretendard';
-  margin-bottom: 17px;
-`;
 
 const Header = styled.div`
   display: flex;
