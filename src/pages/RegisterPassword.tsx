@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAccountDispatch, useAccountState } from '../context/AccountContext.tsx';
 import axios from '../api/apiController.tsx';
 import Input from '../components/account/Input.tsx';
+import NextButton from '../components/account/NextButton.tsx';
 
 function RegisterPasswordInputPage() {
   const [message, setMessage] = useState<string>('');
@@ -116,23 +117,4 @@ const Body2 = styled.div<Body2Props>`
   font-family: 'Pretendard';
 `;
 
-interface ButtonProps {
-  disabled: boolean;
-}
-
-const NextButton = styled.button<ButtonProps>`
-  position: fixed;
-  left: 0px;
-  bottom: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-family: 'Pretendard';
-  color: ${({ disabled }: ButtonProps) => (disabled ? 'var(--disabled)' : '#ffffff')};
-  height: 52px;
-  width: 100%;
-  background-color: ${({ disabled }: ButtonProps) =>
-    disabled ? 'var(--background-bright)' : 'var(--main)'};
-  margin-top: auto;
-`;
 export default RegisterPasswordInputPage;

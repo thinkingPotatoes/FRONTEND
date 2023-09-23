@@ -6,6 +6,7 @@ import axios from '../api/apiController.tsx';
 import { useAccountDispatch, useAccountState } from '../context/AccountContext.tsx';
 import Input from '../components/account/Input.tsx';
 import Head1 from '../components/common/texts/Head1.ts';
+import NextButton from '../components/account/NextButton.tsx';
 
 type AccountStatus = 'WAITED' | 'INACTIVE' | 'ACTIVE' | 'WITHDRAWL';
 
@@ -84,26 +85,6 @@ const Header = styled.div`
 const BackButton = styled.button`
   position: absolute;
   left: 16px;
-`;
-
-interface ButtonProps {
-  disabled: boolean;
-}
-const NextButton = styled.button<ButtonProps>`
-  position: fixed;
-  left: 0px;
-  bottom: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-family: 'Pretendard';
-  color: ${({ disabled }: ButtonProps) => (disabled ? 'var(--disabled)' : '#ffffff')};
-  height: 52px;
-  width: 100%;
-  background-color: ${({ disabled }: ButtonProps) =>
-    disabled ? 'var(--background-bright)' : 'var(--main)'};
-
-  margin-top: auto;
 `;
 
 export default LoginEamilInputPage;
