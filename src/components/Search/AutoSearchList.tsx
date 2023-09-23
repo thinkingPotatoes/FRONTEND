@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { MAX_RECENT_SEARCH, localStorageKey } from './RecentSearch';
-import { MovieResponseList } from '../types/search';
+import { MovieResponseList } from '../../types/search';
 
 interface AutoSearchListProps {
   searchResults: MovieResponseList[];
@@ -28,7 +28,7 @@ function AutoSearchList({ searchResults, onClick }: AutoSearchListProps) {
     <AutoSearchContainer>
       <AutoSearchWrap>
         {searchResults.map((search, idx) => (
-          <AutoSearchData key={search.title} onClick={() => handleSearchItemClick(search.title)}>
+          <AutoSearchData key={idx} onClick={() => handleSearchItemClick(search.title)}>
             <a href="#">{search.title}</a>
           </AutoSearchData>
         ))}

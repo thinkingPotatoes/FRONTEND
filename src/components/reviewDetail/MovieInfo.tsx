@@ -1,6 +1,6 @@
 import { styled } from 'styled-components';
 import RateInfo from './RateInfo';
-import { Movie } from '../types/movie';
+import { Movie } from '../../types/movie';
 
 interface Props {
   info: Movie;

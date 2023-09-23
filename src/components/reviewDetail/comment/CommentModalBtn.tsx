@@ -1,7 +1,7 @@
 import { styled } from 'styled-components';
 import { RefObject, useState } from 'react';
 import { ReactComponent as MoreActSvg } from '../../../assets/icon/moreDot.svg';
-import { ReviewComment } from '../../types/review';
+import { ReviewComment } from '../../../types/review';
 import { POST_OPTION } from '../../../pages/ReviewDetailComment';
 import axios from '../../../api/apiController';
 

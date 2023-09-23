@@ -4,7 +4,7 @@ import ReviewContents from '../components/reviewDetail/ReviewContents';
 import ReviewBottomNav from '../components/reviewDetail/ReviewBottomNav';
 import { useParams } from 'react-router-dom';
 import axios from '../api/apiController';
-import { ReviewDetail } from '../components/types/review';
+import { ReviewDetail } from '../types/review';
 
 function ReviewDetail() {
   const { id } = useParams<{ id: string }>();

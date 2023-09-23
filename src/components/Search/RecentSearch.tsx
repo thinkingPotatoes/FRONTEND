@@ -6,7 +6,7 @@ import 'swiper/swiper-bundle.min.css';
 import 'swiper/swiper.min.css';
 import useLocalStorage from '../../hooks/useLocalStorage';
 import { SearchBoxProps, fetchAutocompleteSuggestions } from './SearchBox';
-import { MovieResponseList } from '../types/search';
+import { MovieResponseList } from '../../types/search';
 
 export const MAX_RECENT_SEARCH = 10;
 export const localStorageKey = 'recentSearchList';

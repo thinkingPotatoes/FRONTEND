@@ -3,7 +3,7 @@ import CategoryChips from './CategoryChips';
 import { styled } from 'styled-components';
 import MovieInfo from './MovieInfo';
 import WatchInfo from './WatchInfo';
-import { ReviewDetail } from '../types/review';
+import { ReviewDetail } from '../../types/review';
 
 interface Props {
   data: ReviewDetail | null;

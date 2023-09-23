@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { ReactComponent as ChildSvg } from '../../../assets/icon/child-arrow.svg';
 import { ReactComponent as LikeSvg } from '../../../assets/image/icon/heart.svg';
 import { ReactComponent as FillLikeSvg } from '../../../assets/image/icon/fillHeart.svg';
-import { ReviewComment } from '../../types/review';
+import { ReviewComment } from '../../../types/review';
 import CommentModalBtn from './CommentModalBtn';
 import { POST_OPTION } from '../../../pages/ReviewDetailComment';
 import axios from '../../../api/apiController';

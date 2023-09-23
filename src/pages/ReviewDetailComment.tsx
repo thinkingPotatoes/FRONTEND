@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import axios from '../api/apiController';
 import CommentTopNav from '../components/reviewDetail/comment/ReviewCommentTopNav';
-import { ReviewComment } from '../components/types/review';
+import { ReviewComment } from '../types/review';
 import CommentBox from '../components/reviewDetail/comment/CommentBox';
 import CommentInputForm from '../components/reviewDetail/comment/CommentInputForm';
 
