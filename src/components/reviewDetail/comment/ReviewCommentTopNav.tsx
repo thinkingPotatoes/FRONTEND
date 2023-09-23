@@ -14,12 +14,13 @@ const CommentTopNav = ({ commentCnt }: Props) => {
   };
   return (
     <TopNavBar>
-      <SvgWrapper>
-        <BackArrowSvg onClick={handleLeftArrowClick} />
+      <SvgWrapper onClick={handleLeftArrowClick}>
+        <BackArrowSvg />
       </SvgWrapper>
       <div className="title">
         댓글 <span>{commentCnt}</span>
       </div>
+      <EmptyBox />
     </TopNavBar>
   );
 };
@@ -30,7 +31,7 @@ const TopNavBar = styled.div`
   margin: 0 -20px;
   height: 56px;
   align-items: center;
-  gap: 32%;
+  justify-content: space-between;
   .title {
     display: flex;
     font-size: 18px;
@@ -53,6 +54,11 @@ const SvgWrapper = styled.div`
   width: 40px;
   height: 44px;
   cursor: pointer;
+`;
+
+const EmptyBox = styled.div`
+  width: 40px;
+  height: 44px;
 `;
 
 export default CommentTopNav;
