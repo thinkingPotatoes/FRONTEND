@@ -1,11 +1,17 @@
 import { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import styled from 'styled-components';
 import axios from '../api/apiController';
 import CommentTopNav from '../components/reviewDetail/comment/ReviewCommentTopNav';
 import { ReviewComment } from '../components/types/review';
 import CommentBox from '../components/reviewDetail/comment/CommentBox';
 import CommentInputForm from '../components/reviewDetail/comment/CommentInputForm';
-import styled from 'styled-components';
+
+export const POST_OPTION = {
+  POST: 'POST',
+  PUT: 'PUT',
+  REPLY: 'REPLY',
+};
 
 const getSortedReviewList = (data: ReviewComment[]) => {
   const newSortedData: ReviewComment[] = [];
@@ -28,16 +34,18 @@ const getSortedReviewList = (data: ReviewComment[]) => {
 };
 
 function ReviewDetailComment() {
-  const { id } = useParams<{ id: string }>();
+  const { id: articleId } = useParams<{ id: string }>();
   const [sortedData, setSortedData] = useState<ReviewComment[]>([]);
   const [updateData, setUpdateData] = useState<boolean>(false);
   const [commentCnt, setCommentCnt] = useState<number>(0);
+  const [nowPostStatus, setNowPostStatus] = useState<string>(POST_OPTION.POST);
+  const [nowCommentId, setNowCommentId] = useState<string>('');
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
     const fetchReviewDetailData = async () => {
       try {
-        const response = await axios.get(`/comment/get/${id}`);
+        const response = await axios.get(`/comment/get/${articleId}`);
         const sortedData = getSortedReviewList(response.data.data.list);
         setSortedData(sortedData);
         setCommentCnt(response.data.data.totalCnt);
@@ -55,10 +63,23 @@ function ReviewDetailComment() {
       <CommentFrame>
         {commentCnt !== 0 &&
           sortedData.map((data, idx) => (
-            <CommentBox key={idx} comment={data} inputRef={inputRef} />
+            <CommentBox
+              key={idx}
+              comment={data}
+              inputRef={inputRef}
+              setNowPostStatus={setNowPostStatus}
+              setNowCommentId={setNowCommentId}
+            />
           ))}
       </CommentFrame>
-      <CommentInputForm reviewId={id} setUpdateData={setUpdateData} inputRef={inputRef} />
+      <CommentInputForm
+        reviewId={articleId}
+        setUpdateData={setUpdateData}
+        inputRef={inputRef}
+        postCommentAction={nowPostStatus}
+        commentId={nowCommentId}
+        setNowPostStatus={setNowPostStatus}
+      />
     </>
   );
 }

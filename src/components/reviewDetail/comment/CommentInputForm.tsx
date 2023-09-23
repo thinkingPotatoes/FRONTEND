@@ -1,30 +1,58 @@
-import { useState, ChangeEvent, KeyboardEvent, RefObject } from 'react';
+import { useState, ChangeEvent, KeyboardEvent, RefObject, useEffect } from 'react';
 import { styled } from 'styled-components';
+import { POST_OPTION } from '../../../pages/ReviewDetailComment';
 import axios from '../../../api/apiController';
 
 interface Props {
   reviewId: string | undefined;
   setUpdateData: React.Dispatch<React.SetStateAction<boolean>>;
+  setNowPostStatus: React.Dispatch<React.SetStateAction<string>>;
   inputRef: RefObject<HTMLInputElement>;
+  postCommentAction: string;
+  commentId: string;
 }
 
-function CommentInputForm({ reviewId, setUpdateData, inputRef }: Props) {
+function CommentInputForm({
+  reviewId,
+  setUpdateData,
+  setNowPostStatus,
+  inputRef,
+  postCommentAction,
+  commentId,
+}: Props) {
   const [commentContent, setCommentContent] = useState('');
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setCommentContent(event.target.value);
   };
 
-  const handleCommentSubmit = async () => {
+  const handleCommentSubmit = async (commentAction: string, commentId: string) => {
     if (commentContent.trim().length > 0) {
-      try {
-        await axios.post(`/comment/${reviewId}`, {
-          content: commentContent,
-        });
-        setUpdateData((prev) => !prev);
-        setCommentContent('');
-      } catch (error) {
-        console.error('댓글 등록 중 오류:', error);
+      const COMMENT_URL = `/comment/${reviewId}`;
+      switch (commentAction) {
+        case POST_OPTION.POST:
+          try {
+            await axios.post(COMMENT_URL, {
+              content: commentContent,
+            });
+            setUpdateData((prev) => !prev);
+            setCommentContent('');
+          } catch (error: any) {
+            console.error('오류:', error.message);
+          }
+          break;
+        case POST_OPTION.PUT:
+          try {
+            await axios.put(COMMENT_URL + `/${commentId}`, {
+              content: commentContent,
+            });
+            setUpdateData((prev) => !prev);
+            setCommentContent('');
+            setNowPostStatus(POST_OPTION.POST);
+          } catch (error: any) {
+            console.error('오류:', error.message);
+          }
+          break;
       }
     }
   };
@@ -32,7 +60,7 @@ function CommentInputForm({ reviewId, setUpdateData, inputRef }: Props) {
   const handleKeyPress = (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
       event.preventDefault();
-      handleCommentSubmit();
+      handleCommentSubmit(postCommentAction, commentId);
     }
   };
 
@@ -44,12 +72,20 @@ function CommentInputForm({ reviewId, setUpdateData, inputRef }: Props) {
           value={commentContent}
           onChange={handleChange}
           onKeyDown={handleKeyPress}
-          placeholder="댓글 달기"
+          placeholder={postCommentAction === POST_OPTION.REPLY ? '답글 달기' : '댓글 달기'}
           hasContent={commentContent.trim().length > 0}
         />
-        <CommentButton hasContent={commentContent.trim().length > 0} onClick={handleCommentSubmit}>
-          등록
+        <CommentButton
+          hasContent={commentContent.trim().length > 0}
+          onClick={() => handleCommentSubmit(postCommentAction, commentId)}
+        >
+          {postCommentAction === POST_OPTION.PUT ? '수정' : '등록'}
         </CommentButton>
+        {postCommentAction !== POST_OPTION.POST && (
+          <CommentButton hasContent={true} onClick={() => setNowPostStatus(POST_OPTION.POST)}>
+            취소
+          </CommentButton>
+        )}
       </CommentInputBox>
     </CommentInputContainer>
   );

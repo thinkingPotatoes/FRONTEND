@@ -1,18 +1,20 @@
 import { RefObject, useState } from 'react';
 import styled from 'styled-components';
-import { ReactComponent as MoreDotSvg } from '../../../assets/icon/moreDot.svg';
 import { ReactComponent as ChildSvg } from '../../../assets/icon/child-arrow.svg';
 import { ReactComponent as LikeSvg } from '../../../assets/image/icon/heart.svg';
 import { ReactComponent as FillLikeSvg } from '../../../assets/image/icon/fillHeart.svg';
 import { ReviewComment } from '../../types/review';
 import CommentModalBtn from './CommentModalBtn';
+import { POST_OPTION } from '../../../pages/ReviewDetailComment';
 
 interface Props {
   comment: ReviewComment;
   inputRef: RefObject<HTMLInputElement>;
+  setNowCommentId: React.Dispatch<React.SetStateAction<string>>;
+  setNowPostStatus: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const CommentBox = ({ comment, inputRef }: Props) => {
+const CommentBox = ({ comment, inputRef, setNowCommentId, setNowPostStatus }: Props) => {
   const [likeCnt, setLikeCnt] = useState(comment.likeCnt ? comment.likeCnt : 0);
   const [isLike, setLike] = useState(comment.likeCnt > 0);
 
@@ -28,6 +30,7 @@ const CommentBox = ({ comment, inputRef }: Props) => {
   const handleReplyClick = () => {
     if (inputRef.current) {
       inputRef.current.focus();
+      setNowPostStatus(POST_OPTION.REPLY);
     }
   };
 
@@ -49,12 +52,15 @@ const CommentBox = ({ comment, inputRef }: Props) => {
       <EachBox>
         <div className="commentInfo">
           <div className="writerInfo">
-            <div className="nickname">
-              {comment.nickname ? comment.nickname : '아직 닉네임이 없어요'}
-            </div>
+            <div className="nickname">{comment.nickname ? comment.nickname : 'NO NICKNAME'}</div>
             <div className="date">{comment.updatedAt.split('T')[0]}</div>
           </div>
-          <CommentModalBtn comment={comment} />
+          <CommentModalBtn
+            comment={comment}
+            inputRef={inputRef}
+            setNowPostStatus={setNowPostStatus}
+            setNowCommentId={setNowCommentId}
+          />
         </div>
 
         <div className="text">{comment.content}</div>
@@ -71,13 +77,16 @@ const CommentBox = ({ comment, inputRef }: Props) => {
         <div className="subcomment">
           <ChildSvg />
           <div className="writerInfo">
-            <div className="nickname">
-              {comment.nickname ? comment.nickname : '아직 닉네임이 없어요'}
-            </div>
+            <div className="nickname">{comment.nickname ? comment.nickname : 'NO NICKNAME'}</div>
             <div className="date">{comment.updatedAt.split('T')[0]}</div>
           </div>
         </div>
-        <CommentModalBtn comment={comment} />
+        <CommentModalBtn
+          comment={comment}
+          inputRef={inputRef}
+          setNowPostStatus={setNowPostStatus}
+          setNowCommentId={setNowCommentId}
+        />
       </div>
 
       <div className="subtext">{comment.content}</div>

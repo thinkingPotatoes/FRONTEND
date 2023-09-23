@@ -1,14 +1,22 @@
 import { styled } from 'styled-components';
-import { useState } from 'react';
-import axios from '../../../api/apiController';
+import { RefObject, useState } from 'react';
 import { ReactComponent as MoreActSvg } from '../../../assets/icon/moreDot.svg';
 import { ReviewComment } from '../../types/review';
+import { POST_OPTION } from '../../../pages/ReviewDetailComment';
 
 interface CommentModalBtnProps {
   comment: ReviewComment;
+  inputRef: RefObject<HTMLInputElement>;
+  setNowCommentId: React.Dispatch<React.SetStateAction<string>>;
+  setNowPostStatus: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const CommentModalBtn = ({ comment }: CommentModalBtnProps) => {
+const CommentModalBtn = ({
+  comment,
+  inputRef,
+  setNowCommentId,
+  setNowPostStatus,
+}: CommentModalBtnProps) => {
   const [modalPosition, setModalPosition] = useState({ x: 0, y: 0 });
   const [isModalOpen, setModalOpen] = useState(false);
 
@@ -22,7 +30,14 @@ const CommentModalBtn = ({ comment }: CommentModalBtnProps) => {
 
   const handleEditClick = () => {
     // 수정모드
-    // setEditing(true);
+    if (inputRef.current) {
+      // inputRef에 값을 먼저 설정
+      inputRef.current.value = comment.content;
+      inputRef.current.focus();
+      setNowPostStatus(POST_OPTION.PUT);
+      setNowCommentId(comment.id);
+    }
+
     setModalOpen(false);
   };
 
@@ -33,6 +48,7 @@ const CommentModalBtn = ({ comment }: CommentModalBtnProps) => {
   // 바깥 영역을 클릭 시 모달이 닫힘
   const handleModalContainerClick = () => {
     setModalOpen(false);
+    // setNowPostStatus(POST_OPTION.POST);
   };
 
   return (
