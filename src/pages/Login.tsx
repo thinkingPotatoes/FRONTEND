@@ -3,7 +3,7 @@ import { ReactComponent as Logo } from '../assets/image/icon/logo.svg';
 import { ReactComponent as KakaoIcon } from '../assets/image/icon/KakaoTalk_logo.svg';
 import { ReactComponent as NaverIcon } from '../assets/image/icon/Naver_logo.svg';
 import { ReactComponent as GoogleIcon } from '../assets/image/icon/Google_logo.svg';
-import SocialLoginButton from '../components/login/SocialLoginButton';
+import SocialLoginButton from '../components/account/SocialLoginButton';
 import { useNavigate } from 'react-router-dom';
 
 function Login() {

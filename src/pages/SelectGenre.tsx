@@ -2,7 +2,7 @@ import { styled, css } from 'styled-components';
 import { ReactComponent as BackArrow } from '../assets/image/icon/backArrow.svg';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import GenreButton from '../components/regsiter/GenreButton';
+import GenreButton from '../components/account/GenreButton';
 
 interface Body2Props {
   isCenter: boolean;
