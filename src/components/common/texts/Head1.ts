@@ -1,9 +1,5 @@
 import styled from 'styled-components';
-
-type Props = {
-  color?: string;
-  marginBottom?: string;
-};
+import { Props } from './TextStyleType';
 
 const Head1 = styled.div<Props>`
   font-size: 24px;
