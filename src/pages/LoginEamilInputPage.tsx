@@ -26,7 +26,7 @@ function LoginEamilInputPage() {
         data: { check },
       },
     } = await axios.post<AccountResponse>('/users/check-user', {
-      useId: email,
+      userId: email,
     });
 
     switch (check) {
