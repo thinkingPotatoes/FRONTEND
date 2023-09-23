@@ -5,6 +5,7 @@ import { ReactComponent as ChildSvg } from '../../../assets/icon/child-arrow.svg
 import { ReactComponent as LikeSvg } from '../../../assets/image/icon/heart.svg';
 import { ReactComponent as FillLikeSvg } from '../../../assets/image/icon/fillHeart.svg';
 import { ReviewComment } from '../../types/review';
+import CommentModalBtn from './CommentModalBtn';
 
 interface Props {
   comment: ReviewComment;
@@ -53,7 +54,7 @@ const CommentBox = ({ comment, inputRef }: Props) => {
             </div>
             <div className="date">{comment.updatedAt.split('T')[0]}</div>
           </div>
-          <MoreDotSvg />
+          <CommentModalBtn comment={comment} />
         </div>
 
         <div className="text">{comment.content}</div>
@@ -76,7 +77,7 @@ const CommentBox = ({ comment, inputRef }: Props) => {
             <div className="date">{comment.updatedAt.split('T')[0]}</div>
           </div>
         </div>
-        <MoreDotSvg />
+        <CommentModalBtn comment={comment} />
       </div>
 
       <div className="subtext">{comment.content}</div>
