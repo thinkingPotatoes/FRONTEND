@@ -3,10 +3,10 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { commonRouter, privateRouter, publicRouter } from './router/index.tsx';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
+import { AccountProvider } from './context/AccountContext.tsx';
 
 function App() {
-  // Todo 이국신: 로그인 구현 이후 변경 필요
-  const isLogin = false;
+  const isLogin = localStorage.getItem('ACCESS_TOKEN') ? true : false;
 
   const protectedRouter = isLogin ? privateRouter : publicRouter;
   const router = createBrowserRouter([...commonRouter, ...protectedRouter]);
@@ -14,7 +14,9 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
+      <AccountProvider>
+        <RouterProvider router={router} />
+      </AccountProvider>
       <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
     </QueryClientProvider>
   );
