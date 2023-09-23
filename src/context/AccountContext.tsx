@@ -4,12 +4,12 @@ type State = {
   email: string;
   password: string;
   isEmailValid: Boolean;
-  isPasswordValid: Boolean;
+  isPasswordValid?: Boolean;
 };
 
 type Action =
   | { type: 'SET_EMAIL'; email: string; isEmailValid: Boolean }
-  | { type: 'SET_PASSWORD'; password: string; isPasswordValid: Boolean };
+  | { type: 'SET_PASSWORD'; password: string; isPasswordValid?: Boolean };
 
 type AccountDispatch = Dispatch<Action>;
 
@@ -29,7 +29,7 @@ function reducer(state: State, action: Action) {
       return {
         ...state,
         password: action.password,
-        isPasswordValid: action.isPasswordValid,
+        isPasswordValid: action?.isPasswordValid,
       };
 
     default:
