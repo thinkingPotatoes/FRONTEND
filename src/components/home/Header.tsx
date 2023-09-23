@@ -2,8 +2,14 @@ import { styled } from 'styled-components';
 import { ReactComponent as Logo } from '../../assets/image/icon/logo.svg';
 import { ReactComponent as Popcorn } from '../../assets/image/icon/popcorn.svg';
 import { ReactComponent as Search } from '../../assets/image/icon/search.svg';
+import { useNavigate } from 'react-router';
 
 function Header() {
+  const navigate = useNavigate();
+  const onClickSeach = () => {
+    navigate('/search');
+  };
+
   return (
     <Container>
       <HeaderContainer>
@@ -15,7 +21,7 @@ function Header() {
           <Popcorn />
         </HeaderRightContainer>
       </HeaderContainer>
-      <SearchButton>
+      <SearchButton onClick={onClickSeach}>
         <Search />
         <span>검색어를 입력해주세요.</span>
       </SearchButton>
