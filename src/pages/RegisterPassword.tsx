@@ -7,6 +7,7 @@ import axios from '../api/apiController.tsx';
 import Input from '../components/account/Input.tsx';
 import NextButton from '../components/account/NextButton.tsx';
 import HeaderWithBack from '../components/common/HeaderWithBack.tsx';
+import Body2 from '../components/common/texts/Body2.ts';
 
 function RegisterPasswordInputPage() {
   const [message, setMessage] = useState<string>('');
@@ -80,19 +81,6 @@ const Head1 = styled.div`
   color: #ffffff;
   font-family: 'Pretendard';
   margin-bottom: 17px;
-`;
-
-interface Body2Props {
-  color: string;
-}
-const Body2 = styled.div<Body2Props>`
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 130%; /* 18.2px */
-  letter-spacing: -0.014px;
-  color: ${({ color }) => color};
-  font-family: 'Pretendard';
 `;
 
 export default RegisterPasswordInputPage;

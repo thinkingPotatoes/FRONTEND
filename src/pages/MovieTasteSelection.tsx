@@ -1,7 +1,7 @@
 import { styled } from 'styled-components';
 import { ReactComponent as BackArrow } from '../assets/image/icon/backArrow.svg';
 import { useNavigate } from 'react-router-dom';
-import Poster from '../components/regsiter/Poster';
+import Poster from '../components/account/Poster';
 import { useState } from 'react';
 
 const data = [
