@@ -7,6 +7,7 @@ import NextButton from '../components/account/NextButton.tsx';
 import HeaderWithBack from '../components/common/HeaderWithBack.tsx';
 import Head1 from '../components/common/texts/Head1.ts';
 import Body2 from '../components/common/texts/Body2.ts';
+import Body3 from '../components/common/texts/Body3.ts';
 
 function LoginPasswordInputPage() {
   const { email, password } = useAccountState();
@@ -51,7 +52,7 @@ function LoginPasswordInputPage() {
         영문, 숫자, 특수문자를 포함해 8자 이상
       </Body2>
       <SettingButton onClick={onClickChangePassword}>
-        <Body3>비밀번호 재설정하기</Body3>
+        <Body3 color="var(--text-default)">비밀번호 재설정하기</Body3>
       </SettingButton>
       <NextButton onClick={onClickNext} disabled={!!!password}>
         다음
@@ -68,15 +69,6 @@ const SettingButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-`;
-
-const Body3 = styled.div`
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 130%; /* 15.6px */
-  font-family: 'Pretendard';
-  color: var(--text-default);
 `;
 
 export default LoginPasswordInputPage;
