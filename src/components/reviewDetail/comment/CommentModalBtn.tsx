@@ -3,12 +3,14 @@ import { RefObject, useState } from 'react';
 import { ReactComponent as MoreActSvg } from '../../../assets/icon/moreDot.svg';
 import { ReviewComment } from '../../types/review';
 import { POST_OPTION } from '../../../pages/ReviewDetailComment';
+import axios from '../../../api/apiController';
 
 interface CommentModalBtnProps {
   comment: ReviewComment;
   inputRef: RefObject<HTMLInputElement>;
   setNowCommentId: React.Dispatch<React.SetStateAction<string>>;
   setNowPostStatus: React.Dispatch<React.SetStateAction<string>>;
+  setUpdateData: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const CommentModalBtn = ({
@@ -16,6 +18,7 @@ const CommentModalBtn = ({
   inputRef,
   setNowCommentId,
   setNowPostStatus,
+  setUpdateData,
 }: CommentModalBtnProps) => {
   const [modalPosition, setModalPosition] = useState({ x: 0, y: 0 });
   const [isModalOpen, setModalOpen] = useState(false);
@@ -41,8 +44,9 @@ const CommentModalBtn = ({
     setModalOpen(false);
   };
 
-  const handleDeleteClick = () => {
-    setModalOpen(false);
+  const handleDeleteClick = async () => {
+    await axios.delete(`/comment/${comment.articleId}/${comment.id}`);
+    setUpdateData((prev) => !prev);
   };
 
   // 바깥 영역을 클릭 시 모달이 닫힘

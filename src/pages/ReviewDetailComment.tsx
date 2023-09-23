@@ -69,16 +69,17 @@ function ReviewDetailComment() {
               inputRef={inputRef}
               setNowPostStatus={setNowPostStatus}
               setNowCommentId={setNowCommentId}
+              setUpdateData={setUpdateData}
             />
           ))}
       </CommentFrame>
       <CommentInputForm
         reviewId={articleId}
-        setUpdateData={setUpdateData}
         inputRef={inputRef}
         postCommentAction={nowPostStatus}
         commentId={nowCommentId}
         setNowPostStatus={setNowPostStatus}
+        setUpdateData={setUpdateData}
       />
     </>
   );

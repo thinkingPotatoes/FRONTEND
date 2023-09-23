@@ -12,9 +12,16 @@ interface Props {
   inputRef: RefObject<HTMLInputElement>;
   setNowCommentId: React.Dispatch<React.SetStateAction<string>>;
   setNowPostStatus: React.Dispatch<React.SetStateAction<string>>;
+  setUpdateData: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const CommentBox = ({ comment, inputRef, setNowCommentId, setNowPostStatus }: Props) => {
+const CommentBox = ({
+  comment,
+  inputRef,
+  setNowCommentId,
+  setNowPostStatus,
+  setUpdateData,
+}: Props) => {
   const [likeCnt, setLikeCnt] = useState(comment.likeCnt ? comment.likeCnt : 0);
   const [isLike, setLike] = useState(comment.likeCnt > 0);
 
@@ -60,6 +67,7 @@ const CommentBox = ({ comment, inputRef, setNowCommentId, setNowPostStatus }: Pr
             inputRef={inputRef}
             setNowPostStatus={setNowPostStatus}
             setNowCommentId={setNowCommentId}
+            setUpdateData={setUpdateData}
           />
         </div>
 
@@ -86,6 +94,7 @@ const CommentBox = ({ comment, inputRef, setNowCommentId, setNowPostStatus }: Pr
           inputRef={inputRef}
           setNowPostStatus={setNowPostStatus}
           setNowCommentId={setNowCommentId}
+          setUpdateData={setUpdateData}
         />
       </div>
 
