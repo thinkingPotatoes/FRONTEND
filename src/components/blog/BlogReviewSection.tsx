@@ -16,13 +16,13 @@ function BlogReviewSection() {
       <ViewSelector>
         <ViewToggle
           onClick={() => handleSelectViewType(VIEW_CALENDAR)}
-          isSelected={viewType === VIEW_CALENDAR}
+          $isSelected={viewType === VIEW_CALENDAR}
         >
           Calendar
         </ViewToggle>
         <ViewToggle
           onClick={() => handleSelectViewType(VIEW_LIST)}
-          isSelected={viewType === VIEW_LIST}
+          $isSelected={viewType === VIEW_LIST}
         >
           List
         </ViewToggle>
@@ -56,7 +56,7 @@ const ViewSelector = styled.div`
   background: var(--dark-bg-default, #111213);
 `;
 
-const ViewToggle = styled.span<{ isSelected: boolean }>`
+const ViewToggle = styled.span<{ $isSelected: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -65,9 +65,9 @@ const ViewToggle = styled.span<{ isSelected: boolean }>`
   border-radius: 20px;
   background: var(--dark-bg-up, #1c1c25);
 
-  background: ${(props) => (props.isSelected ? '#1c1c25' : '0')};
+  background: ${(props) => (props.$isSelected ? '#1c1c25' : '0')};
 
-  color: ${(props) => (props.isSelected ? '#fff' : '#7E7E87')};
+  color: ${(props) => (props.$isSelected ? '#fff' : '#7E7E87')};
 
   /* Subtitle2 */
   font-size: 14px;

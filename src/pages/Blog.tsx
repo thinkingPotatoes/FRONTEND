@@ -8,18 +8,13 @@ function Blog() {
     <BlogWrapper>
       <BlogInfoWrapper>
         <BlogInfo>
-          <BlogTitle>
-            {'하둘셋넷다여일여아열하둘셋넷다여일여아열하둘셋넷다여'}
-          </BlogTitle>
+          <BlogTitle>{'하둘셋넷다여일여아열하둘셋넷다여일여아열하둘셋넷다여'}</BlogTitle>
           <ChipWrapper>
-            <Chip
-              props={{ text: '드라마', deletable: false, bgColor: 'gray' }}
-            />
+            <Chip props={{ text: '드라마', deletable: false }} />
             <Chip
               props={{
                 text: '멜로 / 로멘스',
                 deletable: false,
-                bgColor: 'gray',
               }}
             />
           </ChipWrapper>
