@@ -3,7 +3,7 @@ import { ReactComponent as BackArrow } from '../assets/image/icon/backArrow.svg'
 
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import { useAccountDispatch, useAccountState } from '../context/AccountContext';
+import { useAccountDispatch, useAccountState } from '../context/AccountContext.tsx';
 import axios from '../api/apiController.tsx';
 
 function RegisterPasswordInputPage() {

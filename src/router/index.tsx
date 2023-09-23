@@ -5,15 +5,15 @@ import MovieSearch from '../pages/MovieSearch.tsx';
 import PostReview from '../pages/PostReview.tsx';
 import PostReviewOption from '../pages/PostReviewOption.tsx';
 import PostReviewRequired from '../pages/PostReviewRequired.tsx';
-import RegisterPasswordInputPage from '../pages/RegisterPasswordInputPage.tsx';
+import RegisterPasswordInputPage from '../pages/RegisterPassword.tsx';
 import SearchPage from '../pages/SearchPage.tsx';
 import SelectMovie from '../pages/SelectMovie.tsx';
 import RegisterSuccess from '../pages/RegisterSuccess.tsx';
 import MovieTasteSelection from '../pages/MovieTasteSelection.tsx';
 import Redirect from '../pages/Redirect.tsx';
 import Login from '../pages/Login.tsx';
-import LoginEamilInputPage from '../pages/LoginEamilInputPage.tsx';
-import LoginPasswordInputPage from '../pages/LoginPasswordInputPage.tsx';
+import LoginEamilInputPage from '../pages/LoginEamil.tsx';
+import LoginPasswordInputPage from '../pages/LoginPassword.tsx';
 
 export const commonRouter = [
   { path: '/', element: <Login /> },

@@ -1,7 +1,7 @@
 import { ReactComponent as BackArrow } from '../assets/image/icon/backArrow.svg';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import { isValidateEmail } from '../utils/vaildation';
+import { isValidateEmail } from '../utils/vaildation.ts';
 import axios from '../api/apiController.tsx';
 import { useAccountDispatch, useAccountState } from '../context/AccountContext.tsx';
 
