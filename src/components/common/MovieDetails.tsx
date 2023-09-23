@@ -1,18 +1,17 @@
 import { styled } from 'styled-components';
-import { Movie } from '../../types/movie';
 import Body3 from './texts/Body3';
 
-function MovieDetails({ movie }: { movie: Movie }) {
-  const details = [movie.prodYear, movie.nation, movie.rating, movie.genre].filter(
-    (detail) => detail.length > 0,
-  );
+// [movie.prodYear, movie.nation, movie.rating, movie.genre]
+
+function MovieDetails({ details }: { details: string[] }) {
+  const filteredDetails = details.filter((detail) => detail.length > 0);
 
   return (
     <Info>
-      {details.map((detail, idx) => (
+      {filteredDetails.map((detail, idx) => (
         <Detail key={detail}>
           <Body3>{detail}</Body3>
-          {idx !== details.length - 1 && <Body3>|</Body3>}
+          {idx !== filteredDetails.length - 1 && <Body3>|</Body3>}
         </Detail>
       ))}
     </Info>
