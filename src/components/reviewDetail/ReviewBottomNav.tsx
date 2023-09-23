@@ -33,7 +33,7 @@ const BottomNav = styled.div`
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 88px;
+  height: 69px;
   padding: 15px 24px;
   align-items: flex-start;
   flex-shrink: 0;
