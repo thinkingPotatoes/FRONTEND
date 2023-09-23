@@ -6,6 +6,7 @@ import { ReactComponent as FillLikeSvg } from '../../../assets/image/icon/fillHe
 import { ReviewComment } from '../../types/review';
 import CommentModalBtn from './CommentModalBtn';
 import { POST_OPTION } from '../../../pages/ReviewDetailComment';
+import axios from '../../../api/apiController';
 
 interface Props {
   comment: ReviewComment;
@@ -14,6 +15,11 @@ interface Props {
   setNowPostStatus: React.Dispatch<React.SetStateAction<string>>;
   setUpdateData: React.Dispatch<React.SetStateAction<boolean>>;
 }
+
+const MY_ID = `3fac1359-73de-4241-bebf-3bf01933a463`;
+const getUpdateDate = (date: string) => {
+  return date.split('T')[0];
+};
 
 const CommentBox = ({
   comment,
@@ -25,7 +31,7 @@ const CommentBox = ({
   const [likeCnt, setLikeCnt] = useState(comment.likeCnt ? comment.likeCnt : 0);
   const [isLike, setLike] = useState(comment.likeCnt > 0);
 
-  const handleLikeClick = () => {
+  const handleLikeClick = async () => {
     if (isLike) {
       setLike(false);
       setLikeCnt(likeCnt - 1);
@@ -33,7 +39,10 @@ const CommentBox = ({
       setLike(true);
       setLikeCnt(likeCnt + 1);
     }
+
+    await axios.get(`/comment/${comment.id}/like`);
   };
+
   const handleReplyClick = () => {
     if (inputRef.current) {
       inputRef.current.focus();
@@ -60,15 +69,18 @@ const CommentBox = ({
         <div className="commentInfo">
           <div className="writerInfo">
             <div className="nickname">{comment.nickname ? comment.nickname : 'NO NICKNAME'}</div>
-            <div className="date">{comment.updatedAt.split('T')[0]}</div>
+            <div className="date">{getUpdateDate(comment.updatedAt)}</div>
           </div>
-          <CommentModalBtn
-            comment={comment}
-            inputRef={inputRef}
-            setNowPostStatus={setNowPostStatus}
-            setNowCommentId={setNowCommentId}
-            setUpdateData={setUpdateData}
-          />
+          {/* !내가 쓴 글일때만 수정, 삭제 가능 내 아이디 확인 부분 추후 수정 필요 */}
+          {comment.userId === MY_ID && (
+            <CommentModalBtn
+              comment={comment}
+              inputRef={inputRef}
+              setNowPostStatus={setNowPostStatus}
+              setNowCommentId={setNowCommentId}
+              setUpdateData={setUpdateData}
+            />
+          )}
         </div>
 
         <div className="text">{comment.content}</div>
@@ -86,16 +98,19 @@ const CommentBox = ({
           <ChildSvg />
           <div className="writerInfo">
             <div className="nickname">{comment.nickname ? comment.nickname : 'NO NICKNAME'}</div>
-            <div className="date">{comment.updatedAt.split('T')[0]}</div>
+            <div className="date">{getUpdateDate(comment.updatedAt)}</div>
           </div>
         </div>
-        <CommentModalBtn
-          comment={comment}
-          inputRef={inputRef}
-          setNowPostStatus={setNowPostStatus}
-          setNowCommentId={setNowCommentId}
-          setUpdateData={setUpdateData}
-        />
+        {/* !내가 쓴 글일때만 수정, 삭제 가능 내 아이디 확인 부분 추후 수정 필요 */}
+        {comment.userId === MY_ID && (
+          <CommentModalBtn
+            comment={comment}
+            inputRef={inputRef}
+            setNowPostStatus={setNowPostStatus}
+            setNowCommentId={setNowCommentId}
+            setUpdateData={setUpdateData}
+          />
+        )}
       </div>
 
       <div className="subtext">{comment.content}</div>
