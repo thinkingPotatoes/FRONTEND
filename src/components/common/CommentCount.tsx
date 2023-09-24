@@ -1,11 +1,11 @@
 import { styled } from 'styled-components';
 import { ReactComponent as CommentIcon } from '../../assets/image/icon/comment.svg';
 
-function CommentCount() {
+function CommentCount({ count }: { count: number }) {
   return (
     <CommentCountWrapper>
       <CommentIcon />
-      <Count>4</Count>
+      <Count>{count}</Count>
     </CommentCountWrapper>
   );
 }

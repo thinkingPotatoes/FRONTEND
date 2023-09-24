@@ -1,11 +1,11 @@
 import { styled } from 'styled-components';
 import { ReactComponent as LikeIcon } from '../../assets/image/icon/like.svg';
 
-function LikeCount() {
+function LikeCount({ count }: { count: number }) {
   return (
     <LikeCountWrapper>
       <LikeIcon />
-      <Count>7</Count>
+      <Count>{count}</Count>
     </LikeCountWrapper>
   );
 }
