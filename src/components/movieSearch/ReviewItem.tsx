@@ -1,24 +1,30 @@
 import { styled } from 'styled-components';
+import { ReactComponent as Caution } from '../../assets/image/icon/exclamationCircle.svg';
+
+import { Review } from '../../types/review.ts';
+import getDateStr from '../../utils/getDateStr.ts';
 import CommentCount from '../common/CommentCount.tsx';
 import LikeCount from '../common/LikeCount.tsx';
 import RatedStar from '../common/RatedStar.tsx';
+import Body3 from '../common/texts/Body3.ts';
 
-function ReviewItem() {
+function ReviewItem({ review }: { review: Review }) {
   return (
     <ReviewItemWrapper>
-      <Title>블랙위도우의 첫등장!: 영화 - 아이언맨 2</Title>
-      <RatedStar starCount={3} />
-      <Content>
-        그래서 오늘은 블랙위도우 못 보는 기념 블랙위도우가 처음 등장하는 영화인 아이언맨2를
-        리뷰해보려구요! 바로 시작해볼까요! 아이언맨2 감독: 존... 수많은 관객앞에 슈트를 입은 채
-        등장한 토니는 아이언맨의 등장으로 찾아온 평화를 자랑하며 세계 각국과 여러 기업의 최고
-        과학자들이 모여
-      </Content>
+      <Title>{review.subject}</Title>
+      <RatedStar star={review.star} />
+      <Content>{review.content}</Content>
       <Info>
-        <CreatedAt>2023.06.30</CreatedAt>
+        <CreatedAt>{getDateStr(new Date(review.createdAt), '.')}</CreatedAt>
         <Reactions>
-          <LikeCount />
-          <CommentCount />
+          <LikeCount count={review.likeCnt} />
+          <CommentCount count={review.commentCnt || 0} />
+          {review.spoiler && (
+            <Spoiler>
+              <Caution width={16} height={16} fill="#F15757" />
+              <Body3>스포주의</Body3>
+            </Spoiler>
+          )}
         </Reactions>
       </Info>
     </ReviewItemWrapper>
@@ -35,6 +41,13 @@ const ReviewItemWrapper = styled.div`
 
   border-radius: 8px;
   background: var(--dark-grey-100, #2c2c35);
+`;
+
+const Spoiler = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  color: #f15757;
 `;
 
 const Title = styled.div`
