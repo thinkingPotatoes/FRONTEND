@@ -54,6 +54,9 @@ const Title = styled.div`
   overflow: hidden;
   color: var(--dark-grey-800, #e4e4e5);
   text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
 
   /* Head3 */
   font-family: Pretendard;
