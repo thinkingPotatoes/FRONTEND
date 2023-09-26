@@ -1,44 +1,60 @@
 import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { styled } from 'styled-components';
 import axios from '../api/apiController.tsx';
 import empty from '../assets/image/poster/empty_poster.png';
 import MovieInfo from '../components/movieSearch/MovieInfo.tsx';
 import RatingBar from '../components/movieSearch/RatingBar.tsx';
-import ReviewButton from '../components/movieSearch/ReviewButton.tsx';
 import ReviewList from '../components/movieSearch/ReviewList.tsx';
 import TopBar from '../components/movieSearch/TopBar.tsx';
+import useInfinteScroll from '../hooks/useInfinteScroll.tsx';
 import { Movie } from '../types/movie.ts';
 import { Review } from '../types/review.ts';
 
 function MovieSearch() {
+  const [scroll, setScroll] = useState(false);
   const [movie, setMovie] = useState<Movie>();
-  const [reviewList, setReviewList] = useState<Review[]>([]);
-  const movieId = 'F31623';
+  const { id: movieId } = useParams();
+  const { list: reviewList, sort, setSort, ref } = useInfinteScroll(`/filog/movie/${movieId}`);
+
+  const handleScroll = () => {
+    if (window.scrollY >= 20) {
+      setScroll(true);
+    } else {
+      setScroll(false);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   useEffect(() => {
     axios.get(`/movies/${movieId}`).then((data) => {
       const responseMovie = data.data.data;
       setMovie(responseMovie);
     });
-
-    axios.get(`/filog/movie/${movieId}`).then((data) => {
-      const responseReviewList = data.data.data;
-      setReviewList(responseReviewList);
-    });
   }, [movieId]);
 
-  if (movie === undefined) return <div></div>;
+  if (movie === undefined) return;
 
   return (
     <MovieSearchWrapper>
-      <TopBar />
-      <MovieInfo movie={movie} />
-      <Poster $url={movie.poster || empty}>
-        <Gradient />
-      </Poster>
-      <RatingBar />
-      <ReviewList />
-      <ReviewButton />
+      <Fixed>
+        <TopBar />
+        <MovieInfo movie={movie} showDetails={!scroll} />
+      </Fixed>
+      <FixedPoster $height={scroll ? 153 : 200}>
+        <Poster $url={movie?.poster || empty}>
+          <Gradient />
+        </Poster>
+      </FixedPoster>
+      <Blank />
+      {!scroll && <RatingBar />}
+      <ReviewList endRef={ref} reviewList={reviewList as Review[]} sort={sort} setSort={setSort} />
     </MovieSearchWrapper>
   );
 }
@@ -50,16 +66,41 @@ const MovieSearchWrapper = styled.div`
   min-width: 375px;
   max-width: 390px;
   min-height: 100vh;
-  height: fit-content;
+  max-height: calc(100vh + 242px);
+
+  overflow: hidden;
   margin: 0 -20px;
 
   font-family: Pretendard;
 `;
 
+const Blank = styled.div`
+  height: 242px;
+  overflow: visible;
+`;
+
+const Fixed = styled.div`
+  z-index: 10;
+  position: fixed;
+  top: 0;
+  max-width: 390px;
+  width: 100%;
+`;
+
+const FixedPoster = styled.div<{ $height: number }>`
+  position: fixed;
+  top: 56px;
+  max-width: 390px;
+  width: 100%;
+
+  height: ${(props) => props.$height + 20}px;
+  overflow: hidden;
+`;
+
 const Poster = styled.div<{ $url: string }>`
   position: absolute;
   width: 100%;
-  height: 203px;
+  height: 242px;
   background: linear-gradient(0deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.6) 100%),
     url(${(props) => props.$url}), lightgray 50% / cover no-repeat;
   background-size: cover;
