@@ -1,19 +1,27 @@
 import { styled } from 'styled-components';
 
-function RatingBar() {
+function RatingBar({
+  ratingExpect,
+  ratingAvg,
+  reviewCount,
+}: {
+  ratingExpect: number;
+  ratingAvg: number;
+  reviewCount: number;
+}) {
   return (
     <RatingBarWrapper>
       <RatingBox>
         <RatingTitle>예상 평점</RatingTitle>
-        <Rating>9.0점</Rating>
+        <Rating>{ratingAvg.toFixed(1)}점</Rating>
       </RatingBox>
       <RatingBox>
         <RatingTitle>전체 평점</RatingTitle>
-        <Rating>9.2점</Rating>
+        <Rating>{ratingExpect.toFixed(1)}점</Rating>
       </RatingBox>
       <RatingBox>
         <RatingTitle>리뷰</RatingTitle>
-        <Rating>64개</Rating>
+        <Rating>{reviewCount}개</Rating>
       </RatingBox>
     </RatingBarWrapper>
   );
@@ -23,6 +31,7 @@ const RatingBarWrapper = styled.div`
   display: flex;
   justify-content: center;
   padding: 0px 20px;
+  z-index: 20;
 `;
 
 const RatingBox = styled.div`

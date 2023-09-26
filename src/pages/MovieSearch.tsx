@@ -15,7 +15,13 @@ function MovieSearch() {
   const [scroll, setScroll] = useState(false);
   const [movie, setMovie] = useState<Movie>();
   const { id: movieId } = useParams();
-  const { list: reviewList, sort, setSort, ref } = useInfinteScroll(`/filog/movie/${movieId}`);
+  const {
+    list: reviewList,
+    sort,
+    setSort,
+    ref,
+    totalCount,
+  } = useInfinteScroll(`/filog/movie/${movieId}`);
 
   const handleScroll = () => {
     if (window.scrollY >= 20) {
@@ -53,7 +59,10 @@ function MovieSearch() {
         </Poster>
       </FixedPoster>
       <Blank />
-      {!scroll && <RatingBar />}
+      {/* 예상 평점(ratingExpect)은 현재 api 호출 불가. 추후 수정 필요 */}
+      {!scroll && (
+        <RatingBar reviewCount={totalCount} ratingAvg={movie.ratingAvg || 0} ratingExpect={0} />
+      )}
       <ReviewList endRef={ref} reviewList={reviewList as Review[]} sort={sort} setSort={setSort} />
     </MovieSearchWrapper>
   );
