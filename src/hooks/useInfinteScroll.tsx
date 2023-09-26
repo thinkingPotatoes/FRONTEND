@@ -46,7 +46,7 @@ const useInfinteScroll = <T,>(path: string) => {
     readMoreList();
   }, [inView]);
 
-  return { sort, setSort, list, ref };
+  return { sort, setSort, list, ref, totalCount };
 };
 
 export default useInfinteScroll;
