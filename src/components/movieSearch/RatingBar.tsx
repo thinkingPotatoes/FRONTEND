@@ -1,14 +1,12 @@
 import { styled } from 'styled-components';
 
-function RatingBar({
-  ratingExpect,
-  ratingAvg,
-  reviewCount,
-}: {
+type Props = {
   ratingExpect: number;
   ratingAvg: number;
   reviewCount: number;
-}) {
+};
+
+function RatingBar({ ratingExpect, ratingAvg, reviewCount }: Props) {
   return (
     <RatingBarWrapper>
       <RatingBox>

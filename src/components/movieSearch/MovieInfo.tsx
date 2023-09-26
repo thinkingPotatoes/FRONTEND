@@ -4,15 +4,13 @@ import Chip from '../common/Chip.tsx';
 import MovieDetails from '../common/MovieDetails.tsx';
 import MoviePlot from './MoviePlot.tsx';
 
-function MovieInfo({
-  movie,
-  showDetails,
-  expandPlot,
-}: {
+type Props = {
   movie: Movie | undefined;
   showDetails: boolean;
   expandPlot?: boolean;
-}) {
+};
+
+function MovieInfo({ movie, showDetails, expandPlot }: Props) {
   if (movie === undefined) return <></>;
   return (
     <MovieInfoWrapper>

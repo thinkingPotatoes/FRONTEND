@@ -3,13 +3,12 @@ import styled from 'styled-components';
 import { ReactComponent as DownArrowSvg } from '../../assets/image/icon/downArrow.svg';
 import ActionSheet from '../common/ActionSheet';
 
-function SortBy({
-  sort,
-  setSort,
-}: {
+type Props = {
   sort: string;
   setSort: React.Dispatch<SetStateAction<string>>;
-}) {
+};
+
+function SortBy({ sort, setSort }: Props) {
   const [showActions, setShowActions] = useState(false);
   const sortText = sort === 'likeCnt' ? '인기순' : '최신순';
   const handleShowAction = (show: boolean) => {

@@ -6,17 +6,14 @@ import ReviewButton from './ReviewButton.tsx';
 import ReviewItem from './ReviewItem.tsx';
 import SortBy from './SortBy.tsx';
 
-function ReviewList({
-  endRef: ref,
-  reviewList,
-  sort,
-  setSort,
-}: {
+type Props = {
   endRef: (node?: Element | null | undefined) => void;
   reviewList: Review[];
   sort: string;
   setSort: React.Dispatch<SetStateAction<string>>;
-}) {
+};
+
+function ReviewList({ endRef: ref, reviewList, sort, setSort }: Props) {
   const navigate = useNavigate();
   const { id } = useParams();
 

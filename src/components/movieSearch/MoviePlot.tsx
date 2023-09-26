@@ -3,7 +3,9 @@ import ReactShowMoreText from 'react-show-more-text';
 import { styled } from 'styled-components';
 import { Movie } from '../../types/movie';
 
-function MoviePlot({ plot, movie, expanded }: { plot: string; movie: Movie; expanded?: boolean }) {
+type Props = { plot: string; movie: Movie; expanded?: boolean };
+
+function MoviePlot({ plot, movie, expanded }: Props) {
   const { id } = useParams();
   const navigate = useNavigate();
   const handleShowPlot = () => {
