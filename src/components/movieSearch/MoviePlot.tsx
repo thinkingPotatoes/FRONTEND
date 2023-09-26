@@ -1,23 +1,35 @@
-import ShowMoreText from 'react-show-more-text';
+import { useNavigate, useParams } from 'react-router-dom';
+import ReactShowMoreText from 'react-show-more-text';
 import { styled } from 'styled-components';
+import { Movie } from '../../types/movie';
 
-function MoviePlot({ plot }: { plot: string }) {
+function MoviePlot({ plot, movie, expanded }: { plot: string; movie: Movie; expanded?: boolean }) {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const handleShowPlot = () => {
+    navigate(`/moviesearch/${id}/plot`, {
+      state: { movie },
+    });
+  };
+
   return (
     <Plot>
-      <ShowMoreText
+      <ReactShowMoreText
         lines={3}
         more="더보기"
-        less="닫기"
+        less=""
         truncatedEndingComponent={' ...'}
         anchorClass="anchor-button"
+        onClick={handleShowPlot}
+        expanded={expanded || false}
       >
         {plot}
-      </ShowMoreText>
+      </ReactShowMoreText>
     </Plot>
   );
 }
 
-const Plot = styled.div`
+const Plot = styled.span`
   color: var(--dark-grey-700, #c3c3c6);
 
   /* Body2 */
