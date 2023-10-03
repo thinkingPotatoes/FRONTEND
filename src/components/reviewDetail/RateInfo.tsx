@@ -1,6 +1,7 @@
 import { styled } from 'styled-components';
 import { ReactComponent as BlankStarSvg } from '../../assets/image/icon/blankStar.svg';
 import { ReactComponent as FillStarSvg } from '../../assets/image/icon/fillStar.svg';
+import { Rating } from 'react-simple-star-rating';
 
 interface Props {
   rate: number;
@@ -9,26 +10,19 @@ interface Props {
 const RateInfo = ({ rate }: Props) => {
   return (
     <RateWrapper>
-      {Array.from({ length: 5 }, (_, index) => (
-        <StarIcon key={index} filled={index < rate} />
-      ))}
+      <Rating
+        readonly
+        initialValue={rate}
+        fillIcon={<FillStarSvg width={24} height={24} />}
+        emptyIcon={<BlankStarSvg width={24} height={24} />}
+        allowFraction={true}
+      />
     </RateWrapper>
   );
 };
 
-interface StarIconProps {
-  filled: boolean;
-}
-
 const RateWrapper = styled.div`
   // margin: 6px 0px;
-`;
-
-const StarIcon = styled(({ filled }: StarIconProps) =>
-  filled ? <FillStarSvg /> : <BlankStarSvg />,
-)`
-  width: 24px;
-  height: 24px;
 `;
 
 export default RateInfo;
