@@ -16,19 +16,12 @@ export const POST_OPTION = {
 const getSortedReviewList = (data: ReviewComment[]) => {
   const newSortedData: ReviewComment[] = [];
   data.forEach((comment) => {
-    if (comment.replyId) {
-      const indexToInsert = newSortedData.findIndex((item) => item.id === comment.replyId);
-      if (indexToInsert !== -1) {
-        // 찾은 경우
-        newSortedData.splice(indexToInsert + 1, 0, comment);
-      } else {
-        // 찾지 못한 경우, 그냥 배열 끝에 추가
-        newSortedData.push(comment);
-      }
-    } else {
-      // replyId가 없는 경우, 그냥 배열 끝에 추가
-      newSortedData.push(comment);
-    }
+    const isReply = comment.replyId !== undefined;
+    const indexToInsert = isReply
+      ? newSortedData.findIndex((item) => item.id === comment.replyId)
+      : -1;
+    const position = isReply ? indexToInsert + 1 : 0;
+    newSortedData.splice(position, 0, comment);
   });
   return newSortedData;
 };
@@ -46,6 +39,7 @@ function ReviewDetailComment() {
     const fetchReviewDetailData = async () => {
       try {
         const response = await axios.get(`/comment/get/${articleId}`);
+        console.log(response.data);
         const sortedData = getSortedReviewList(response.data.data.list);
         setSortedData(sortedData);
         setCommentCnt(response.data.data.totalCnt);
