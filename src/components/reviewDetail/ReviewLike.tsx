@@ -18,7 +18,6 @@ export const ReviewLike = ({ count, picked, reviewId }: LikeBtnProps) => {
     liked ? setCount(nowCount - 1) : setCount(nowCount + 1);
     setLiked(!liked);
     await axios.get(`/filog/${reviewId}/likes`);
-    // console.log(response.data);
   };
 
   return (

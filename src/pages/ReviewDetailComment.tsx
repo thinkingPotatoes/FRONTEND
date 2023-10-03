@@ -39,7 +39,6 @@ function ReviewDetailComment() {
     const fetchReviewDetailData = async () => {
       try {
         const response = await axios.get(`/comment/get/${articleId}`);
-        console.log(response.data);
         const sortedData = getSortedReviewList(response.data.data.list);
         setSortedData(sortedData);
         setCommentCnt(response.data.data.totalCnt);

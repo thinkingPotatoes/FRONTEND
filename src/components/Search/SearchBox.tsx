@@ -8,7 +8,7 @@ import useLocalStorage from '../../hooks/useLocalStorage';
 
 import { useQuery } from 'react-query';
 import axios from '../../api/apiController';
-import { MovieResponseList } from '../types/search';
+import { MovieResponseList } from '../../types/search';
 import { useNavigate } from 'react-router-dom';
 
 export interface SearchBoxProps {
@@ -25,7 +25,6 @@ export const fetchAutocompleteSuggestions = async (keyword: string) => {
     });
     return response.data.data.searchMovieResponseList;
   } catch (error) {
-    console.log(error);
     throw new Error('Network response was not ok');
   }
 };

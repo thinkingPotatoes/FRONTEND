@@ -19,34 +19,34 @@ const ReviewContents = ({ data }: Props) => {
     <ContentsWrapper className="wrapper">
       <WriterInfo />
       <CategoryChips isSpoiler={data.spoiler} scope={data.scope} />
-      <div className="title">{data.subject}</div>
+      <ReviewTitle>{data.subject}</ReviewTitle>
       <MovieInfo info={data.movieDto} star={data.star} />
       <WatchInfo date={data.watchedAt} location={data.theater} seat={data.seat} />
-      <div className="contents">{data.content}</div>
+      <ReviewContent>{data.content}</ReviewContent>
     </ContentsWrapper>
   );
 };
 
+const ReviewTitle = styled.div`
+  color: var(--text-emphasize);
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 130%; /* 31.2px */
+  letter-spacing: -0.24px;
+  margin-bottom: 24px;
+`;
+
+const ReviewContent = styled.div`
+  color: var(--text-emphasize);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 130%; /* 20.8px */
+  letter-spacing: -0.016px;
+  margin-bottom: 100px;
+`;
+
 const ContentsWrapper = styled.div`
   overflow-y: scroll;
   overflow-x: hidden;
-
-  > .title {
-    color: var(--text-emphasize);
-    font-size: 24px;
-    font-weight: 600;
-    line-height: 130%; /* 31.2px */
-    letter-spacing: -0.24px;
-    margin-bottom: 24px;
-  }
-
-  .contents {
-    color: var(--text-emphasize);
-    font-size: 16px;
-    font-weight: 500;
-    line-height: 130%; /* 20.8px */
-    letter-spacing: -0.016px;
-    margin-bottom: 100px;
-  }
 `;
 export default ReviewContents;

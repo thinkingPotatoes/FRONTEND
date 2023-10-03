@@ -12,7 +12,7 @@ interface SearchBarProps {
 }
 
 function SearchInputBar({ keyword, onChange, onClear, onSearch, isSearch }: SearchBarProps) {
-  const [isSearching, setIsSearching] = useState(false);
+  const [_, setIsSearching] = useState(false);
 
   const handleSearch = () => {
     onSearch();
