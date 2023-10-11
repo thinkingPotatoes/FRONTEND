@@ -30,7 +30,6 @@ const CommentBox = ({
 }: Props) => {
   const [likeCnt, setLikeCnt] = useState(comment.likeCnt ? comment.likeCnt : 0);
   const [isLike, setLike] = useState(comment.likeCnt > 0);
-
   const handleLikeClick = async () => {
     if (isLike) {
       setLike(false);
@@ -63,7 +62,15 @@ const CommentBox = ({
       </CommentLike>
     );
 
-  if (!comment.replyId || comment.replyId.length === 0) {
+  // **답글이 아닌 경우
+  if (!comment.parentId || comment.parentId.length === 0) {
+    if (comment.deletedAt && comment.deletedAt.length > 0) {
+      return (
+        <EachBox>
+          <div className="text">삭제된 댓글입니다</div>
+        </EachBox>
+      );
+    }
     return (
       <EachBox>
         <div className="commentInfo">
@@ -91,6 +98,16 @@ const CommentBox = ({
       </EachBox>
     );
   }
+
+  //**답글인 경우 */
+  if (comment.deletedAt && comment.deletedAt.length > 0) {
+    return (
+      <EachBox>
+        <div className="text">삭제된 댓글입니다</div>
+      </EachBox>
+    );
+  }
+
   return (
     <EachBox>
       <div className="commentInfo">

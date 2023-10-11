@@ -16,9 +16,9 @@ export const POST_OPTION = {
 const getSortedReviewList = (data: ReviewComment[]) => {
   const newSortedData: ReviewComment[] = [];
   data.forEach((comment) => {
-    const isReply = comment.replyId !== undefined;
+    const isReply = comment.parentId !== null;
     const indexToInsert = isReply
-      ? newSortedData.findIndex((item) => item.id === comment.replyId)
+      ? newSortedData.findIndex((item) => item.id === comment.parentId)
       : -1;
     const position = isReply ? indexToInsert + 1 : 0;
     newSortedData.splice(position, 0, comment);
@@ -38,7 +38,7 @@ function ReviewDetailComment() {
   useEffect(() => {
     const fetchReviewDetailData = async () => {
       try {
-        const response = await axios.get(`/comment/get/${articleId}`);
+        const response = await axios.get(`/comment/${articleId}`);
         const sortedData = getSortedReviewList(response.data.data.list);
         setSortedData(sortedData);
         setCommentCnt(response.data.data.totalCnt);

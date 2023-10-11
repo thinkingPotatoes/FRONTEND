@@ -34,6 +34,7 @@ export interface ReviewComment {
   userId: string;
   content: string;
   updatedAt: string;
+  deletedAt: string | null;
   likeCnt: number;
-  replyId: string;
+  parentId: string | null;
 }
