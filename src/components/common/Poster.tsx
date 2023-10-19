@@ -23,8 +23,8 @@ const SIZES: Sizes = {
     height: 57.5,
   },
   m: {
-    width: 40,
-    height: 57.5,
+    width: 80,
+    height: 114.275,
   },
   l: {
     width: 120,

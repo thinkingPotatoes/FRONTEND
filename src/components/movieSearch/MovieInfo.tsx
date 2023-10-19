@@ -1,39 +1,35 @@
 import { styled } from 'styled-components';
-
 import { Movie } from '../../types/movie.ts';
-import Chip, { ChipProps } from '../common/Chip.tsx';
+import Chip from '../common/Chip.tsx';
 import MovieDetails from '../common/MovieDetails.tsx';
 import MoviePlot from './MoviePlot.tsx';
 
-const example: ChipProps[] = [
-  {
-    text: '액션',
-    deletable: false,
-  },
-  {
-    text: 'SF',
-    deletable: false,
-  },
-  {
-    text: '드라마',
-    deletable: false,
-  },
-];
+type Props = {
+  movie: Movie | undefined;
+  showDetails: boolean;
+  expandPlot?: boolean;
+};
 
-function MovieInfo({ movie }: { movie: Movie }) {
+function MovieInfo({ movie, showDetails, expandPlot }: Props) {
+  if (movie === undefined) return <></>;
   return (
     <MovieInfoWrapper>
       <MainContent>
         <BasicInfoWrapper>
           <Title>{movie.title}</Title>
-          <MovieDetails size="m" details={[movie.prodYear, movie.nation, movie.rating]} />
+          {showDetails && (
+            <MovieDetails size="m" details={[movie.prodYear, movie.nation, movie.rating]} />
+          )}
         </BasicInfoWrapper>
         <GenreList>
-          {example.map((info) => (
-            <Chip key={info.text} props={info} />
-          ))}
+          {movie.genre
+            .split(',')
+            .filter((_) => _)
+            .map((genre) => (
+              <Chip key={genre} props={{ text: genre }} />
+            ))}
         </GenreList>
-        <MoviePlot plot={movie.plot} />
+        {showDetails && <MoviePlot movie={movie} plot={movie.plot} expanded={expandPlot} />}
       </MainContent>
     </MovieInfoWrapper>
   );
