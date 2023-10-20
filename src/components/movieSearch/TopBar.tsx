@@ -1,22 +1,14 @@
+import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 import { ReactComponent as BackIcon } from '../../assets/image/icon/backArrow.svg';
-import { ReactComponent as BookmarkIcon } from '../../assets/image/icon/bookmark.svg';
-import { ReactComponent as ShareIcon } from '../../assets/image/icon/share.svg';
 
 function TopBar() {
+  const navigate = useNavigate();
   return (
     <TopBarWrapper>
       <IconWrapper>
-        <BackIcon />
+        <BackIcon onClick={() => navigate(-1)} />
       </IconWrapper>
-      <RightIcons>
-        <IconWrapper>
-          <BookmarkIcon />
-        </IconWrapper>
-        <IconWrapper>
-          <ShareIcon />
-        </IconWrapper>
-      </RightIcons>
     </TopBarWrapper>
   );
 }
@@ -27,7 +19,8 @@ const TopBarWrapper = styled.div`
   align-items: center;
   height: 56px;
   padding: 6px 8px 6px 0px;
-  z-index: 1;
+  z-index: 100;
+  background: #111213;
 `;
 
 const IconWrapper = styled.div`
@@ -36,10 +29,6 @@ const IconWrapper = styled.div`
   height: 44px;
   justify-content: center;
   align-items: center;
-`;
-
-const RightIcons = styled.div`
-  display: flex;
 `;
 
 export default TopBar;

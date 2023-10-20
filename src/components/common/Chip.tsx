@@ -2,7 +2,7 @@ import { styled } from 'styled-components';
 
 export type ChipProps = {
   text: string;
-  deletable: boolean;
+  deletable?: boolean;
 };
 
 function Chip({ props }: { props: ChipProps }) {
