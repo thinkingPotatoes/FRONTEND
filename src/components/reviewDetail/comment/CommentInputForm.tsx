@@ -26,34 +26,37 @@ function CommentInputForm({
     setCommentContent(event.target.value);
   };
 
+  const handlePostComment = async (postUrl: string) => {
+    await axios.post(postUrl, {
+      content: commentContent,
+    });
+    setUpdateData((prev) => !prev);
+    setCommentContent('');
+  };
+
+  const handleModifComment = async (postUrl: string) => {
+    await axios.put(postUrl, {
+      content: commentContent,
+    });
+    setUpdateData((prev) => !prev);
+    setCommentContent('');
+    setNowPostStatus(POST_OPTION.POST);
+  };
+
   const handleCommentSubmit = async (commentAction: string, commentId: string) => {
-    if (commentContent.trim().length > 0) {
-      const COMMENT_URL = `/comment/${reviewId}`;
-      switch (commentAction) {
-        case POST_OPTION.POST:
-          try {
-            await axios.post(COMMENT_URL, {
-              content: commentContent,
-            });
-            setUpdateData((prev) => !prev);
-            setCommentContent('');
-          } catch (error: any) {
-            console.error('오류:', error.message);
-          }
-          break;
-        case POST_OPTION.PUT:
-          try {
-            await axios.put(COMMENT_URL + `/${commentId}`, {
-              content: commentContent,
-            });
-            setUpdateData((prev) => !prev);
-            setCommentContent('');
-            setNowPostStatus(POST_OPTION.POST);
-          } catch (error: any) {
-            console.error('오류:', error.message);
-          }
-          break;
+    if (commentContent.trim().length === 0) {
+      return;
+    }
+    const COMMENT_URL = `/comment/${reviewId}`;
+    try {
+      if (commentAction === POST_OPTION.POST) {
+        await handlePostComment(COMMENT_URL);
       }
+      if (commentAction === POST_OPTION.PUT) {
+        await handleModifComment(`${COMMENT_URL}/${commentId}`);
+      }
+    } catch (error: any) {
+      console.error('오류:', error.message);
     }
   };
 
