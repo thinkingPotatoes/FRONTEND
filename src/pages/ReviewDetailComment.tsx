@@ -13,19 +13,6 @@ export const POST_OPTION = {
   REPLY: 'REPLY',
 };
 
-const getSortedReviewList = (data: ReviewComment[]) => {
-  const newSortedData: ReviewComment[] = [];
-  data.forEach((comment) => {
-    const isReply = comment.parentId !== null;
-    const indexToInsert = isReply
-      ? newSortedData.findIndex((item) => item.id === comment.parentId)
-      : -1;
-    const position = isReply ? indexToInsert + 1 : 0;
-    newSortedData.splice(position, 0, comment);
-  });
-  return newSortedData;
-};
-
 function ReviewDetailComment() {
   const { id: articleId } = useParams<{ id: string }>();
   const [sortedData, setSortedData] = useState<ReviewComment[]>([]);
@@ -39,8 +26,7 @@ function ReviewDetailComment() {
     const fetchReviewDetailData = async () => {
       try {
         const response = await axios.get(`/comment/${articleId}`);
-        const sortedData = getSortedReviewList(response.data.data.list);
-        setSortedData(sortedData);
+        setSortedData(response.data.data.list);
         setCommentCnt(response.data.data.totalCnt);
       } catch (error: any) {
         console.error('오류:', error.message);

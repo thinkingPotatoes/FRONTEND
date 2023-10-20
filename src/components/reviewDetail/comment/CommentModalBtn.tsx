@@ -52,7 +52,6 @@ const CommentModalBtn = ({
   // 바깥 영역을 클릭 시 모달이 닫힘
   const handleModalContainerClick = () => {
     setModalOpen(false);
-    // setNowPostStatus(POST_OPTION.POST);
   };
 
   return (

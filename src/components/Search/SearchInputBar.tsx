@@ -12,17 +12,13 @@ interface SearchBarProps {
 }
 
 function SearchInputBar({ keyword, onChange, onClear, onSearch, isSearch }: SearchBarProps) {
-  const [_, setIsSearching] = useState(false);
-
   const handleSearch = () => {
     onSearch();
-    setIsSearching(true);
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
       onSearch();
-      setIsSearching(false);
     }
   };
 
