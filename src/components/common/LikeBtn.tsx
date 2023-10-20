@@ -8,11 +8,6 @@ interface LikeBtnProps {
   picked: boolean;
 }
 
-/**
- * @param {number} count : 좋아요 수
- * @param {boolean} picked : 좋아요 했는지 여부
- */
-
 export const LikeBtn = ({ count, picked }: LikeBtnProps) => {
   const [liked, setLiked] = useState(false);
   const [nowCount, setCount] = useState(0);
