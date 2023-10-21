@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { ReactComponent as InputCancelSvg } from '../../assets/icon/input-cancel.svg';
 import { ReactComponent as SearchSvg } from '../../assets/icon/search.svg';

@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { styled } from 'styled-components';
 import Footer from '../components/common/Footer.tsx';
 import Header from '../components/home/Header.tsx';
 import SectionTitle from '../components/home/SectionTitle.tsx';
