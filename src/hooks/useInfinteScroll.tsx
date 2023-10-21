@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import axios from '../api/apiController';
 
-const useInfinteScroll = <T,>(path: string, keyword: string) => {
+const useInfinteScroll = <T,>(path: string, keyword: string = '') => {
   type List = {
     totalCnt: number;
     curPage: number;
