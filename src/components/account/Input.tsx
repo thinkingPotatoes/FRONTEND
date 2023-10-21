@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 
-const Input = styled.input`
+interface Props {
+  marginBottom?: string;
+}
+
+const Input = styled.input<Props>`
   display: flex;
   border: none;
   width: 100%;
@@ -9,6 +13,7 @@ const Input = styled.input`
   background-color: var(--background-bright);
   height: 56px;
   color: var(--text-default);
+  margin-bottom: ${({ marginBottom }: Props) => marginBottom};
 
   &::placeholder {
     font-size: 14px;
