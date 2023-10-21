@@ -38,7 +38,7 @@ function MovieTasteSelection() {
   };
 
   const onClickNext = () => {
-    navigate('/register/genre');
+    navigate('/home');
   };
 
   return (
