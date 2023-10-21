@@ -11,5 +11,13 @@ module.exports = {
   plugins: ['react-refresh'],
   rules: {
     'react-refresh/only-export-components': 'warn',
+    'linebreak-style': 0,
+    'no-use-before-define': [
+      'error',
+      {
+        variables: false,
+      },
+    ],
   },
+  'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
 };
