@@ -1,4 +1,3 @@
-import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useAccountDispatch, useAccountState } from '../context/AccountContext.tsx';
 import axios from '../api/apiController.tsx';
@@ -8,6 +7,7 @@ import HeaderWithBack from '../components/common/HeaderWithBack.tsx';
 import Head1 from '../components/common/texts/Head1.ts';
 import Body2 from '../components/common/texts/Body2.ts';
 import Body3 from '../components/common/texts/Body3.ts';
+import SettingButton from '../components/account/SettingButton.tsx';
 
 function LoginPasswordInputPage() {
   const { email, password } = useAccountState();
@@ -31,6 +31,7 @@ function LoginPasswordInputPage() {
       navigate('/home');
       localStorage.setItem('accessToken', accessToken);
       localStorage.setItem('refreshToken', refreshToken);
+      localStorage.setItem('loginEmail', email);
     }
   };
 
@@ -56,7 +57,7 @@ function LoginPasswordInputPage() {
       <Head1 color="var(--dark-grey-800)" marginBottom="17px">
         비밀번호를 입력해주세요.
       </Head1>
-      <Input type="password" value={password} onChange={onInputPassword} />
+      <Input type="password" value={password} onChange={onInputPassword} marginBottom="11px" />
       <Body2 color="var(--disabled)" marginBottom="16px">
         영문, 숫자, 특수문자를 포함해 8자 이상
       </Body2>
@@ -69,15 +70,5 @@ function LoginPasswordInputPage() {
     </>
   );
 }
-
-const SettingButton = styled.button`
-  border-radius: 8px;
-  background-color: var(--background-bright);
-  height: 32px;
-  width: 121px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
 
 export default LoginPasswordInputPage;

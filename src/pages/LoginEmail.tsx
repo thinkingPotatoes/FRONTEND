@@ -6,6 +6,8 @@ import Input from '../components/account/Input.tsx';
 import Head1 from '../components/common/texts/Head1.ts';
 import NextButton from '../components/account/NextButton.tsx';
 import HeaderWithBack from '../components/common/HeaderWithBack.tsx';
+import Body3 from '../components/common/texts/Body3.ts';
+import SettingButton from '../components/account/SettingButton.tsx';
 
 type AccountStatus = 'WAITED' | 'INACTIVE' | 'ACTIVE' | 'WITHDRAWL';
 
@@ -21,6 +23,8 @@ function LoginEamilInputPage() {
   const dispatch = useAccountDispatch();
 
   const navigate = useNavigate();
+
+  const savedEmail = localStorage.getItem('loginEmail') ?? '';
 
   const onClickNext = async () => {
     const {
@@ -45,6 +49,10 @@ function LoginEamilInputPage() {
     }
   };
 
+  const onClickSavedEmail = () => {
+    dispatch({ type: 'SET_EMAIL', email: savedEmail, isEmailValid: true });
+  };
+
   const onInputEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newEmail = e.target.value;
     dispatch({ type: 'SET_EMAIL', email: newEmail, isEmailValid: isValidateEmail(newEmail) });
@@ -56,7 +64,17 @@ function LoginEamilInputPage() {
       <Head1 color="var(--dark-grey-800)" marginBottom="17px">
         이메일을 입력해주세요
       </Head1>
-      <Input placeholder="abc@naver.com" value={email} onChange={onInputEmail} />
+      <Input
+        placeholder="abc@naver.com"
+        value={email}
+        onChange={onInputEmail}
+        marginBottom="17px"
+      />
+      {savedEmail && (
+        <SettingButton onClick={onClickSavedEmail}>
+          <Body3 color="var(--text-default)">{savedEmail}</Body3>
+        </SettingButton>
+      )}
       <NextButton onClick={onClickNext} disabled={!isEmailValid}>
         다음
       </NextButton>
