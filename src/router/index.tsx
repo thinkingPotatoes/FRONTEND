@@ -12,7 +12,7 @@ import RegisterSuccess from '../pages/RegisterSuccess.tsx';
 import MovieTasteSelection from '../pages/MovieTasteSelection.tsx';
 import Redirect from '../pages/Redirect.tsx';
 import Login from '../pages/Login.tsx';
-import LoginEamilInputPage from '../pages/LoginEamil.tsx';
+import LoginEamilInputPage from '../pages/LoginEmail.tsx';
 import LoginPasswordInputPage from '../pages/LoginPassword.tsx';
 
 export const commonRouter = [
