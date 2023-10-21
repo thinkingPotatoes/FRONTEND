@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { InternalAxiosRequestConfig } from 'axios';
 
 export const BASE_URL = 'http://localhost:8080';
 
@@ -10,7 +10,17 @@ const instance = axios.create({
 });
 
 // Request 🧑
-instance.interceptors.request.use();
+instance.interceptors.request.use(
+  async (config: InternalAxiosRequestConfig) => {
+    const accessToken = localStorage.getItem('accessToken');
+    config.headers['Authorization'] = accessToken ? `Bearer ${accessToken}` : '';
+
+    return config;
+  },
+  (err) => {
+    return Promise.reject(err);
+  },
+);
 
 // Response 🧑
 instance.interceptors.response.use();

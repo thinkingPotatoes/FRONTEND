@@ -20,10 +20,17 @@ function LoginPasswordInputPage() {
   };
 
   const onClickNext = async () => {
-    const { status } = await axios.post('/users/login', { userId: email, password });
+    const {
+      status,
+      data: {
+        data: { accessToken, refreshToken },
+      },
+    } = await axios.post('/users/login', { userId: email, password });
 
     if (status === 200) {
       navigate('/home');
+      localStorage.setItem('accessToken', accessToken);
+      localStorage.setItem('refreshToken', refreshToken);
     }
   };
 
