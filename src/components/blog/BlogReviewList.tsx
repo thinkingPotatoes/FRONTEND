@@ -22,13 +22,14 @@ function BlogReviewList() {
     setSort,
     ref: endRef,
     list: reviewList,
+    resetPage,
   } = useInfinteScroll(apiPath, debouncedKeyword);
 
   return (
     <BlogReviewListWrapper>
       <Header>
         <Head3>누구님의 영화리뷰</Head3>
-        <SortBy sort={sort} setSort={setSort} />
+        <SortBy sort={sort} setSort={setSort} resetPage={resetPage} />
       </Header>
       <SearchBox>
         <SearchBar setKeyword={setKeyword} focus={focus} setFocus={setFocus} />

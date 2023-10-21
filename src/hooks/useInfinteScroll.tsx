@@ -55,10 +55,14 @@ const useInfinteScroll = <T,>(path: string, keyword: string = '') => {
     setLoading(false);
   };
 
-  useEffect(() => {
+  const resetPage = () => {
     setPage(0);
     setList([]);
-  }, [sort, keyword]);
+  };
+
+  useEffect(() => {
+    resetPage();
+  }, [keyword]);
 
   useEffect(() => {
     if (totalCount === list.length && keyword.length === 0) return;
@@ -76,7 +80,7 @@ const useInfinteScroll = <T,>(path: string, keyword: string = '') => {
     readMoreList();
   }, [inView]);
 
-  return { sort, setSort, list, ref, totalCount };
+  return { sort, setSort, list, ref, totalCount, resetPage };
 };
 
 export default useInfinteScroll;

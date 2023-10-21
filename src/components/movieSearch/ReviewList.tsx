@@ -11,9 +11,10 @@ type Props = {
   reviewList: Review[];
   sort: string;
   setSort: React.Dispatch<SetStateAction<string>>;
+  resetPage: () => void;
 };
 
-function ReviewList({ endRef: ref, reviewList, sort, setSort }: Props) {
+function ReviewList({ endRef: ref, reviewList, sort, setSort, resetPage }: Props) {
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -22,7 +23,7 @@ function ReviewList({ endRef: ref, reviewList, sort, setSort }: Props) {
       <ListHeader>
         <ListTitle>영화 리뷰 💬</ListTitle>
         <SortByWrapper>
-          <SortBy sort={sort} setSort={setSort} />
+          <SortBy sort={sort} setSort={setSort} resetPage={resetPage} />
         </SortByWrapper>
       </ListHeader>
       <ListWrapper>
