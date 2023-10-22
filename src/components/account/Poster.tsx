@@ -1,12 +1,13 @@
 import { styled } from 'styled-components';
-import { ReactComponent as PosterImage } from '../../assets/image/poster/poster_md.svg';
 import { useState } from 'react';
 import { ReactComponent as Check } from '../../assets/image/icon/check.svg';
+import { MovieResponseList } from '../types/search';
+import empty from '../../assets/image/poster/empty_poster.png';
 
 interface Props {
-  movie: { id: number; title: string };
+  movie: MovieResponseList;
   selectedMovieCount: number;
-  onClickPoster(id: number, isSelected: boolean): void;
+  onClickPoster(id: string, isSelected: boolean): void;
 }
 
 function Poster({ movie, selectedMovieCount, onClickPoster }: Props) {
@@ -17,13 +18,13 @@ function Poster({ movie, selectedMovieCount, onClickPoster }: Props) {
       return;
     }
 
-    onClickPoster(movie.id, isSelected);
+    onClickPoster(movie.docId, isSelected);
     setIsSelected(!isSelected);
   };
 
   return (
     <PosterContainer onClick={onClick}>
-      <PosterImage width={106} />
+      <PosterImage src={movie.poster || empty} alt={movie.title} />
       {isSelected && (
         <SelectedLayer>
           <Check />
@@ -48,6 +49,13 @@ const SelectedLayer = styled.div`
   height: 100%;
   background-color: rgba(0, 0, 0, 0.8);
   z-index: 100;
+`;
+
+const PosterImage = styled.img`
+  display: block;
+  width: 100%;
+  /* height: auto; */
+  object-fit: cover;
 `;
 
 export default Poster;

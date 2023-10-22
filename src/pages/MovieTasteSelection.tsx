@@ -2,34 +2,19 @@ import { styled } from 'styled-components';
 import { ReactComponent as BackArrow } from '../assets/image/icon/backArrow.svg';
 import { useNavigate } from 'react-router-dom';
 import Poster from '../components/account/Poster';
-import { useState } from 'react';
-
-const data = [
-  { id: 1, title: '아이언맨' },
-  { id: 2, title: '아이언맨' },
-  { id: 3, title: '아이언맨' },
-  { id: 4, title: '아이언맨' },
-  { id: 5, title: '아이언맨' },
-  { id: 6, title: '아이언맨' },
-  { id: 7, title: '아이언맨' },
-  { id: 8, title: '아이언맨' },
-  { id: 9, title: '아이언맨' },
-  { id: 10, title: '아이언맨' },
-  { id: 11, title: '아이언맨' },
-  { id: 12, title: '아이언맨' },
-  { id: 13, title: '아이언맨' },
-  { id: 14, title: '아이언맨' },
-  { id: 15, title: '아이언맨' },
-];
+import { useState, useEffect } from 'react';
+import axios from '../api/apiController.tsx';
+import { MovieResponseList } from '../types/search.ts';
 
 function MovieTasteSelection() {
-  const [selectedMovies, setSelectedMovies] = useState<number[]>([]);
+  const [selectedMovies, setSelectedMovies] = useState<string[]>([]);
+  const [movieOptions, setMovieOptions] = useState<MovieResponseList[]>([]);
   const navigate = useNavigate();
   const onClickBack = () => {
     navigate(-1);
   };
 
-  const onClickPoster = (id: number, isSelected: boolean) => {
+  const onClickPoster = (id: string, isSelected: boolean) => {
     if (isSelected) {
       setSelectedMovies((prev) => prev.filter((el) => el !== id));
     } else {
@@ -37,9 +22,23 @@ function MovieTasteSelection() {
     }
   };
 
-  const onClickNext = () => {
-    navigate('/home');
+  const fetchMovieList = async () => {
+    const {
+      data: {
+        data: { searchMovieResponseList },
+      },
+    } = await axios.get('/movies/init-movie/get');
+    setMovieOptions(searchMovieResponseList);
   };
+
+  const onClickNext = async () => {
+    navigate('/home');
+    await axios.post('/movies/init-movie/save', { movieList: selectedMovies });
+  };
+
+  useEffect(() => {
+    fetchMovieList();
+  }, []);
 
   return (
     <Container>
@@ -50,7 +49,7 @@ function MovieTasteSelection() {
         <Headertitle>에엥의 취향을 알려주세요 👀</Headertitle>
       </Header>
       <Main>
-        {data.map((movie) => (
+        {movieOptions.map((movie) => (
           <Poster
             movie={movie}
             selectedMovieCount={selectedMovies.length}
@@ -110,6 +109,7 @@ const NextButton = styled.button<ButtonProps>`
     disabled ? 'var(--background-bright)' : 'var(--main)'};
   border-radius: 8px;
   margin-bottom: 20px;
+  margin-top: auto;
 `;
 
 export default MovieTasteSelection;
