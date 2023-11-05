@@ -3,8 +3,7 @@ import { styled } from 'styled-components';
 import RecentSearch from '../components/Search/RecentSearch.tsx';
 import SearchBox from '../components/Search/SearchBox.tsx';
 import ResultSearch from '../components/Search/ResultSearch.tsx';
-
-import { MovieResponseList } from '../components/types/search.ts';
+import { MovieResponseList } from '../types/search.ts';
 
 function SearchPage() {
   const [keyword, setKeyword] = useState('');
