@@ -33,7 +33,7 @@ function ReviewList({ endRef: ref, reviewList, sort, setSort }: Props) {
         </List>
         <EndOfList ref={ref} />
       </ListWrapper>
-      <ReviewButton onClick={() => navigate(`/review/${id}`)} />
+      <ReviewButton onClick={() => navigate(`/postreview/${id}`)} />
     </ReviewListWrapper>
   );
 }
