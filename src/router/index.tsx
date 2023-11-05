@@ -14,6 +14,13 @@ export const commonRouter = [
   { path: '/search', element: <SearchPage /> },
   { path: '/moviesearch/:id', element: <MovieSearch /> },
   { path: '/moviesearch/:id/plot', element: <MovieSearchPlot /> },
+
+  // 테스트 위해 임시 추가
+  { path: '/blog', element: <Blog /> },
+  { path: '/review', element: <SelectMovie /> },
+  { path: '/review/:id', element: <PostReview /> },
+  { path: '/review/:id/required', element: <PostReviewRequired /> },
+  { path: '/review/:id/option', element: <PostReviewOption /> },
 ];
 
 export const publicRouter = [];
