@@ -1,5 +1,5 @@
 import { styled } from 'styled-components';
-import { MovieResponseList } from '../types/search';
+import { MovieResponseList } from '../../types/search';
 
 const empty_poster = 'src/assets/image/poster/empty_poster.png';
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { ReactComponent as InputCancelSvg } from '../../assets/icon/input-cancel.svg';
 import { ReactComponent as SearchSvg } from '../../assets/icon/search.svg';
@@ -12,17 +12,13 @@ interface SearchBarProps {
 }
 
 function SearchInputBar({ keyword, onChange, onClear, onSearch, isSearch }: SearchBarProps) {
-  const [isSearching, setIsSearching] = useState(false);
-
   const handleSearch = () => {
     onSearch();
-    setIsSearching(true);
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
       onSearch();
-      setIsSearching(false);
     }
   };
 
