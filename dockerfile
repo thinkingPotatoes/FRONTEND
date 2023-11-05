@@ -12,3 +12,5 @@ COPY src ./src
 COPY public ./public
 COPY package.json tsconfig.json tsconfig.node.json vite.config.ts index.html ./
 CMD ["npm", "run", "dev"]
+
+EXPOSE 5173
