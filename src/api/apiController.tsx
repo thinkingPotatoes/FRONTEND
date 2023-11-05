@@ -1,11 +1,12 @@
 import axios from 'axios';
 
-export const BASE_URL = 'http://localhost:80';
 const ACCESS_TOKEN = import.meta.env.VITE_ACCESS_TOKEN;
+export const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 const instance = axios.create({
   baseURL: BASE_URL,
   headers: {
+    // Authorization: 'Bearer ',
     'Content-Type': 'application/json',
   },
 });
