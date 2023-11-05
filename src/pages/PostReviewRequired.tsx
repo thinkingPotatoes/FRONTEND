@@ -22,12 +22,12 @@ function PostReviewRequired() {
 
   useEffect(() => {
     if (id === null) {
-      navigate(`/review`);
+      navigate(`/postreview`);
       return;
     }
 
     if (state === null) {
-      navigate(`/review/${id}`);
+      navigate(`/postreview/${id}`);
       return;
     }
   }, [state, id]);
@@ -43,7 +43,7 @@ function PostReviewRequired() {
   if (scopeIdx === PRIVATE) scope = 'PRIVATE';
 
   const handleGoNext = () => {
-    navigate(`/review/${id}/option`, {
+    navigate(`/postreview/${id}/option`, {
       state: { ...state, scope, spoiler, watchedAt },
     });
   };

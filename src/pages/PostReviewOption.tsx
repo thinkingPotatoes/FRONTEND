@@ -22,12 +22,12 @@ function PostReviewOption() {
 
   useEffect(() => {
     if (id === null) {
-      navigate(`/review`);
+      navigate(`/postreview`);
       return;
     }
 
     if (state === null) {
-      navigate(`/review/${id}`);
+      navigate(`/postreview/${id}`);
       return;
     }
   }, [state, id]);

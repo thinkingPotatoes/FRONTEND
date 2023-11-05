@@ -19,14 +19,21 @@ export const commonRouter = [
   { path: '/moviesearch/:id/plot', element: <MovieSearchPlot /> },
   { path: '/review/:id', element: <ReviewDetail /> },
   { path: '/review/:id/comment', element: <ReviewDetailComment /> },
+
+  // 테스트 위해 임시 추가
+  { path: '/blog', element: <Blog /> },
+  { path: '/postreview', element: <SelectMovie /> },
+  { path: '/postreview/:id', element: <PostReview /> },
+  { path: '/postreview/:id/required', element: <PostReviewRequired /> },
+  { path: '/postreview/:id/option', element: <PostReviewOption /> },
 ];
 
 export const publicRouter = [];
 
 export const privateRouter = [
   { path: '/blog', element: <Blog /> },
-  { path: '/review', element: <SelectMovie /> },
-  { path: '/review/:id', element: <PostReview /> },
-  { path: '/review/:id/required', element: <PostReviewRequired /> },
-  { path: '/review/:id/option', element: <PostReviewOption /> },
+  { path: '/postreview', element: <SelectMovie /> },
+  { path: '/postreview/:id', element: <PostReview /> },
+  { path: '/postreview/:id/required', element: <PostReviewRequired /> },
+  { path: '/postreview/:id/option', element: <PostReviewOption /> },
 ];

@@ -14,7 +14,7 @@ function SearchResult({
   const navigate = useNavigate();
   const handleReview = async (id: string, title: string) => {
     await handleSave(title);
-    navigate(`/review/${id}`);
+    navigate(`/postreview/${id}`);
   };
   const handleSave = async (title: string) => {
     saveRecentSearch(title);

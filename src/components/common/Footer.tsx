@@ -1,9 +1,9 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 import { ReactComponent as Home } from '../../assets/image/icon/home.svg';
 import { ReactComponent as Pencil } from '../../assets/image/icon/pencil.svg';
 import { ReactComponent as User } from '../../assets/image/icon/user.svg';
-import { useState } from 'react';
 
 enum Tab {
   HOME,
@@ -34,7 +34,7 @@ function Footer() {
         <Home style={{ fill: activateTab(Tab.HOME) }} />
       </FooterItem>
       <FooterItem>
-        <ReviewWriteButton onClick={() => navigate('/review')}>
+        <ReviewWriteButton onClick={() => navigate('/postreview')}>
           <Pencil />
         </ReviewWriteButton>
       </FooterItem>
