@@ -12,16 +12,15 @@ function AutoSearchList({ searchResults, onClick }: AutoSearchListProps) {
     onClick(movie);
 
     const storedList = localStorage.getItem(localStorageKey);
-    let updatedSearches: string[] = [];
-    if (storedList) {
-      updatedSearches = JSON.parse(storedList);
-    }
 
-    if (updatedSearches.length >= MAX_RECENT_SEARCH) {
-      updatedSearches.pop();
+    const updatedRecentSearches = storedList ? JSON.parse(storedList) : [];
+    if (!updatedRecentSearches.includes(movie)) {
+      updatedRecentSearches.unshift(movie);
+      if (updatedRecentSearches.length > MAX_RECENT_SEARCH) {
+        updatedRecentSearches.pop();
+      }
+      localStorage.setItem(localStorageKey, JSON.stringify(updatedRecentSearches));
     }
-    updatedSearches.unshift(movie);
-    localStorage.setItem(localStorageKey, JSON.stringify(updatedSearches));
   }
 
   return (
