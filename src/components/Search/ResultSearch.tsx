@@ -34,7 +34,6 @@ function ResultSearch({ results }: { results: MovieResponseList[] }) {
   );
 }
 
-//| {movie.janre.join(',')} | {movie.country} //추후 DB 변경시 수정
 const MovieList = styled.div`
   padding-left: 20px;
   color: var(--disabled);

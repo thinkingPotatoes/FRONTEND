@@ -1,6 +1,7 @@
 import styled from 'styled-components';
-import { MAX_RECENT_SEARCH, localStorageKey } from './RecentSearch';
 import { MovieResponseList } from '../../types/search';
+import { localStorageKey, updateRecentSearch, useSearch } from '../../hooks/useSearchContext';
+import { useEffect } from 'react';
 
 interface AutoSearchListProps {
   searchResults: MovieResponseList[];
@@ -8,19 +9,16 @@ interface AutoSearchListProps {
 }
 
 function AutoSearchList({ searchResults, onClick }: AutoSearchListProps) {
+  const { recentSearch, setRecentSearch } = useSearch();
+  useEffect(() => {
+    localStorage.setItem(localStorageKey, JSON.stringify(recentSearch));
+  }, [recentSearch]);
+
   function handleSearchItemClick(movie: string) {
-    onClick(movie);
-
-    const storedList = localStorage.getItem(localStorageKey);
-
-    const updatedRecentSearches = storedList ? JSON.parse(storedList) : [];
-    if (!updatedRecentSearches.includes(movie)) {
-      updatedRecentSearches.unshift(movie);
-      if (updatedRecentSearches.length > MAX_RECENT_SEARCH) {
-        updatedRecentSearches.pop();
-      }
-      localStorage.setItem(localStorageKey, JSON.stringify(updatedRecentSearches));
-    }
+    const keyword = movie.trim();
+    onClick(keyword);
+    const updatedRecentSearches = updateRecentSearch(recentSearch, keyword.trim());
+    setRecentSearch(updatedRecentSearches);
   }
 
   return (

@@ -4,6 +4,7 @@ import RecentSearch from '../components/Search/RecentSearch.tsx';
 import SearchBox from '../components/Search/SearchBox.tsx';
 import ResultSearch from '../components/Search/ResultSearch.tsx';
 import { MovieResponseList } from '../types/search.ts';
+import { SearchProvider } from '../hooks/useSearchContext.tsx';
 
 function SearchPage() {
   const [keyword, setKeyword] = useState('');
@@ -20,29 +21,32 @@ function SearchPage() {
     setDefaultSearch(booleanCheck);
   };
   return (
-    <SearchFrame>
-      <SearchBox
-        onSearch={handleSearch}
-        onChange={handleChange}
-        setResults={setSearchResults}
-        keyNow={keyword}
-      />
-      {showDefaultSearch && (
-        <>
-          <RecentSearch
-            onSearch={handleSearch}
-            onChange={handleChange}
-            setResults={setSearchResults}
-            keyNow={keyword}
-          />
-        </>
-      )}
-      {showResult && (
-        <>
-          <ResultSearch results={searchResults} />
-        </>
-      )}
-    </SearchFrame>
+    <SearchProvider>
+      <SearchFrame>
+        <SearchBox
+          onSearch={handleSearch}
+          onChange={handleChange}
+          setResults={setSearchResults}
+          keyNow={keyword}
+        />
+        {showDefaultSearch && (
+          <>
+            RecentSearch
+            <RecentSearch
+              onSearch={handleSearch}
+              onChange={handleChange}
+              setResults={setSearchResults}
+              keyNow={keyword}
+            />
+          </>
+        )}
+        {showResult && (
+          <>
+            <ResultSearch results={searchResults} />
+          </>
+        )}
+      </SearchFrame>
+    </SearchProvider>
   );
 }
 
