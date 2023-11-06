@@ -6,16 +6,22 @@ import ActionSheet from '../common/ActionSheet';
 type Props = {
   sort: string;
   setSort: React.Dispatch<SetStateAction<string>>;
+  resetPage: () => void;
 };
 
-function SortBy({ sort, setSort }: Props) {
+const SORT_BY_LIKE = '인기순';
+const SORT_BY_CREATEDAT = '최신순';
+
+function SortBy({ sort, setSort, resetPage }: Props) {
   const [showActions, setShowActions] = useState(false);
-  const sortText = sort === 'likeCnt' ? '인기순' : '최신순';
+  const sortText = sort === 'likeCnt' ? SORT_BY_LIKE : SORT_BY_CREATEDAT;
+
   const handleShowAction = (show: boolean) => {
     setShowActions(show);
   };
 
   const handleChangeSort = (sort: string) => {
+    resetPage();
     setSort(sort);
   };
 
@@ -27,8 +33,8 @@ function SortBy({ sort, setSort }: Props) {
         <ActionSheet
           handleShowAction={handleShowAction}
           options={[
-            { text: '인기순', onClick: () => handleChangeSort('likeCnt') },
-            { text: '최신순', onClick: () => handleChangeSort('createdAt') },
+            { text: SORT_BY_LIKE, onClick: () => handleChangeSort('likeCnt') },
+            { text: SORT_BY_CREATEDAT, onClick: () => handleChangeSort('createdAt') },
           ]}
         />
       )}

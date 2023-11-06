@@ -21,6 +21,9 @@ export interface Review {
   blogUserDto?: null;
   movieDto?: null;
   commentCnt?: null | number;
+
+  userId?: string;
+  poster?: string;
 }
 
 export interface ReviewDetail {
