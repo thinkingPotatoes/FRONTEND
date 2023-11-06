@@ -67,12 +67,11 @@ function RecentSearch({ onChange, onSearch, setResults }: SearchBoxProps) {
 }
 
 const SwiperContainer = styled.div`
-  margin-left: 20px;
+  margin: 0 20px;
   height: 52px;
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  margin-right: 20px;
 
   .swiper-container {
     margin: 0;
