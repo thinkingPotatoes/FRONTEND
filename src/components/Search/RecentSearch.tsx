@@ -71,8 +71,12 @@ const SwiperContainer = styled.div`
   height: 52px;
   display: flex;
   align-items: center;
+  justify-content: flex-start;
   margin-right: 20px;
 
+  .swiper-container {
+    margin: 0;
+  }
   .swiper {
     width: calc(100% + 40px);
   }

@@ -31,7 +31,6 @@ function SearchPage() {
         />
         {showDefaultSearch && (
           <>
-            RecentSearch
             <RecentSearch
               onSearch={handleSearch}
               onChange={handleChange}
