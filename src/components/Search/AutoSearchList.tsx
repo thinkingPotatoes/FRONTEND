@@ -17,7 +17,7 @@ function AutoSearchList({ searchResults, onClick }: AutoSearchListProps) {
   function handleSearchItemClick(movie: string) {
     const keyword = movie.trim();
     onClick(keyword);
-    const updatedRecentSearches = updateRecentSearch(recentSearch, keyword.trim());
+    const updatedRecentSearches = updateRecentSearch(recentSearch, keyword);
     setRecentSearch(updatedRecentSearches);
   }
 
