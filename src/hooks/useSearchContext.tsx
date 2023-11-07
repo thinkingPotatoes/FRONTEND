@@ -34,7 +34,11 @@ export function useSearch() {
 }
 
 export function updateRecentSearch(recentSearch: string[], keyword: string) {
-  const updatedRecentSearches = recentSearch ? [...recentSearch] : [];
+  if (!recentSearch) {
+    return [];
+  }
+
+  const updatedRecentSearches = [...recentSearch];
 
   const movieIndex = updatedRecentSearches.indexOf(keyword);
   if (movieIndex !== -1) {
