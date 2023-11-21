@@ -1,7 +1,10 @@
 import moment, { Moment } from 'moment';
 import { useState } from 'react';
 import styled from 'styled-components';
+import { ReactComponent as PrevButton } from '../../assets/icon/angle-left-btn.svg';
+import { ReactComponent as NextrButton } from '../../assets/icon/angle-right-btn.svg';
 import Body3 from '../common/texts/Body3';
+import Subtitle2 from '../common/texts/Subtitle2';
 
 const dayOfWeek = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
 
@@ -47,16 +50,35 @@ function BlogReviewCalendar() {
     return calendar;
   };
   return (
-    <Container>
-      <Row>
-        {dayOfWeek.map((day: string) => {
-          return <Day>{day}</Day>;
-        })}
-      </Row>
-      {generateMonthDate()}
-    </Container>
+    <>
+      <Controller>
+        <PrevButton width={20} height={20} />
+        <TimeTitle> {`${month.year()}년 ${month.month() + 1}월`}</TimeTitle>
+        <NextrButton width={20} height={20} />
+      </Controller>
+
+      <Container>
+        <Row>
+          {dayOfWeek.map((day: string) => {
+            return <Day>{day}</Day>;
+          })}
+        </Row>
+        {generateMonthDate()}
+      </Container>
+    </>
   );
 }
+
+const Controller = styled.div`
+  display: flex;
+  width: 100%;
+  padding: 12px;
+  justify-content: space-between;
+`;
+
+const TimeTitle = styled(Subtitle2)`
+  color: white;
+`;
 
 const Container = styled.div`
   margin: 0 1.5rem;
