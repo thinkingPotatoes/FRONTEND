@@ -1,6 +1,6 @@
 import { styled } from 'styled-components';
 
-const Subtitle1 = styled.div`
+const Subtitle2 = styled.div`
   font-size: 14px;
   font-style: normal;
   font-weight: 600;
@@ -8,4 +8,4 @@ const Subtitle1 = styled.div`
   letter-spacing: -0.014px;
 `;
 
-export default Subtitle1;
+export default Subtitle2;
