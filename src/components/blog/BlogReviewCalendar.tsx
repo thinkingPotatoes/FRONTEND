@@ -10,6 +10,12 @@ const dayOfWeek = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
 
 function BlogReviewCalendar() {
   const [month, setMonth] = useState<Moment>(moment());
+  const onClickNextMonth = () => {
+    setMonth((prev) => prev.clone().month(prev.month() + 1));
+  };
+  const onClickPrevMonth = () => {
+    setMonth((prev) => prev.clone().month(prev.month() - 1));
+  };
 
   const generateMonthDate = () => {
     const startWeek = month.clone().startOf('month').week();
@@ -52,9 +58,9 @@ function BlogReviewCalendar() {
   return (
     <>
       <Controller>
-        <PrevButton width={20} height={20} />
+        <PrevButton width={20} height={20} onClick={onClickPrevMonth} />
         <TimeTitle> {`${month.year()}년 ${month.month() + 1}월`}</TimeTitle>
-        <NextrButton width={20} height={20} />
+        <NextrButton width={20} height={20} onClick={onClickNextMonth} />
       </Controller>
 
       <Container>
