@@ -1,16 +1,17 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import styled from 'styled-components';
 import { ReactComponent as CancelSvg } from '../../assets/icon/btn-cancel.svg';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.min.css';
 import 'swiper/swiper.min.css';
 import useLocalStorage from '../../hooks/useLocalStorage';
-import { SearchBoxProps } from './SearchBox';
+import { SearchBoxProps, fetchAutocompleteSuggestions } from './SearchBox';
+import { MovieResponseList } from '../../types/search';
 
 export const MAX_RECENT_SEARCH = 10;
 export const localStorageKey = 'recentSearchList';
 
-function RecentSearch({ onChange, onSearch }: SearchBoxProps) {
+function RecentSearch({ onChange, onSearch, setResults }: SearchBoxProps) {
   const [recentSearch, setRecentSearch] = useLocalStorage({
     key: localStorageKey,
     initialValue: [],
@@ -30,9 +31,17 @@ function RecentSearch({ onChange, onSearch }: SearchBoxProps) {
     setRecentSearch([]);
   }
 
-  function handleRecentChipSearch(search: string) {
-    onSearch(search, true);
+  async function handleRecentChipSearch(keyword: string) {
+    onSearch(keyword, true);
     onChange(false);
+
+    try {
+      //!loading 화면 필요
+      const results: MovieResponseList[] = await fetchAutocompleteSuggestions(keyword);
+      setResults(results);
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   return (

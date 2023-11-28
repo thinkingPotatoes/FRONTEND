@@ -23,6 +23,10 @@
   --dark-grey-700: #c3c3c6;
   --dark-grey-800: #e4e4e5;
   --dark-border-border: #3c3c47;
+
+  --light-grey-700: #4e5968;
+
+  font-family: 'Pretendard';
 }
 
 * {

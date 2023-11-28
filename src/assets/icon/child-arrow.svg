@@ -1,0 +1,10 @@
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="uil:child-arrow-line" clip-path="url(#clip0_1335_3629)">
+<path id="Vector 3 (Stroke)" fill-rule="evenodd" clip-rule="evenodd" d="M6 5C6.55228 5 7 5.44772 7 6V11C7 12.1046 7.89543 13 9 13H18C18.5523 13 19 13.4477 19 14C19 14.5523 18.5523 15 18 15H9C6.79086 15 5 13.2091 5 11V6C5 5.44772 5.44772 5 6 5Z" fill="#9E9EA4"/>
+</g>
+<defs>
+<clipPath id="clip0_1335_3629">
+<rect width="24" height="24" fill="white"/>
+</clipPath>
+</defs>
+</svg>
