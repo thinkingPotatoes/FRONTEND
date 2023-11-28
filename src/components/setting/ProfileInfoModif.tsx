@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 const ProfileInfoModif = () => {
   const navigate = useNavigate();
   const linkToMyInfo = () => {
-    navigate('/setting-info');
+    navigate('/setting/myinfo');
   };
   return (
     <ProfileInfo onClick={linkToMyInfo}>

@@ -13,7 +13,8 @@ import ReviewDetail from '../pages/ReviewDetail.tsx';
 import ReviewDetailComment from '../pages/ReviewDetailComment.tsx';
 
 import Setting from '../pages/Setting-page/Setting.tsx';
-import MyInfo from '../pages/Setting-page/MyInfo.tsx';
+import MyInfo from '../pages/Setting-page/MyInfo/MyInfoLobby.tsx';
+import SelectJanre from '../pages/Setting-page/MyInfo/SelectJanre.tsx';
 import ServiceInfo from '../pages/Setting-page/ServiceInfo.tsx';
 import PrivateInfo from '../pages/Setting-page/PrivateInfo.tsx';
 import OpensourceInfo from '../pages/Setting-page/OpensouceInfo.tsx';
@@ -36,7 +37,8 @@ export const commonRouter = [
   { path: '/postreview/:id/option', element: <PostReviewOption /> },
 
   { path: '/setting', element: <Setting /> },
-  { path: '/setting-info', element: <MyInfo /> },
+  { path: '/setting/myinfo', element: <MyInfo /> },
+  { path: '/setting/myinfo/janre', element: <SelectJanre /> },
   { path: '/setting/service-info', element: <ServiceInfo /> },
   { path: '/setting/private-info', element: <PrivateInfo /> },
   { path: '/setting/opensource-info', element: <OpensourceInfo /> },

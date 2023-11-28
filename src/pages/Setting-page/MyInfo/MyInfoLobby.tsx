@@ -1,8 +1,11 @@
-import TopSettingNav from '../../components/setting/TopSettingNav';
+import TopSettingNav from '../../../components/setting/TopSettingNav';
 import { styled } from 'styled-components';
-import { ReactComponent as NextArrowSvg } from '../../assets/image/icon/frontArrow.svg';
+import { ReactComponent as NextArrowSvg } from '../../../assets/image/icon/frontArrow.svg';
+import { useNavigate } from 'react-router-dom';
 
 function MyInfo() {
+  const navigate = useNavigate();
+
   return (
     <SettingPage>
       <TopSettingNav props="내 정보" />
@@ -32,7 +35,7 @@ function MyInfo() {
         </SectionBody>
         <SectionBody>
           <div className="title">선호하는 장르</div>
-          <SvgWrapper>
+          <SvgWrapper onClick={() => navigate('janre')}>
             <div className="info-txt">드라마, 로맨스, 액션</div>
             <div className="icon">
               <NextArrowSvg />
