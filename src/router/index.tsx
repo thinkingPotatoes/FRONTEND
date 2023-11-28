@@ -21,12 +21,7 @@ import NewIssue from '../pages/Setting-page/NewIssue.tsx';
 
 export const commonRouter = [
   { path: '/', element: <Home /> },
-  { path: '/setting', element: <Setting /> },
-  { path: '/setting-info', element: <MyInfo /> },
-  { path: '/setting/service-info', element: <ServiceInfo /> },
-  { path: '/setting/private-info', element: <PrivateInfo /> },
-  { path: '/setting/opensource-info', element: <OpensourceInfo /> },
-  { path: '/setting/issue-info', element: <NewIssue /> },
+
   { path: '/search', element: <SearchPage /> },
   { path: '/moviesearch/:id', element: <MovieSearch /> },
   { path: '/moviesearch/:id/plot', element: <MovieSearchPlot /> },
@@ -39,6 +34,13 @@ export const commonRouter = [
   { path: '/postreview/:id', element: <PostReview /> },
   { path: '/postreview/:id/required', element: <PostReviewRequired /> },
   { path: '/postreview/:id/option', element: <PostReviewOption /> },
+
+  { path: '/setting', element: <Setting /> },
+  { path: '/setting-info', element: <MyInfo /> },
+  { path: '/setting/service-info', element: <ServiceInfo /> },
+  { path: '/setting/private-info', element: <PrivateInfo /> },
+  { path: '/setting/opensource-info', element: <OpensourceInfo /> },
+  { path: '/setting/issue-info', element: <NewIssue /> },
 ];
 
 export const publicRouter = [];
