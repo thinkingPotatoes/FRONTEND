@@ -4,18 +4,12 @@ import { ReactComponent as CancelSvg } from '../../assets/icon/btn-cancel.svg';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.min.css';
 import 'swiper/swiper.min.css';
-import useLocalStorage from '../../hooks/useLocalStorage';
 import { SearchBoxProps, fetchAutocompleteSuggestions } from './SearchBox';
 import { MovieResponseList } from '../../types/search';
-
-export const MAX_RECENT_SEARCH = 10;
-export const localStorageKey = 'recentSearchList';
+import { localStorageKey, updateRecentSearch, useSearch } from '../../hooks/useSearchContext';
 
 function RecentSearch({ onChange, onSearch, setResults }: SearchBoxProps) {
-  const [recentSearch, setRecentSearch] = useLocalStorage({
-    key: localStorageKey,
-    initialValue: [],
-  });
+  const { recentSearch, setRecentSearch } = useSearch();
 
   useEffect(() => {
     localStorage.setItem(localStorageKey, JSON.stringify(recentSearch));
@@ -34,6 +28,9 @@ function RecentSearch({ onChange, onSearch, setResults }: SearchBoxProps) {
   async function handleRecentChipSearch(keyword: string) {
     onSearch(keyword, true);
     onChange(false);
+
+    const updatedRecentSearches = updateRecentSearch(recentSearch, keyword.trim());
+    setRecentSearch(updatedRecentSearches);
 
     try {
       //!loading 화면 필요
@@ -70,18 +67,21 @@ function RecentSearch({ onChange, onSearch, setResults }: SearchBoxProps) {
 }
 
 const SwiperContainer = styled.div`
-  margin-left: 20px;
-  width: max-content;
+  margin: 0 20px;
   height: 52px;
   display: flex;
   align-items: center;
+  justify-content: flex-start;
 
+  .swiper-container {
+    margin: 0;
+  }
   .swiper {
-    width: 100%;
+    width: calc(100% + 40px);
   }
 
   .swiper-slide {
-    width: fit-content;
+    width: max-content;
   }
 `;
 
