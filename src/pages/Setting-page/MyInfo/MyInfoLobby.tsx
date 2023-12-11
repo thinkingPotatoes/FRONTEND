@@ -34,7 +34,7 @@ function MyInfo() {
           <div className="title">
             {myInfo.platform === 'NONE' ? '이메일로 로그인' : 'SNS로 로그인'}
           </div>
-          <SvgWrapper>{myInfo.userId}</SvgWrapper>
+          <SvgWrapper>{myInfo.platform === 'NONE' ? myInfo.userId : myInfo.platform}</SvgWrapper>
         </SectionBody>
         <SectionBody>
           <div className="title">Filog</div>
