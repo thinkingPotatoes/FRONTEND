@@ -51,7 +51,8 @@ function RecentSearch({ onChange, onSearch, setResults }: SearchBoxProps) {
       </SubtitleList>
       <SwiperContainer>
         <Swiper slidesPerView={'auto'} spaceBetween={10}>
-          {recentSearch.length > 0 &&
+          {recentSearch &&
+            recentSearch.length > 0 &&
             recentSearch.map((search: string, idx: number) => (
               <SwiperSlide key={idx}>
                 <RecentSearchChip>
