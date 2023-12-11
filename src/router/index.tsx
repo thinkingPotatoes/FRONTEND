@@ -10,7 +10,6 @@ import SearchPage from '../pages/SearchPage.tsx';
 import SelectMovie from '../pages/SelectMovie.tsx';
 
 import ReviewDetail from '../pages/ReviewDetail.tsx';
-import ReviewDetailComment from '../pages/ReviewDetailComment.tsx';
 
 import Setting from '../pages/Setting-page/Setting.tsx';
 import MyInfo from '../pages/Setting-page/MyInfo/MyInfoLobby.tsx';
@@ -27,7 +26,6 @@ export const commonRouter = [
   { path: '/moviesearch/:id', element: <MovieSearch /> },
   { path: '/moviesearch/:id/plot', element: <MovieSearchPlot /> },
   { path: '/review/:id', element: <ReviewDetail /> },
-  { path: '/review/:id/comment', element: <ReviewDetailComment /> },
 
   // 테스트 위해 임시 추가
   { path: '/blog', element: <Blog /> },

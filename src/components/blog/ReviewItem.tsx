@@ -10,13 +10,16 @@ import RatedStar from '../common/RatedStar';
 import Body3 from '../common/texts/Body3';
 import Subtitle1 from '../common/texts/Subtitle1';
 import KeywordList from './KeywordList';
+import { useNavigate } from 'react-router-dom';
 
 const PRIVATE = 'PRIVATE';
 
 function ReviewItem({ review }: { review: Review }) {
   const keywords = ['아이언맨', '블랙위도우', '뿡'];
+  const navigate = useNavigate();
+
   return (
-    <ReviewItemWrapper>
+    <ReviewItemWrapper onClick={() => navigate(`/review/${review.id}`)}>
       <Poster imgUrl={review.poster || empty} size={'m'} />
       <ReviewContent>
         <Subject>

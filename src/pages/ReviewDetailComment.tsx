@@ -13,7 +13,10 @@ export const POST_OPTION = {
   REPLY: 'REPLY',
 };
 
-function ReviewDetailComment() {
+type Props = {
+  setNowContent: (isContent: boolean) => void;
+};
+function ReviewDetailComment({ setNowContent }: Props) {
   const { id: articleId } = useParams<{ id: string }>();
   const [sortedData, setSortedData] = useState<ReviewComment[]>([]);
   const [updateData, setUpdateData] = useState<boolean>(false);
@@ -38,7 +41,7 @@ function ReviewDetailComment() {
 
   return (
     <>
-      <CommentTopNav commentCnt={commentCnt} />
+      <CommentTopNav commentCnt={commentCnt} setNowContent={setNowContent} />
       <CommentFrame>
         {commentCnt !== 0 &&
           sortedData.map((data, idx) => (

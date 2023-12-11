@@ -3,13 +3,11 @@ import styled from 'styled-components';
 import { ReactComponent as LeftPrevSvg } from '../../assets/icon/angle-left-btn.svg';
 import AutoSearchList from './AutoSearchList';
 import SearchInputBar from './SearchInputBar';
-import { MAX_RECENT_SEARCH, localStorageKey } from './RecentSearch';
-import useLocalStorage from '../../hooks/useLocalStorage';
-
 import { useQuery } from 'react-query';
 import axios from '../../api/apiController';
 import { MovieResponseList } from '../../types/search';
 import { useNavigate } from 'react-router-dom';
+import { localStorageKey, updateRecentSearch, useSearch } from '../../hooks/useSearchContext';
 
 export interface SearchBoxProps {
   onSearch: (keyword: string, booleanCheck: boolean) => void;
@@ -41,11 +39,12 @@ function SearchBox({ onChange, onSearch, setResults, keyNow }: SearchBoxProps) {
   const [isSearch, setIsSearch] = useState(false);
   const [fromRecentKeyword, setFromRecentKeyword] = useState(false);
 
-  const [recentSearch, setRecentSearch] = useLocalStorage({
-    key: localStorageKey,
-    initialValue: [],
-  });
   const { data: searchResults } = useAutocompleteQuery(keyword);
+
+  const { recentSearch, setRecentSearch } = useSearch();
+  useEffect(() => {
+    localStorage.setItem(localStorageKey, JSON.stringify(recentSearch));
+  }, [recentSearch]);
 
   useEffect(() => {
     setKeyword(keyNow);
@@ -95,15 +94,8 @@ function SearchBox({ onChange, onSearch, setResults, keyNow }: SearchBoxProps) {
     setIsSearch(true);
     onChange(false);
     if (keyword.trim() !== '') {
-      const updatedRecentSearches = recentSearch ? [...recentSearch] : [];
-      if (!updatedRecentSearches.includes(keyword)) {
-        updatedRecentSearches.unshift(keyword);
-        if (updatedRecentSearches.length > MAX_RECENT_SEARCH) {
-          updatedRecentSearches.pop();
-        }
-        setRecentSearch(updatedRecentSearches);
-        localStorage.setItem(localStorageKey, JSON.stringify(updatedRecentSearches));
-      }
+      const updatedRecentSearches = updateRecentSearch(recentSearch, keyword.trim());
+      setRecentSearch(updatedRecentSearches);
     }
   }
 

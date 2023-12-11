@@ -5,10 +5,16 @@ import ReviewBottomNav from '../components/reviewDetail/ReviewBottomNav';
 import { useParams } from 'react-router-dom';
 import axios from '../api/apiController';
 import { ReviewDetail } from '../types/review';
+import ReviewDetailComment from './ReviewDetailComment';
 
 function ReviewDetail() {
   const { id } = useParams<{ id: string }>();
   const [reviewData, setReviewData] = useState<ReviewDetail | null>(null);
+  const [isContent, setIsContent] = useState<boolean>(true);
+
+  const setNowContent = (isContent: boolean) => {
+    setIsContent(isContent);
+  };
 
   useEffect(() => {
     const fetchPostDetailData = async () => {
@@ -23,6 +29,14 @@ function ReviewDetail() {
     fetchPostDetailData();
   }, []);
 
+  if (!isContent) {
+    return (
+      <>
+        <ReviewDetailComment setNowContent={setNowContent} />
+      </>
+    );
+  }
+
   return (
     <>
       <ReviewTopNav
@@ -35,6 +49,7 @@ function ReviewDetail() {
         id={reviewData?.id || ''}
         likeCnt={reviewData?.likeCnt || 0}
         commentCnt={reviewData?.commentCnt || 0}
+        setNowContent={setNowContent}
       />
     </>
   );
