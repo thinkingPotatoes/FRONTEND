@@ -2,23 +2,44 @@ import TopSettingNav from '../../../components/setting/TopSettingNav';
 import { styled } from 'styled-components';
 import { ReactComponent as NextArrowSvg } from '../../../assets/image/icon/frontArrow.svg';
 import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import axios from '../../../api/apiController';
+import { FilogInfo, UserInfo } from '../../../types/user';
 
 function MyInfo() {
   const navigate = useNavigate();
+  const [myInfo, setMyInfo] = useState<UserInfo>();
+  const [filogInfo, setFilogInfo] = useState<FilogInfo>();
+
+  useEffect(() => {
+    axios.get(`/my-page/user`).then((res) => {
+      const mydata = res.data.data;
+      setMyInfo(mydata);
+    });
+    axios.get(`/my-page/filog`).then((res) => {
+      const filogData = res.data.data;
+      setFilogInfo(filogData);
+    });
+  }, []);
+
+  if (!myInfo || !filogInfo) {
+    return <></>;
+  }
 
   return (
     <SettingPage>
       <TopSettingNav props="내 정보" />
       <SettingSection>
         <SectionBody>
-          {/* sns 로 로그인시 sns로 로그인으로 문구 변경 */}
-          <div className="title">이메일로 로그인</div>
-          <SvgWrapper>filmo@gmail.com</SvgWrapper>
+          <div className="title">
+            {myInfo.platform === 'NONE' ? '이메일로 로그인' : 'SNS로 로그인'}
+          </div>
+          <SvgWrapper>{myInfo.userId}</SvgWrapper>
         </SectionBody>
         <SectionBody>
           <div className="title">Filog</div>
           <SvgWrapper>
-            <div className="info-txt">일이삼사오육칠팔구십일이삼사오육칠팔구십</div>
+            <div className="info-txt">{filogInfo.title}</div>
             <div className="icon">
               <NextArrowSvg />
             </div>
@@ -27,7 +48,7 @@ function MyInfo() {
         <SectionBody>
           <div className="title">닉네임</div>
           <SvgWrapper>
-            <div className="info-txt">Hyunmin</div>
+            <div className="info-txt">{myInfo.nickname}</div>
             <div className="icon">
               <NextArrowSvg />
             </div>
@@ -36,7 +57,9 @@ function MyInfo() {
         <SectionBody>
           <div className="title">선호하는 장르</div>
           <SvgWrapper onClick={() => navigate('janre')}>
-            <div className="info-txt">드라마, 로맨스, 액션</div>
+            <div className="info-txt">
+              {filogInfo.genreList ? filogInfo.genreList.join(', ') : '없음'}
+            </div>
             <div className="icon">
               <NextArrowSvg />
             </div>

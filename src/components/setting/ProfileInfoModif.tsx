@@ -2,7 +2,11 @@ import { styled } from 'styled-components';
 import { ReactComponent as NextArrowSvg } from '../../assets/image/icon/frontArrow.svg';
 import { useNavigate } from 'react-router-dom';
 
-const ProfileInfoModif = () => {
+type Props = {
+  nickname: string;
+};
+
+const ProfileInfoModif = ({ nickname }: Props) => {
   const navigate = useNavigate();
   const linkToMyInfo = () => {
     navigate('/setting/myinfo');
@@ -10,7 +14,7 @@ const ProfileInfoModif = () => {
   return (
     <ProfileInfo onClick={linkToMyInfo}>
       <Info>
-        <div className="nickname">닉네임님</div>
+        <div className="nickname">{nickname}님</div>
         <div className="modifBtn">내 정보 수정하기</div>
       </Info>
       <SvgWrapper>

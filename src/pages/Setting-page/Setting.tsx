@@ -3,20 +3,32 @@ import ProfileInfoModif from '../../components/setting/ProfileInfoModif';
 import { styled } from 'styled-components';
 import { ReactComponent as NextArrowSvg } from '../../assets/image/icon/frontArrow.svg';
 import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import axios from '../../api/apiController';
+import { UserInfo } from '../../types/user';
 
 function Setting() {
   const navigate = useNavigate();
+  const [myInfo, setMyInfo] = useState<UserInfo>();
+  useEffect(() => {
+    axios.get(`/my-page/user`).then((res) => {
+      const mydata = res.data.data;
+      setMyInfo(mydata);
+    });
+  }, []);
+
+  if (!myInfo) {
+    return <></>;
+  }
 
   return (
     <SettingPage>
       <TopSettingNav props="설정" />
-      <ProfileInfoModif />
+      <ProfileInfoModif nickname={myInfo.nickname} />
 
       <SettingSection>
         <SubTitle>계정</SubTitle>
-
-        {/* sns 로그인 시 비밀번호 변경 X */}
-        <SectionBody>비밀번호 변경</SectionBody>
+        {myInfo.platform === 'NONE' && <SectionBody>비밀번호 변경</SectionBody>}
         <SectionBody>로그아웃</SectionBody>
       </SettingSection>
       <SettingSection>
