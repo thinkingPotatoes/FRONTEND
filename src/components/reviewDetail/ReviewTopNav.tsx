@@ -18,8 +18,9 @@ const ReviewTopNav = ({ blogDto }: Props) => {
   const navigate = useNavigate();
 
   const handleLeftArrowClick = () => {
-    navigate('/review-list');
+    navigate(-1);
   };
+
   return (
     <TopNavBar>
       <SvgWrapper>
