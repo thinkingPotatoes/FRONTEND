@@ -14,10 +14,9 @@ const ReviewContents = ({ data }: Props) => {
     //데이터 없음
     return <></>;
   }
-
   return (
     <ContentsWrapper className="wrapper">
-      <WriterInfo />
+      <WriterInfo userName={data.blogUserDto.nickname} date={data.createdAt.split('T')[0]} />
       <CategoryChips isSpoiler={data.spoiler} scope={data.scope} />
       <ReviewTitle>{data.subject}</ReviewTitle>
       <MovieInfo info={data.movieDto} star={data.star} />

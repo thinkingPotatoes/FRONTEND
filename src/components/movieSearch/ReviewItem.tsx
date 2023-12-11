@@ -7,10 +7,13 @@ import CommentCount from '../common/CommentCount.tsx';
 import LikeCount from '../common/LikeCount.tsx';
 import RatedStar from '../common/RatedStar.tsx';
 import Body3 from '../common/texts/Body3.ts';
+import { useNavigate } from 'react-router-dom';
 
 function ReviewItem({ review }: { review: Review }) {
+  const navigate = useNavigate();
+
   return (
-    <ReviewItemWrapper>
+    <ReviewItemWrapper onClick={() => navigate(`/review/${review.id}`)}>
       <Title>{review.subject}</Title>
       <RatedStar star={review.star} />
       <Content>{review.content}</Content>
