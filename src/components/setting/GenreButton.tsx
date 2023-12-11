@@ -1,26 +1,35 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { styled } from 'styled-components';
+import { Genre } from '../../types/movie';
 
 interface Props {
-  genre: { id: number; title: string };
-  selectedJanreCount: number;
-  onClickGenre(id: number, isSelected: boolean): void;
+  genre: Genre;
+  selectedGenres: Genre[];
+  onClickGenre(genre: Genre, isSelected: boolean): void;
 }
 
-function GenreButton({ genre, selectedJanreCount, onClickGenre }: Props) {
+function GenreButton({ genre, selectedGenres, onClickGenre }: Props) {
   const [isSelected, setIsSelected] = useState(false);
 
+  useEffect(() => {
+    selectedGenres.map((selectedGenres) => {
+      if (selectedGenres.id === genre.id) {
+        setIsSelected(true);
+      }
+    });
+  }, []);
+
   const onClick = () => {
-    if (!isSelected && selectedJanreCount >= 3) {
+    if (!isSelected && selectedGenres.length >= 3) {
       return;
     }
-    onClickGenre(genre.id, isSelected);
+    onClickGenre(genre, isSelected);
     setIsSelected(!isSelected);
   };
 
   return (
     <Button onClick={onClick} isSelected={isSelected}>
-      <Title isSelected={isSelected}>{genre.title}</Title>
+      <Title isSelected={isSelected}>{genre.genre}</Title>
     </Button>
   );
 }

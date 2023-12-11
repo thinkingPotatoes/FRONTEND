@@ -3,30 +3,34 @@ import { ReactComponent as BackArrow } from '../../../assets/image/icon/backArro
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import GenreButton from '../../../components/setting/GenreButton';
+import { Genre } from '../../../types/movie';
 
-const data = [
-  { id: 1, title: '로맨스' },
-  { id: 2, title: '멜로/로맨스' },
-  { id: 3, title: '액션' },
-  { id: 4, title: '코미디' },
-  { id: 5, title: '다큐멘터리' },
-  { id: 6, title: '스릴러' },
-  { id: 7, title: '사극' },
-  { id: 8, title: '범죄' },
-  { id: 9, title: '미스터리' },
-  { id: 10, title: '공포' },
-  { id: 11, title: '애니메이션' },
-  { id: 12, title: '가족' },
-  { id: 13, title: '판타지' },
-  { id: 14, title: 'SF' },
-  { id: 15, title: '전쟁' },
-  { id: 16, title: '어드벤처' },
-  { id: 17, title: '뮤지컬' },
-  { id: 18, title: '서부극' },
+const data: Genre[] = [
+  { id: '1', genre: '로맨스' },
+  { id: '2', genre: '멜로/로맨스' },
+  { id: '3', genre: '액션' },
+  { id: '4', genre: '코미디' },
+  { id: '5', genre: '다큐멘터리' },
+  { id: '6', genre: '스릴러' },
+  { id: '7', genre: '사극' },
+  { id: '8', genre: '범죄' },
+  { id: '9', genre: '미스터리' },
+  { id: '10', genre: '공포' },
+  { id: '11', genre: '애니메이션' },
+  { id: '12', genre: '가족' },
+  { id: '13', genre: '판타지' },
+  { id: '14', genre: 'SF' },
+  { id: '15', genre: '전쟁' },
+  { id: '16', genre: '어드벤처' },
+  { id: '17', genre: '뮤지컬' },
+  { id: '18', genre: '서부극' },
 ];
 
 function SelectGenre() {
-  const [selectedGenres, setSelectedGenres] = useState<number[]>([]);
+  const [selectedGenres, setSelectedGenres] = useState<Genre[]>([
+    { id: '15', genre: '전쟁' },
+    { id: '16', genre: '어드벤처' },
+  ]);
 
   const navigate = useNavigate();
 
@@ -34,11 +38,11 @@ function SelectGenre() {
     navigate('/home');
   };
 
-  const onClickGenre = (id: number, isSelected: boolean) => {
+  const onClickGenre = (genre: Genre, isSelected: boolean) => {
     if (isSelected) {
-      setSelectedGenres((prev) => prev.filter((el) => el !== id));
+      setSelectedGenres((prev) => prev.filter((el) => el.id !== genre.id));
     } else {
-      setSelectedGenres((prev) => [...prev, id]);
+      setSelectedGenres((prev) => [...prev, genre]);
     }
   };
 
@@ -51,12 +55,8 @@ function SelectGenre() {
       </Header>
       <Head1>선호하는 장르를 선택해주세요</Head1>
       <Main>
-        {data.map((genre) => (
-          <GenreButton
-            genre={genre}
-            selectedJanreCount={selectedGenres.length}
-            onClickGenre={onClickGenre}
-          />
+        {data.map((genre: Genre) => (
+          <GenreButton genre={genre} selectedGenres={selectedGenres} onClickGenre={onClickGenre} />
         ))}
       </Main>
       <BottomNav>
