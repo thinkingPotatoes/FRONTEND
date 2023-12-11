@@ -7,7 +7,7 @@ const TopSettingNav = ({ props }: { props: string }) => {
   const handleLink = () => {
     if (props === '설정') {
       //일반 설정일때의 전 화면 이동
-      navigate('/');
+      navigate('/blog');
     } else {
       navigate('/setting');
     }

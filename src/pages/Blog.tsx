@@ -2,8 +2,11 @@ import styled from 'styled-components';
 import BlogReviewSection from '../components/blog/BlogReviewSection.tsx';
 import SettingIcon from '../components/blog/SettingIcon.tsx';
 import Chip from '../components/common/Chip.tsx';
+import { useNavigate } from 'react-router-dom';
 
 function Blog() {
+  const navigate = useNavigate();
+
   return (
     <BlogWrapper>
       <BlogInfoWrapper>
@@ -20,7 +23,7 @@ function Blog() {
             <Chip props={{ text: '드라마', deletable: false }} />
           </ChipWrapper>
         </BlogInfo>
-        <IconWrapper>
+        <IconWrapper onClick={() => navigate('/setting')}>
           <SettingIcon />
         </IconWrapper>
       </BlogInfoWrapper>
