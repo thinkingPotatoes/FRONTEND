@@ -46,7 +46,7 @@ const WatchInfo = ({ date, location, seat }: Props) => {
           </div>
           <div className="seat">
             <LocationSvg /> <span>좌석</span>
-            {seat}번
+            {seat}
           </div>
         </>
       )}
