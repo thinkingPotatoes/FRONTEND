@@ -1,16 +1,23 @@
 import { styled } from 'styled-components';
-import { MovieResponseList } from '../types/search';
+import { MovieResponseList } from '../../types/search';
+import { useNavigate } from 'react-router-dom';
 
 const empty_poster = 'src/assets/image/poster/empty_poster.png';
 
 function ResultSearch({ results }: { results: MovieResponseList[] }) {
+  const navigate = useNavigate();
+
+  const handleNavigate = (id: string) => {
+    navigate(`/moviesearch/${id}`);
+  };
+
   return (
     <>
       <Subtitle>검색 된 영화</Subtitle>
       <MovieList>
         {results ? (
           results.map((movie: MovieResponseList, idx) => (
-            <EachMovie key={idx}>
+            <EachMovie key={idx} onClick={() => handleNavigate(movie.docId)}>
               <Poster>
                 <img src={movie.poster.length === 0 ? empty_poster : movie.poster} />
               </Poster>
@@ -34,7 +41,6 @@ function ResultSearch({ results }: { results: MovieResponseList[] }) {
   );
 }
 
-//| {movie.janre.join(',')} | {movie.country} //추후 DB 변경시 수정
 const MovieList = styled.div`
   padding-left: 20px;
   color: var(--disabled);

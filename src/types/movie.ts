@@ -13,4 +13,5 @@ export interface Movie {
   repRlsDate: string;
   keywords: string;
   poster: string;
+  ratingAvg?: number;
 }

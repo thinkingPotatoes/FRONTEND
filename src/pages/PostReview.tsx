@@ -52,7 +52,9 @@ function PostReview() {
       if (e instanceof Error) alert(e.message);
       return;
     }
-    navigate(`/review/${id}/required`, { state: { subject, content, grade, movieId: id } });
+    navigate(`/postreview/${id}/required`, {
+      state: { subject, content, star: grade, movieId: id },
+    });
   };
 
   useEffect(() => {
