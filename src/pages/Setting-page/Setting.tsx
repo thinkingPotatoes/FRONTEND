@@ -29,7 +29,14 @@ function Setting() {
       <SettingSection>
         <SubTitle>계정</SubTitle>
         {myInfo.platform === 'NONE' && <SectionBody>비밀번호 변경</SectionBody>}
-        <SectionBody>로그아웃</SectionBody>
+        <SectionBody
+          onClick={() => {
+            localStorage.removeItem('accessToken');
+            navigate('/');
+          }}
+        >
+          로그아웃
+        </SectionBody>
       </SettingSection>
       <SettingSection>
         <SubTitle>약관</SubTitle>
