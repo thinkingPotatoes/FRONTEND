@@ -26,6 +26,17 @@ function MyInfo() {
     return <></>;
   }
 
+  const deleteAccount = async () => {
+    if (confirm('계정을 삭제하시겠어요?')) {
+      if (confirm('계정을 삭제하면 모든 정보가 완전히 삭제됩니다 😥')) {
+        const data = await axios.get('/users/withdraw');
+        if (data) {
+          navigate('/');
+        }
+      }
+    }
+  };
+
   return (
     <SettingPage>
       <TopSettingNav props="내 정보" />
@@ -66,7 +77,9 @@ function MyInfo() {
           </SvgWrapper>
         </SectionBody>
         <SectionBody>
-          <div className="title-delete">계정 삭제하기</div>
+          <div className="title-delete" onClick={deleteAccount}>
+            계정 삭제하기
+          </div>
         </SectionBody>
       </SettingSection>
     </SettingPage>
