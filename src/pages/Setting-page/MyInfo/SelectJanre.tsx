@@ -1,9 +1,12 @@
 import { styled } from 'styled-components';
 import { ReactComponent as BackArrow } from '../../../assets/image/icon/backArrow.svg';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import GenreButton from '../../../components/setting/GenreButton';
 import { Genre } from '../../../types/movie';
+import { FilogInfo } from '../../../types/user';
+import axios from '../../../api/apiController';
+import HeaderWithBackForModif from '../../../components/setting/HeaderWithBackForModif';
 
 const data: Genre[] = [
   { id: '1', genre: '로맨스' },
@@ -31,6 +34,14 @@ function SelectGenre() {
     { id: '15', genre: '전쟁' },
     { id: '16', genre: '어드벤처' },
   ]);
+  const [filogInfo, setFilogInfo] = useState<FilogInfo>();
+
+  useEffect(() => {
+    axios.get(`/my-page/filog`).then((res) => {
+      const filogData = res.data.data;
+      setFilogInfo(filogData);
+    });
+  }, []);
 
   const navigate = useNavigate();
 
@@ -48,11 +59,7 @@ function SelectGenre() {
 
   return (
     <Container>
-      <Header onClick={() => navigate(-1)}>
-        <BackButton>
-          <BackArrow />
-        </BackButton>
-      </Header>
+      <HeaderWithBackForModif />
       <Head1>선호하는 장르를 선택해주세요</Head1>
       <Main>
         {data.map((genre: Genre) => (
