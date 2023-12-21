@@ -28,7 +28,15 @@ function Setting() {
 
       <SettingSection>
         <SubTitle>계정</SubTitle>
-        {myInfo.platform === 'NONE' && <SectionBody>비밀번호 변경</SectionBody>}
+        {myInfo.platform === 'NONE' && (
+          <SectionBody
+            onClick={() => {
+              navigate('/password/check');
+            }}
+          >
+            비밀번호 변경
+          </SectionBody>
+        )}
         <SectionBody
           onClick={() => {
             localStorage.removeItem('accessToken');

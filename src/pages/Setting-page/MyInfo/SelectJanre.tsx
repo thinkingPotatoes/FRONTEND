@@ -1,13 +1,12 @@
 import { styled } from 'styled-components';
-import { ReactComponent as BackArrow } from '../../../assets/image/icon/backArrow.svg';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import GenreButton from '../../../components/setting/GenreButton';
 import { Genre } from '../../../types/movie';
-import { FilogInfo } from '../../../types/user';
 import axios from '../../../api/apiController';
 import HeaderWithBackForModif from '../../../components/setting/HeaderWithBackForModif';
 
+//TODO : genre db 조회로 변경
 const data: Genre[] = [
   { id: '1', genre: '로맨스' },
   { id: '2', genre: '멜로/로맨스' },
@@ -29,31 +28,49 @@ const data: Genre[] = [
   { id: '18', genre: '서부극' },
 ];
 
+type MyInfoRequest = {
+  nickname: string;
+  title: string;
+  genreList: Genre[];
+};
+
 function SelectGenre() {
-  const [selectedGenres, setSelectedGenres] = useState<Genre[]>([
-    { id: '15', genre: '전쟁' },
-    { id: '16', genre: '어드벤처' },
-  ]);
-  const [filogInfo, setFilogInfo] = useState<FilogInfo>();
+  const [selectedGenres, setSelectedGenres] = useState<Genre[] | undefined>(undefined);
+  const [myInfo, setMyInfo] = useState<MyInfoRequest>({
+    nickname: '',
+    title: '',
+    genreList: [],
+  });
 
   useEffect(() => {
-    axios.get(`/my-page/filog`).then((res) => {
-      const filogData = res.data.data;
-      setFilogInfo(filogData);
+    axios.get('/my-page').then((res) => {
+      const data = res.data.data;
+      setSelectedGenres(data.genreList ? data.genreList : []);
+      setMyInfo({
+        nickname: data.nickname,
+        title: data.title,
+        genreList: [],
+      });
     });
   }, []);
 
   const navigate = useNavigate();
 
-  const onClickNext = () => {
-    navigate('/home');
+  const onClickNext = async () => {
+    const data = await axios.put('/my-page', {
+      ...myInfo,
+      genreList: selectedGenres,
+    });
+    if (data) {
+      navigate('/setting/myinfo');
+    }
   };
 
   const onClickGenre = (genre: Genre, isSelected: boolean) => {
     if (isSelected) {
-      setSelectedGenres((prev) => prev.filter((el) => el.id !== genre.id));
+      setSelectedGenres((prev) => prev!.filter((el) => el.id !== genre.id));
     } else {
-      setSelectedGenres((prev) => [...prev, genre]);
+      setSelectedGenres((prev) => [...prev!, genre]);
     }
   };
 
@@ -62,13 +79,19 @@ function SelectGenre() {
       <HeaderWithBackForModif />
       <Head1>선호하는 장르를 선택해주세요</Head1>
       <Main>
-        {data.map((genre: Genre) => (
-          <GenreButton genre={genre} selectedGenres={selectedGenres} onClickGenre={onClickGenre} />
-        ))}
+        {selectedGenres &&
+          data.map((genre: Genre) => (
+            <GenreButton
+              key={genre.id}
+              genre={genre}
+              selectedGenres={selectedGenres}
+              onClickGenre={onClickGenre}
+            />
+          ))}
       </Main>
       <BottomNav>
-        {selectedGenres.length === 3 && <SubInfo>{'최대 3개까지 선택할 수 있어요.'}</SubInfo>}
-        <NextButton isNext={selectedGenres.length !== 0} onClick={onClickNext}>
+        {selectedGenres?.length === 3 && <SubInfo>{'최대 3개까지 선택할 수 있어요.'}</SubInfo>}
+        <NextButton isNext={selectedGenres?.length !== 0} onClick={onClickNext}>
           저장하기
         </NextButton>
       </BottomNav>
@@ -85,19 +108,6 @@ const Container = styled.div`
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-`;
-const Header = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 11.5px 0;
-  height: 44px;
-  margin-bottom: 24px;
-`;
-
-const BackButton = styled.button`
-  position: absolute;
-  left: 16px;
 `;
 
 const Main = styled.div`
