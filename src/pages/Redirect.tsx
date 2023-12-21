@@ -7,7 +7,7 @@ function Redirect() {
 
   fetch(`http://localhost:8080/users/email-verify?token=${token}`)
     .then((res) => res.json())
-    .then((data) => {});
+    .then(() => {});
 
   return <Navigate to="/register/complete"></Navigate>;
 }

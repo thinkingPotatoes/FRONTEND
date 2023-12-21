@@ -28,7 +28,7 @@ const data = [
 ];
 
 function SelectGenre() {
-  const [selectedGenres, setSelectedGenres] = useState<number[]>([]);
+  const [_, setSelectedGenres] = useState<number[]>([]);
 
   const navigate = useNavigate();
 
