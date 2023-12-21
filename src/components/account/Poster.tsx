@@ -1,7 +1,7 @@
 import { styled } from 'styled-components';
 import { useState } from 'react';
 import { ReactComponent as Check } from '../../assets/image/icon/check.svg';
-import { MovieResponseList } from '../types/search';
+import { MovieResponseList } from '../../types/search';
 import empty from '../../assets/image/poster/empty_poster.png';
 
 interface Props {

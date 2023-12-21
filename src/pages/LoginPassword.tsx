@@ -46,7 +46,7 @@ function LoginPasswordInputPage() {
       }),
     })
       .then((res) => res.json())
-      .then((data) => {
+      .then(() => {
         navigate('/password/check');
       });
   };

@@ -15,3 +15,8 @@ export interface Movie {
   poster: string;
   ratingAvg?: number;
 }
+
+export interface Genre {
+  id: string;
+  genre: string;
+}

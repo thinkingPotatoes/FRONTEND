@@ -19,6 +19,16 @@ import LoginPasswordInputPage from '../pages/LoginPassword.tsx';
 
 import ReviewDetail from '../pages/ReviewDetail.tsx';
 
+import Setting from '../pages/Setting-page/Setting.tsx';
+import MyInfo from '../pages/Setting-page/MyInfo/MyInfoLobby.tsx';
+import FilogName from '../pages/Setting-page/MyInfo/FilogName.tsx';
+import SelectJanre from '../pages/Setting-page/MyInfo/SelectJanre.tsx';
+import ServiceInfo from '../pages/Setting-page/ServiceInfo.tsx';
+import PrivateInfo from '../pages/Setting-page/PrivateInfo.tsx';
+import OpensourceInfo from '../pages/Setting-page/OpensouceInfo.tsx';
+import NewIssue from '../pages/Setting-page/NewIssue.tsx';
+import NicknameModif from '../pages/Setting-page/MyInfo/NicknameModif.tsx';
+
 export const commonRouter = [
   { path: '/', element: <Login /> },
   { path: '/home', element: <Home /> },
@@ -34,6 +44,16 @@ export const commonRouter = [
   { path: '/postreview/:id', element: <PostReview /> },
   { path: '/postreview/:id/required', element: <PostReviewRequired /> },
   { path: '/postreview/:id/option', element: <PostReviewOption /> },
+
+  { path: '/setting', element: <Setting /> },
+  { path: '/setting/myinfo', element: <MyInfo /> },
+  { path: '/setting/myinfo/janre', element: <SelectJanre /> },
+  { path: '/setting/myinfo/filog', element: <FilogName /> },
+  { path: '/setting/myinfo/nickname', element: <NicknameModif /> },
+  { path: '/setting/service-info', element: <ServiceInfo /> },
+  { path: '/setting/private-info', element: <PrivateInfo /> },
+  { path: '/setting/opensource-info', element: <OpensourceInfo /> },
+  { path: '/setting/issue-info', element: <NewIssue /> },
 ];
 
 export const publicRouter = [
