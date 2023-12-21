@@ -27,6 +27,7 @@ import ServiceInfo from '../pages/Setting-page/ServiceInfo.tsx';
 import PrivateInfo from '../pages/Setting-page/PrivateInfo.tsx';
 import OpensourceInfo from '../pages/Setting-page/OpensouceInfo.tsx';
 import NewIssue from '../pages/Setting-page/NewIssue.tsx';
+import NicknameModif from '../pages/Setting-page/MyInfo/NicknameModif.tsx';
 
 export const commonRouter = [
   { path: '/', element: <Login /> },
@@ -48,6 +49,7 @@ export const commonRouter = [
   { path: '/setting/myinfo', element: <MyInfo /> },
   { path: '/setting/myinfo/janre', element: <SelectJanre /> },
   { path: '/setting/myinfo/filog', element: <FilogName /> },
+  { path: '/setting/myinfo/nickname', element: <NicknameModif /> },
   { path: '/setting/service-info', element: <ServiceInfo /> },
   { path: '/setting/private-info', element: <PrivateInfo /> },
   { path: '/setting/opensource-info', element: <OpensourceInfo /> },

@@ -47,7 +47,7 @@ function MyInfo() {
         </SectionBody>
         <SectionBody>
           <div className="title">닉네임</div>
-          <SvgWrapper>
+          <SvgWrapper onClick={() => navigate('nickname')}>
             <div className="info-txt">{myInfo.nickname}</div>
             <div className="icon">
               <NextArrowSvg />

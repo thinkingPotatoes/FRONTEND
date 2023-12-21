@@ -39,7 +39,6 @@ function FilogName() {
 
   const onClickNext = async () => {
     const data = await axios.put('/my-page', myInfo);
-    console.log(data);
     if (data) {
       navigate('/setting/myinfo');
     }
