@@ -38,7 +38,7 @@ function MyInfo() {
         </SectionBody>
         <SectionBody>
           <div className="title">Filog</div>
-          <SvgWrapper>
+          <SvgWrapper onClick={() => navigate('filog')}>
             <div className="info-txt">{filogInfo.title}</div>
             <div className="icon">
               <NextArrowSvg />

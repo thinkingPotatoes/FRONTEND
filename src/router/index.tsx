@@ -21,6 +21,7 @@ import ReviewDetail from '../pages/ReviewDetail.tsx';
 
 import Setting from '../pages/Setting-page/Setting.tsx';
 import MyInfo from '../pages/Setting-page/MyInfo/MyInfoLobby.tsx';
+import FilogName from '../pages/Setting-page/MyInfo/FilogName.tsx';
 import SelectJanre from '../pages/Setting-page/MyInfo/SelectJanre.tsx';
 import ServiceInfo from '../pages/Setting-page/ServiceInfo.tsx';
 import PrivateInfo from '../pages/Setting-page/PrivateInfo.tsx';
@@ -46,6 +47,7 @@ export const commonRouter = [
   { path: '/setting', element: <Setting /> },
   { path: '/setting/myinfo', element: <MyInfo /> },
   { path: '/setting/myinfo/janre', element: <SelectJanre /> },
+  { path: '/setting/myinfo/filog', element: <FilogName /> },
   { path: '/setting/service-info', element: <ServiceInfo /> },
   { path: '/setting/private-info', element: <PrivateInfo /> },
   { path: '/setting/opensource-info', element: <OpensourceInfo /> },
