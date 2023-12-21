@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import BlogReviewSection from '../components/blog/BlogReviewSection.tsx';
 import SettingIcon from '../components/blog/SettingIcon.tsx';
 import Chip from '../components/common/Chip.tsx';
+import Footer from '../components/common/Footer.tsx';
 import { useNavigate } from 'react-router-dom';
 
 function Blog() {
@@ -28,6 +29,7 @@ function Blog() {
         </IconWrapper>
       </BlogInfoWrapper>
       <BlogReviewSection />
+      <Footer />
     </BlogWrapper>
   );
 }
