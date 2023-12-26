@@ -5,12 +5,18 @@ import { ReactComponent as NaverIcon } from '../assets/image/icon/Naver_logo.svg
 import { ReactComponent as GoogleIcon } from '../assets/image/icon/Google_logo.svg';
 import SocialLoginButton from '../components/account/SocialLoginButton';
 import { useNavigate } from 'react-router-dom';
+import { BASE_URL } from '../api/apiController';
 
 function Login() {
   const navigate = useNavigate();
 
   const onClickEmail = () => {
     navigate('/login/email');
+  };
+
+  const onClickSocialLogin = (domain: string) => {
+    const authUrl = `${BASE_URL}/oauth2/authorization/${domain}`;
+    window.location.href = authUrl;
   };
 
   return (
@@ -20,15 +26,27 @@ function Login() {
         <Title>FILMO</Title>
       </LogoContainer>
       <LoginButtonContainer>
-        <SocialLoginButton backgroundColor="#FAE100" color="#371D1E">
+        <SocialLoginButton
+          backgroundColor="#FAE100"
+          color="#371D1E"
+          onClick={() => onClickSocialLogin('kakao')}
+        >
           <KakaoIcon />
           카카오톡으로 시작하기
         </SocialLoginButton>
-        <SocialLoginButton backgroundColor="#06BE34" color="#FFFFFF">
+        <SocialLoginButton
+          backgroundColor="#06BE34"
+          color="#FFFFFF"
+          onClick={() => onClickSocialLogin('naver')}
+        >
           <NaverIcon />
           네이버로 시작하기
         </SocialLoginButton>
-        <SocialLoginButton backgroundColor="#FFFFFF" color="#4E5968">
+        <SocialLoginButton
+          backgroundColor="#FFFFFF"
+          color="#4E5968"
+          onClick={() => onClickSocialLogin('google')}
+        >
           <GoogleIcon />
           구글로 시작하기
         </SocialLoginButton>

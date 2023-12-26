@@ -74,7 +74,7 @@ export const publicRouter = [
     element: <EmailCheck />,
   },
   {
-    path: '/register/success',
+    path: '/login/callback',
     element: <Redirect />,
   },
   {
