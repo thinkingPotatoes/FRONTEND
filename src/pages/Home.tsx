@@ -9,12 +9,15 @@ import BoxOfficeDetail from '../components/home/BoxOfficeDetail.tsx';
 import styled from 'styled-components';
 import Body1 from '../components/common/texts/Body1.ts';
 import { useNavigate } from 'react-router-dom';
+import HotReviewList from '../components/home/HotReviewList.tsx';
+import HotReviewDetail from '../components/home/HotReviewDetail.tsx';
 
 function Home() {
   const navigate = useNavigate();
 
   const [showBoxOfficeDetail, setShowBoxOfficeDetail] = useState<boolean>(false);
   const [showRecommendDetail, setRecommendDetail] = useState<boolean>(false);
+  const [showHotReviewDetail, setHotReviewDetail] = useState<boolean>(false);
 
   const toggleBoxofficeDetail = () => {
     setShowBoxOfficeDetail(!showBoxOfficeDetail);
@@ -22,6 +25,10 @@ function Home() {
 
   const toggleRecommendDetail = () => {
     setRecommendDetail(!showRecommendDetail);
+  };
+
+  const toggleHotReviewDetail = () => {
+    setHotReviewDetail(!showHotReviewDetail);
   };
 
   const isLogin = localStorage.getItem('acccessToken') ? true : false;
@@ -45,9 +52,14 @@ function Home() {
 
       <SectionTitle title={'BOX OFFICE🍿'} onClickMoreButton={toggleBoxofficeDetail} />
       <BoxOfficeList />
+
+      <SectionTitle title={'지금 핫한 리뷰 🔥'} onClickMoreButton={toggleHotReviewDetail} />
+      <HotReviewList />
+
       <Footer />
       {showRecommendDetail && <MovieRecommendDetail onClickBack={toggleRecommendDetail} />}
       {showBoxOfficeDetail && <BoxOfficeDetail onClickBack={toggleBoxofficeDetail} />}
+      {showHotReviewDetail && <HotReviewDetail onClickBack={toggleHotReviewDetail} />}
     </>
   );
 }
