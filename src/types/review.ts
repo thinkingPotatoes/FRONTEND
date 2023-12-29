@@ -59,3 +59,15 @@ export interface ReviewComment {
   likeCnt: number;
   parentId: string | null;
 }
+
+export interface ReviewSummary {
+  id: string;
+  subject: string;
+  star: number;
+  watchedAt: string;
+  userId: string;
+  movieId: string;
+  title: string;
+  keywords: string;
+  poster: string;
+}

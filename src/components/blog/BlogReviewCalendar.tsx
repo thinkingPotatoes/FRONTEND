@@ -1,15 +1,22 @@
 import moment, { Moment } from 'moment';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { ReactComponent as PrevButton } from '../../assets/icon/angle-left-btn.svg';
 import { ReactComponent as NextrButton } from '../../assets/icon/angle-right-btn.svg';
 import Body3 from '../common/texts/Body3';
 import Subtitle2 from '../common/texts/Subtitle2';
+import axios from '../../api/apiController';
+import Modal from '../common/Modal';
+import BlogReviewModalItem from './BlogReviewModalItem';
 
 const dayOfWeek = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
+const INIT_DATE = -1;
 
 function BlogReviewCalendar() {
   const [month, setMonth] = useState<Moment>(moment());
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [selectedDate, setSelectedDate] = useState<number>(INIT_DATE);
+
   const onClickNextMonth = () => {
     setMonth((prev) => prev.clone().month(prev.month() + 1));
   };
@@ -38,7 +45,8 @@ function BlogReviewCalendar() {
                 .add(n + i, 'day');
 
               const onClickDate = () => {
-                // onClickDateCallback?.(date);
+                setSelectedDate(date.date());
+                setIsOpen(true);
               };
 
               const dateString = date.format('D');
@@ -55,6 +63,15 @@ function BlogReviewCalendar() {
 
     return calendar;
   };
+
+  const fetchMonthMovies = async () => {
+    const { data } = await axios.get(`/filog/calendar/${month.year()}/${month.month() + 1}`);
+  };
+
+  useEffect(() => {
+    fetchMonthMovies();
+  }, []);
+
   return (
     <>
       <Controller>
@@ -71,6 +88,18 @@ function BlogReviewCalendar() {
         </Row>
         {generateMonthDate()}
       </Container>
+      {isOpen && (
+        <Modal
+          handleShowModal={setIsOpen}
+          contentNode={
+            <BlogReviewModalItem
+              year={month.year()}
+              month={month.month() + 1}
+              date={selectedDate}
+            />
+          }
+        ></Modal>
+      )}
     </>
   );
 }
