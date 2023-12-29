@@ -19,6 +19,10 @@ function Login() {
     window.location.href = authUrl;
   };
 
+  const onClockLookAround = () => {
+    navigate('/home');
+  };
+
   return (
     <>
       <LogoContainer>
@@ -53,6 +57,14 @@ function Login() {
         <SocialLoginButton backgroundColor="#1C1C25" color="#E4E4E5" onClick={onClickEmail}>
           이메일로 시작하기
         </SocialLoginButton>
+
+        <SocialLoginButton
+          backgroundColor="var(--main-background)"
+          color="var(--dark-grey-600)"
+          onClick={onClockLookAround}
+        >
+          둘러보기
+        </SocialLoginButton>
       </LoginButtonContainer>
     </>
   );
@@ -71,6 +83,12 @@ const LoginButtonContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 12px;
+`;
+
+const SearchContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  color: var(--dark-grey-600);
 `;
 
 const Title = styled.div`
