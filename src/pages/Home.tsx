@@ -31,7 +31,7 @@ function Home() {
     setHotReviewDetail(!showHotReviewDetail);
   };
 
-  const isLogin = localStorage.getItem('acccessToken') ? true : false;
+  const isLogin = localStorage.getItem('accessToken') ? true : false;
 
   const onClickRecommend = () => {
     navigate('/');
