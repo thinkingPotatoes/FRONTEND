@@ -9,7 +9,7 @@
   --text-default: #c3c3c6;
   --icon-default: #9e9ea4;
   --icon-activated: #ffffff;
-  --main-gradient: linear-gradient(#00ffc2, #e335ff);
+  --main-gradient: linear-gradient(to right, #00ffc2, #e335ff);
   --background-bright: #1c1c25;
 
   --dark-bg-down: #101013;
