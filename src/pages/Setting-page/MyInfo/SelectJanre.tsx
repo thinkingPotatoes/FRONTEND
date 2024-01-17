@@ -6,8 +6,7 @@ import { Genre } from '../../../types/movie';
 import axios from '../../../api/apiController';
 import HeaderWithBackForModif from '../../../components/setting/HeaderWithBackForModif';
 
-//TODO : genre db 조회로 변경
-const data: Genre[] = [
+const tempdata: Genre[] = [
   { id: '1', genre: '로맨스' },
   { id: '2', genre: '멜로/로맨스' },
   { id: '3', genre: '액션' },
@@ -35,6 +34,7 @@ type MyInfoRequest = {
 };
 
 function SelectGenre() {
+  const [initGenres, setInitGenres] = useState<Genre[]>(tempdata);
   const [selectedGenres, setSelectedGenres] = useState<Genre[] | undefined>(undefined);
   const [myInfo, setMyInfo] = useState<MyInfoRequest>({
     nickname: '',
@@ -43,6 +43,13 @@ function SelectGenre() {
   });
 
   useEffect(() => {
+    axios.get('genres').then((res) => {
+      const initGenre = res.data.data.genreList;
+      if (initGenre) {
+        setInitGenres(initGenre);
+      }
+    });
+
     axios.get('/my-page').then((res) => {
       const data = res.data.data;
       setSelectedGenres(data.genreList ? data.genreList : []);
@@ -80,7 +87,7 @@ function SelectGenre() {
       <Head1>선호하는 장르를 선택해주세요</Head1>
       <Main>
         {selectedGenres &&
-          data.map((genre: Genre) => (
+          initGenres?.map((genre: Genre) => (
             <GenreButton
               key={genre.id}
               genre={genre}
@@ -91,7 +98,7 @@ function SelectGenre() {
       </Main>
       <BottomNav>
         {selectedGenres?.length === 3 && <SubInfo>{'최대 3개까지 선택할 수 있어요.'}</SubInfo>}
-        <NextButton isNext={selectedGenres?.length !== 0} onClick={onClickNext}>
+        <NextButton $isNext={selectedGenres?.length !== 0} onClick={onClickNext}>
           저장하기
         </NextButton>
       </BottomNav>
@@ -100,7 +107,7 @@ function SelectGenre() {
 }
 
 interface StyleProps {
-  isNext: boolean;
+  $isNext: boolean;
 }
 
 const Container = styled.div`
@@ -149,10 +156,10 @@ const NextButton = styled.button<StyleProps>`
   justify-content: center;
   align-items: center;
   font-family: 'Pretendard';
-  color: ${({ isNext }) => (isNext ? 'var(--icon-activated)' : 'var(--disabled)')};
+  color: ${({ $isNext }) => ($isNext ? 'var(--icon-activated)' : 'var(--disabled)')};
   height: 52px;
   width: 100%;
-  background-color: ${({ isNext }) => (isNext ? 'var(--main)' : 'var(--background-bright)')};
+  background-color: ${({ $isNext }) => ($isNext ? 'var(--main)' : 'var(--background-bright)')};
 
   border-radius: 8px;
   margin-bottom: 20px;
