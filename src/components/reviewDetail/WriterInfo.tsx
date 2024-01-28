@@ -1,10 +1,15 @@
 import { styled } from 'styled-components';
 
-const WriterInfo = () => {
+type Props = {
+  userName: string;
+  date: string;
+};
+
+const WriterInfo = ({ userName, date }: Props) => {
   return (
     <WriterWrapper>
-      <div className="profileName">Joeun Lee</div>
-      <div className="writeTime">2023.12.25</div>
+      <div className="profileName">{userName}</div>
+      <div className="writeTime">{date}</div>
     </WriterWrapper>
   );
 };

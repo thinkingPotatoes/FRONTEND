@@ -15,7 +15,7 @@ function BoxOfficeList() {
   return (
     <Container>
       {data.map((movie, idx) => (
-        <BoxOfficeItem {...movie} rank={idx + 1} />
+        <BoxOfficeItem key={idx} {...movie} rank={idx + 1} />
       ))}
     </Container>
   );

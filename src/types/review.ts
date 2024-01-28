@@ -21,6 +21,9 @@ export interface Review {
   blogUserDto?: null;
   movieDto?: null;
   commentCnt?: null | number;
+
+  userId?: string;
+  poster?: string;
 }
 
 export interface ReviewDetail {
@@ -55,4 +58,16 @@ export interface ReviewComment {
   deletedAt: string | null;
   likeCnt: number;
   parentId: string | null;
+}
+
+export interface ReviewSummary {
+  id: string;
+  subject: string;
+  star: number;
+  watchedAt: string;
+  userId: string;
+  movieId: string;
+  title: string;
+  keywords: string;
+  poster: string;
 }

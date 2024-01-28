@@ -2,7 +2,13 @@ import { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import axios from '../api/apiController';
 
-const useInfinteScroll = <T,>(path: string) => {
+const useInfinteScroll = <T,>(path: string, keyword: string = '') => {
+  type List = {
+    totalCnt: number;
+    curPage: number;
+    list: T[];
+  };
+
   const { ref, inView } = useInView();
 
   const [list, setList] = useState<T[]>([]);
@@ -11,6 +17,30 @@ const useInfinteScroll = <T,>(path: string) => {
   const [totalCount, setTotalCount] = useState(-1);
   const [loading, setLoading] = useState(true);
 
+  const params = {
+    page,
+    size: 10,
+    sort: `${sort},desc`,
+  };
+
+  const commonOptions = {
+    url: path,
+    params,
+  };
+
+  const getOptions = {
+    ...commonOptions,
+    method: 'get',
+  };
+
+  const postOptions = {
+    ...commonOptions,
+    method: 'post',
+    data: { keyword },
+  };
+
+  const options = keyword.length > 0 ? postOptions : getOptions;
+
   const readMoreList = () => {
     if (loading) return;
     if (totalCount === list.length) return;
@@ -18,27 +48,31 @@ const useInfinteScroll = <T,>(path: string) => {
     setPage(page + 1);
   };
 
-  useEffect(() => {
+  const renewList = (data: List) => {
+    if (!data || data.curPage === 0) setList(data.list);
+    else setList([...list, ...data.list]);
+    setTotalCount(data.totalCnt);
+    setLoading(false);
+  };
+
+  const resetPage = () => {
     setPage(0);
     setList([]);
-  }, [sort]);
+  };
 
   useEffect(() => {
-    if (totalCount === list.length) return;
+    resetPage();
+  }, [keyword]);
+
+  useEffect(() => {
+    if (totalCount === list.length && keyword.length === 0) return;
     setLoading(true);
 
-    axios
-      .get(path, {
-        params: { page, size: 10, sort: `${sort},desc` },
-      })
-      .then((data) => {
-        const responseList = data.data.data.list;
-        if (data.data.data.curPage === 0) setList(responseList);
-        else setList([...list, ...responseList]);
-        setTotalCount(data.data.data.totalCnt);
-        setLoading(false);
-      });
-  }, [page, sort]);
+    axios.request(options).then((data) => {
+      if (data.data.data === null) return;
+      renewList(data.data.data);
+    });
+  }, [page, sort, keyword]);
 
   useEffect(() => {
     if (!inView) return;
@@ -46,7 +80,7 @@ const useInfinteScroll = <T,>(path: string) => {
     readMoreList();
   }, [inView]);
 
-  return { sort, setSort, list, ref, totalCount };
+  return { sort, setSort, list, ref, totalCount, resetPage };
 };
 
 export default useInfinteScroll;

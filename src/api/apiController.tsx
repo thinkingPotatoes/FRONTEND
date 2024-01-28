@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { InternalAxiosRequestConfig } from 'axios';
 
 const ACCESS_TOKEN = import.meta.env.VITE_ACCESS_TOKEN;
 export const BASE_URL = import.meta.env.VITE_BASE_URL;
@@ -13,15 +13,18 @@ const instance = axios.create({
 
 // Request 🧑
 instance.interceptors.request.use(
-  async (config) => {
-    //!추후 access-token 가져오는 방법 변경
-    const accessToken = ACCESS_TOKEN;
+  async (config: InternalAxiosRequestConfig) => {
+    const accessToken = localStorage.getItem('accessToken');
+
     if (accessToken) {
-      config.headers.Authorization = `Bearer ${accessToken}`;
+      config.headers['Authorization'] = `Bearer ${accessToken}`;
     }
+
     return config;
   },
-  (error) => Promise.reject(error),
+  (err) => {
+    return Promise.reject(err);
+  },
 );
 
 // Response 🧑

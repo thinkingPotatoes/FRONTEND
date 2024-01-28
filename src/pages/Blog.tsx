@@ -2,28 +2,34 @@ import styled from 'styled-components';
 import BlogReviewSection from '../components/blog/BlogReviewSection.tsx';
 import SettingIcon from '../components/blog/SettingIcon.tsx';
 import Chip from '../components/common/Chip.tsx';
+import Footer from '../components/common/Footer.tsx';
+import { useNavigate } from 'react-router-dom';
 
 function Blog() {
+  const navigate = useNavigate();
+
   return (
     <BlogWrapper>
       <BlogInfoWrapper>
         <BlogInfo>
           <BlogTitle>{'하둘셋넷다여일여아열하둘셋넷다여일여아열하둘셋넷다여'}</BlogTitle>
           <ChipWrapper>
-            <Chip props={{ text: '드라마', deletable: false }} />
             <Chip
               props={{
-                text: '멜로 / 로멘스',
+                text: '멜로 / 로맨스',
                 deletable: false,
               }}
             />
+            <Chip props={{ text: 'SF', deletable: false }} />
+            <Chip props={{ text: '드라마', deletable: false }} />
           </ChipWrapper>
         </BlogInfo>
-        <IconWrapper>
+        <IconWrapper onClick={() => navigate('/setting')}>
           <SettingIcon />
         </IconWrapper>
       </BlogInfoWrapper>
       <BlogReviewSection />
+      <Footer />
     </BlogWrapper>
   );
 }
@@ -36,6 +42,7 @@ const BlogWrapper = styled.div`
   max-width: 390px;
   height: 100vh;
 
+  margin: 0 -20px;
   /* padding-top: 47px; // status bar */
 `;
 

@@ -16,7 +16,9 @@ interface Props {
   setUpdateData: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const MY_ID = `3fac1359-73de-4241-bebf-3bf01933a463`;
+//TODO : 추후 로그인 시 내 id 를 받아와서 그 아이디와 대조하게 수정
+const MY_ID = `0af559b4-2f85-4440-84fe-5cd8517958e4`;
+
 const getUpdateDate = (date: string) => {
   return date.split('T')[0];
 };
@@ -78,7 +80,6 @@ const CommentBox = ({
             <div className="nickname">{comment.nickname ? comment.nickname : 'NO NICKNAME'}</div>
             <div className="date">{getUpdateDate(comment.updatedAt)}</div>
           </div>
-          {/* !내가 쓴 글일때만 수정, 삭제 가능 내 아이디 확인 부분 추후 수정 필요 */}
           {comment.userId === MY_ID && (
             <CommentModalBtn
               comment={comment}

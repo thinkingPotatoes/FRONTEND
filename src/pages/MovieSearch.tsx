@@ -21,6 +21,7 @@ function MovieSearch() {
     setSort,
     ref,
     totalCount,
+    resetPage,
   } = useInfinteScroll(`/filog/movie/${movieId}`);
 
   const handleScroll = () => {
@@ -63,7 +64,13 @@ function MovieSearch() {
       {!scroll && (
         <RatingBar reviewCount={totalCount} ratingAvg={movie.ratingAvg || 0} ratingExpect={0} />
       )}
-      <ReviewList endRef={ref} reviewList={reviewList as Review[]} sort={sort} setSort={setSort} />
+      <ReviewList
+        endRef={ref}
+        reviewList={reviewList as Review[]}
+        sort={sort}
+        setSort={setSort}
+        resetPage={resetPage}
+      />
     </MovieSearchWrapper>
   );
 }

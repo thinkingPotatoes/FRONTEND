@@ -1,18 +1,16 @@
 import { styled } from 'styled-components';
 import { ReactComponent as CommentSvg } from '../../assets/image/icon/comment.svg';
-import { useNavigate } from 'react-router-dom';
 import { ReviewLike } from './ReviewLike';
 
 interface Props {
   likeCnt: number;
   commentCnt: number;
   id: string;
+  setNowContent: (isContent: boolean) => void;
 }
-const ReviewBottomNav = ({ likeCnt, commentCnt, id }: Props) => {
-  const navigate = useNavigate();
-
+const ReviewBottomNav = ({ likeCnt, commentCnt, id, setNowContent }: Props) => {
   const handleDetailComment = () => {
-    navigate('comment');
+    setNowContent(false);
   };
   return (
     <BottomNav>
