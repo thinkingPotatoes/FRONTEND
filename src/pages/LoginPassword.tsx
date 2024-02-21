@@ -36,7 +36,7 @@ function LoginPasswordInputPage() {
   };
 
   const onClickChangePassword = () => {
-    fetch('http://localhost:8080/users/email-send', {
+    fetch('/users/email-send', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
