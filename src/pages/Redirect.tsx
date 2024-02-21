@@ -5,7 +5,7 @@ function Redirect() {
 
   const token = params.get('token');
 
-  fetch(`http://localhost:8080/users/email-verify?token=${token}`)
+  fetch(`/users/email-verify?token=${token}`)
     .then((res) => res.json())
     .then(() => {});
 
