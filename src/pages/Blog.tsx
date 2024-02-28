@@ -7,19 +7,21 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from '../api/apiController';
 
-interface BlogInfo {
+interface BlogInfoType {
   title: string;
   genreList: string[];
 }
 
 function Blog() {
   const navigate = useNavigate();
-  const [blogInfo, setBlogInfo] = useState<BlogInfo>();
+  const [blogInfo, setBlogInfo] = useState<BlogInfoType>();
   useEffect(function fetchMyPage() {
     const fetch = async () => {
       const {
         data: { title, genreList },
       } = await axios.get(`/my-page`);
+
+      console.log(title, genreList);
 
       setBlogInfo({
         title,
@@ -73,6 +75,7 @@ const BlogInfo = styled.div`
   flex-direction: column;
   padding: 6px 16px;
   gap: 10px;
+  width: 100%;
 `;
 
 const BlogTitle = styled.div`
@@ -97,6 +100,7 @@ const BlogInfoWrapper = styled.div`
 const ChipWrapper = styled.div`
   display: flex;
   gap: 4px;
+  width: 100%;
 `;
 
 export default Blog;
