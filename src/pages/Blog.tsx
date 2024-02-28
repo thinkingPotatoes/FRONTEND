@@ -18,10 +18,10 @@ function Blog() {
   useEffect(function fetchMyPage() {
     const fetch = async () => {
       const {
-        data: { title, genreList },
+        data: {
+          data: { title, genreList },
+        },
       } = await axios.get(`/my-page`);
-
-      console.log(title, genreList);
 
       setBlogInfo({
         title,
