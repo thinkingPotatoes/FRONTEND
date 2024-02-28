@@ -4,24 +4,46 @@ import SettingIcon from '../components/blog/SettingIcon.tsx';
 import Chip from '../components/common/Chip.tsx';
 import Footer from '../components/common/Footer.tsx';
 import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import axios from '../api/apiController';
+
+interface BlogInfo {
+  title: string;
+  genreList: string[];
+}
 
 function Blog() {
   const navigate = useNavigate();
+  const [blogInfo, setBlogInfo] = useState<BlogInfo>();
+  useEffect(function fetchMyPage() {
+    const fetch = async () => {
+      const {
+        data: { title, genreList },
+      } = await axios.get(`/my-page`);
+
+      setBlogInfo({
+        title,
+        genreList,
+      });
+    };
+
+    fetch();
+  }, []);
 
   return (
     <BlogWrapper>
       <BlogInfoWrapper>
         <BlogInfo>
-          <BlogTitle>{'하둘셋넷다여일여아열하둘셋넷다여일여아열하둘셋넷다여'}</BlogTitle>
+          <BlogTitle>{blogInfo?.title}</BlogTitle>
           <ChipWrapper>
-            <Chip
-              props={{
-                text: '멜로 / 로맨스',
-                deletable: false,
-              }}
-            />
-            <Chip props={{ text: 'SF', deletable: false }} />
-            <Chip props={{ text: '드라마', deletable: false }} />
+            {blogInfo?.genreList.map((genre) => (
+              <Chip
+                props={{
+                  text: genre,
+                  deletable: false,
+                }}
+              />
+            ))}
           </ChipWrapper>
         </BlogInfo>
         <IconWrapper onClick={() => navigate('/setting')}>
