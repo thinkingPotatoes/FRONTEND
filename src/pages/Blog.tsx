@@ -36,7 +36,7 @@ function Blog() {
         <BlogInfo>
           <BlogTitle>{blogInfo?.title}</BlogTitle>
           <ChipWrapper>
-            {blogInfo?.genreList.map((genre) => (
+            {blogInfo?.genreList?.map((genre) => (
               <Chip
                 props={{
                   text: genre,
