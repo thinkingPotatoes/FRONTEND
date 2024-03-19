@@ -38,7 +38,8 @@ function MovieInfo({ movie, showDetails, expandPlot }: Props) {
 const MovieInfoWrapper = styled.div`
   z-index: 1;
   position: relative;
-  height: fit-content;
+  height: 100vh;
+  overflow: scroll;
 `;
 
 const MainContent = styled.div`

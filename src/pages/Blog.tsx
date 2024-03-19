@@ -1,13 +1,14 @@
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import axios from '../api/apiController';
 import BlogReviewSection from '../components/blog/BlogReviewSection.tsx';
 import SettingIcon from '../components/blog/SettingIcon.tsx';
 import Chip from '../components/common/Chip.tsx';
 import Footer from '../components/common/Footer.tsx';
-import { useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import axios from '../api/apiController';
 
 interface BlogInfoType {
+  nickname: string;
   title: string;
   genreList: string[];
 }
@@ -19,11 +20,12 @@ function Blog() {
     const fetch = async () => {
       const {
         data: {
-          data: { title, genreList },
+          data: { title, genreList, nickname },
         },
       } = await axios.get(`/my-page`);
 
       setBlogInfo({
+        nickname,
         title,
         genreList,
       });
@@ -52,7 +54,7 @@ function Blog() {
           <SettingIcon />
         </IconWrapper>
       </BlogInfoWrapper>
-      <BlogReviewSection />
+      <BlogReviewSection nickname={blogInfo?.nickname ?? ''} />
       <Footer />
     </BlogWrapper>
   );

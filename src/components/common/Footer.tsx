@@ -16,7 +16,7 @@ function Footer() {
   const navigate = useNavigate();
   const onClickHome = () => {
     setTab(Tab.HOME);
-    navigate('/');
+    navigate('/home');
   };
 
   const onClickBlog = () => {

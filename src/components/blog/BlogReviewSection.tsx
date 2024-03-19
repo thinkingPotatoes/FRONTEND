@@ -6,7 +6,11 @@ import BlogReviewList from './BlogReviewList.tsx';
 const VIEW_CALENDAR = 0;
 const VIEW_LIST = 1;
 
-function BlogReviewSection() {
+interface Props {
+  nickname: string;
+}
+
+function BlogReviewSection({ nickname }: Props) {
   const [viewType, setViewType] = useState(0);
   const handleSelectViewType = (newViewType: number) => {
     setViewType(newViewType);
@@ -27,7 +31,7 @@ function BlogReviewSection() {
           List
         </ViewToggle>
       </ViewSelector>
-      {viewType === VIEW_CALENDAR ? <BlogReviewCalendar /> : <BlogReviewList />}
+      {viewType === VIEW_CALENDAR ? <BlogReviewCalendar /> : <BlogReviewList nickname={nickname} />}
     </BlogReviewWrapper>
   );
 }
