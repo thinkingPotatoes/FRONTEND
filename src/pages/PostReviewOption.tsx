@@ -49,7 +49,7 @@ function PostReviewOption() {
         theater,
         seat,
       });
-      navigate('/home');
+      navigate('/blog');
     } catch (e) {
       if (e instanceof Error) alert(e.message);
     }
