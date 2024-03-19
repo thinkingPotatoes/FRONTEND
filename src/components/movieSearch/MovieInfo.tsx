@@ -40,6 +40,7 @@ const MovieInfoWrapper = styled.div`
   position: relative;
   height: 100vh;
   overflow: scroll;
+  padding-bottom: 56px;
 `;
 
 const MainContent = styled.div`
