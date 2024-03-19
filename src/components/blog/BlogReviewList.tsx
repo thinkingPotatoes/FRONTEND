@@ -10,7 +10,7 @@ import SortBy from '../movieSearch/SortBy';
 import ReviewList from './ReviewList';
 import SearchBar from './SearchBar';
 
-function BlogReviewList() {
+function BlogReviewList({ nickname }: { nickname: string }) {
   const [focus, setFocus] = useState(false);
   const [keyword, setKeyword] = useState('');
   const debouncedKeyword = useDebounce(keyword);
@@ -28,7 +28,7 @@ function BlogReviewList() {
   return (
     <BlogReviewListWrapper>
       <Header>
-        <Head3>누구님의 영화리뷰</Head3>
+        <Head3>{nickname}님의 영화리뷰</Head3>
         <SortBy sort={sort} setSort={setSort} resetPage={resetPage} />
       </Header>
       <SearchBox>
