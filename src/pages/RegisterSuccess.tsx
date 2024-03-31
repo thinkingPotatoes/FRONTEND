@@ -36,8 +36,10 @@ function RegisterSuccess() {
       <LottieContainer>
         <Lottie options={confettiOptions} height={256} width={256} />
       </LottieContainer>
-      <Body2 isCenter={true}>앞으로 자동 로그인 할게요</Body2>
-      <NextButton onClick={onClickNext}>추천 받고 시작하기</NextButton>
+      <Bottom>
+        <Body2 isCenter={true}>앞으로 자동 로그인 할게요</Body2>
+        <NextButton onClick={onClickNext}>추천 받고 시작하기</NextButton>
+      </Bottom>
     </Container>
   );
 }
@@ -47,6 +49,12 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
 `;
+
+const Bottom = styled.div`
+  position:sticky;
+  bottom: 0;
+`
+
 const Header = styled.div`
   display: flex;
   justify-content: center;
