@@ -57,10 +57,12 @@ function MovieTasteSelection() {
           />
         ))}
       </Main>
-      <NextButton
-        disabled={selectedMovies.length !== 3}
-        onClick={onClickNext}
-      >{`${selectedMovies.length} / 3 다음`}</NextButton>
+      <Bottom>
+        <NextButton
+          disabled={selectedMovies.length !== 3}
+          onClick={onClickNext}
+        >{`${selectedMovies.length} / 3 다음`}</NextButton>
+      </Bottom>
     </Container>
   );
 }
@@ -71,6 +73,7 @@ const Container = styled.div`
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  position: relative;
 `;
 const Header = styled.div`
   display: flex;
@@ -96,6 +99,11 @@ const Main = styled.div`
 interface ButtonProps {
   disabled: boolean;
 }
+
+const Bottom = styled.div`
+  position:sticky;
+  bottom: 0;
+`
 
 const NextButton = styled.button<ButtonProps>`
   display: flex;
