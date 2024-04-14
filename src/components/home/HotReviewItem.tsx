@@ -24,8 +24,8 @@ function HotReviewItem({ subject, content, grade, poster, like, comment, blog }:
         <Subject>{subject}</Subject>
         <Content>{content}</Content>
         <ReviewStatics>
-          <LikeCount count={like} />
-          <CommentCount count={comment} />
+          <LikeCount count={like} width={12} height={12}/>
+          <CommentCount count={comment} width={12} height={12}/>
           <Content>{blog}</Content>
         </ReviewStatics>
       </Info>
@@ -52,7 +52,7 @@ const Subject = styled(Body2)`
 `;
 
 const Content = styled(Body3)`
-  color: var(--dark-grey-500);
+  color: var(--disabled);
 `;
 
 const ReviewStatics = styled.div`

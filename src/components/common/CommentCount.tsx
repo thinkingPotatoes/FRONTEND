@@ -2,10 +2,10 @@ import { styled } from 'styled-components';
 import { ReactComponent as CommentIcon } from '../../assets/image/icon/comment.svg';
 import Body3 from './texts/Body3';
 
-function CommentCount({ count }: { count: number }) {
+function CommentCount({ count, width, height }: { count: number, width?: number, height?: number }) {
   return (
     <CommentCountWrapper>
-      <CommentIcon />
+      <CommentIcon width={width} height={height}/>
       <Body3>{count}</Body3>
     </CommentCountWrapper>
   );
@@ -14,8 +14,8 @@ function CommentCount({ count }: { count: number }) {
 const CommentCountWrapper = styled.div`
   display: flex;
   align-items: center;
-  gap: 2px;
-  color: var(--dark-grey-700);
+  gap: 4px;
+  color: var(--disabled);
 `;
 
 export default CommentCount;
