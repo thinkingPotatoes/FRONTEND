@@ -45,6 +45,8 @@ function HotReviewList() {
   );
 }
 
-const Container = styled.div``;
+const Container = styled.div`
+  padding-bottom:90px;
+`;
 
 export default HotReviewList;
