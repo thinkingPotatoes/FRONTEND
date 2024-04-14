@@ -21,7 +21,7 @@ function Header() {
         </HeaderRightContainer>
       </HeaderContainer>
       <SearchButton onClick={onClickSeach}>
-        <Search />
+        <Search width={16} height={16}/>
         <span>검색어를 입력해주세요.</span>
       </SearchButton>
     </Container>
