@@ -18,7 +18,6 @@ function Header() {
           <span>filmo</span>
         </HeaderLeftContainer>
         <HeaderRightContainer>
-          <Popcorn />
         </HeaderRightContainer>
       </HeaderContainer>
       <SearchButton onClick={onClickSeach}>
