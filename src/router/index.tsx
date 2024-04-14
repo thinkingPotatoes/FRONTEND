@@ -89,6 +89,10 @@ export const publicRouter = [
     path: '/register/select',
     element: <MovieTasteSelection />,
   },
+  {
+    path: '/register/success',
+    element: <Redirect />
+  }
 ];
 
 export const privateRouter = [
